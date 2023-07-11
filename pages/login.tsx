@@ -9,7 +9,15 @@ const Login = () => {
     const [companyName,setCompanyName] = useState('')
     const [email,setEmail] = useState('')
     const [password,setPassword] = useState('')
+    const [accountType, setAccountType ] = useState('')
 
+    const login = async() => {
+       try {
+        console.log(accountType)
+       } catch (error) {
+        console.log(error)
+       }
+    }
   return (
     <div className=" h-screen w-screen flex flex-col md:flex-row items-center justify-center content-center  bg-bg">
         <div className="space-y-10 m-auto">
@@ -25,10 +33,10 @@ const Login = () => {
         <div className="rounded-lg w-[30%] bg-white px-12 h-fit m-auto space-y-4 flex flex-col justify-center content-center  p-10">
             <p className=" text-2xl font-semibold">Welcome Back!</p>
             <p className="text-black-300">Don't have a workspace? <Link href={'/create-workspace'} className="text-app">Request yours</Link></p>
-            <Input label="Company name" type="text" state={companyName} setState={setCompanyName}  placeholder={'Company name'} />
             <Input label="Email address" type="email" state={email} setState={setEmail}  placeholder={'Email address'} />
+            <Input  label="Login as" type="select" state={accountType} setState={setAccountType}  placeholder={'Company name'} />
             <Input label="Password" type="password" state={password} setState={setPassword}  placeholder={'Your password'} />
-            <Button>Log in</Button>
+            <Button onClick={login}>Log in</Button>
         </div>
       </div>
   );

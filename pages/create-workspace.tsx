@@ -1,7 +1,10 @@
 import Button from "@/components/ui/button";
 import Input from "@/components/units/input";
+import Input2 from "@/components/units/input2";
 import { useRouter } from "next/router";
 import { useState } from "react";
+import axios from "axios";
+import { baseUrli } from "@/utils/dataAssets";
 
 const GeneralComp = ({ number, title }: { number: number; title: string }) => {
   return (
@@ -27,8 +30,22 @@ const CompanyOne = ({ onNext }: { onNext: () => void }) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [location, setLocation] = useState("");
+  const [password, setPassword ] = useState("")
   const [tel, setTel] = useState("");
+   
+  const companyDetails = {
+    name:name,
+    email:email,
+    password:password,
+    location:location,
+    tel:tel
+  };
 
+  const handleSave = () => {
+    localStorage.setItem("companyDetails", JSON.stringify(companyDetails))
+    onNext()
+  }
+  // const createWorkspace 
   return (
     <div className="w-screen h-screen flex flex-col justify-center md:content-center md:items-center">
       <div className="rounded-lg w-full md:w-[50%] lg:w-[35%] bg-white space-y-4 flex flex-col md:justify-center md:content-center py-20 px-12">
@@ -48,11 +65,11 @@ const CompanyOne = ({ onNext }: { onNext: () => void }) => {
           type="email"
         />
         <Input
-          state={location}
+          state={password}
           placeholder={null}
-          setState={setLocation}
-          label="Headquarters location"
-          type="text"
+          setState={setPassword}
+          label="Passowrd"
+          type="password"
         />
         <Input
           state={tel}
@@ -61,22 +78,28 @@ const CompanyOne = ({ onNext }: { onNext: () => void }) => {
           label="Telephone number"
           type="text"
         />
-        <Button onClick={() =>  onNext()}>Next</Button>
+        <Button onClick={handleSave}>Next</Button>
       </div>
     </div>
   );
 };
 
 const CompanyTwo = ({ onNext }: any) => {
-  const handleNextClick = () => {
-    onNext(); // Call the onNext function to trigger the next step
-  };
-
   const [licence, setLicence] = useState("");
   const [mineral, setMineral] = useState("");
   const [typeOfOwnership, setTypeOfOwnership] = useState("");
   const [tel, setTel] = useState("");
-
+    const operationDetailsDetails2 = {
+      licence:licence,
+      mineral:mineral,
+      typeOfOwnership:typeOfOwnership,
+      tel:tel
+    }
+    const handleSave = () => {
+      localStorage.setItem("operationDetailsDetails2", JSON.stringify(operationDetailsDetails2))
+      onNext()
+    }
+    
   return (
     <div className="w-screen h-screen flex flex-col justify-center content-center items-center">
       <div className="rounded-lg  w-full md:w-[50%] lg:w-[30%] bg-white space-y-4 flex flex-col justify-center content-center py-20 px-12">
@@ -102,7 +125,7 @@ const CompanyTwo = ({ onNext }: any) => {
           label="Type of ownership"
           type="text"
         />
-        <Button onClick={handleNextClick}>Next</Button>
+        <Button onClick={handleSave}>Next</Button>
       </div>
     </div>
   );
@@ -110,24 +133,31 @@ const CompanyTwo = ({ onNext }: any) => {
 
 const CompanyThree = ({ onNext }: any) => {
   const router = useRouter();
-  const handleNextClick = () => {
-    router.push("/");
-  };
-
-  const [ceo, setCeo] = useState("");
+  const [ceoNationalId, setCeoNationalId] = useState("");
   const [prodCapacity, setProdCapacity] = useState("");
   const [nEmployees, setNEmployees] = useState("");
   const [tel, setTel] = useState("");
+
+    const operationDetails = {
+      ceoNationalId:ceoNationalId,
+      prodCapacity:prodCapacity,
+      nEmployees:nEmployees,
+      tel:tel
+    }
+    const handleSave = () => {
+      localStorage.setItem("operationDetails", JSON.stringify(operationDetails))
+      onNext()
+    }
 
   return (
     <div className="w-screen h-screen flex flex-col justify-center content-center items-center">
       <div className="rounded-lg w-full md:w-[50%] lg:w-[30%] bg-white space-y-4 flex flex-col justify-center content-center py-20 px-12">
         <GeneralComp number={3} title="Operational details" />
         <Input
-          state={ceo}
+          state={ceoNationalId}
           placeholder={null}
-          setState={setCeo}
-          label="Company CEO"
+          setState={setCeoNationalId}
+          label="CEO National ID"
           type="text"
         />
         <Input
@@ -144,14 +174,71 @@ const CompanyThree = ({ onNext }: any) => {
           label="Employee number"
           type="number"
         />
-        <Button onClick={handleNextClick}>Next</Button>
+        <Button onClick={handleSave}>Next</Button>
       </div>
     </div>
   );
 };
 
+
+const CompanyFour = ({ onNext } : any) => {
+  const [district, setDistrict ] = useState('');
+  const [country, setCountry ] = useState('');
+  const [postalCode , setPostalCode ] = useState('');
+
+  const handleNextClick = async() => {
+    try {
+      const companyDetails = JSON.parse(localStorage.getItem('companyDetails') || '{}');
+      const operationDetails = JSON.parse(localStorage.getItem("operationDetails") || '{}')
+      const operationDetailsDetails2 = JSON.parse(localStorage.getItem("operationDetailsDetails2") || '{}')
+      const response = await axios({
+        method:'POST',
+        url:`${baseUrli}/companies/create`,
+        data:{
+            companyName: companyDetails.name,
+            companyCEOName: "oreDigital",
+            companyEmail: companyDetails.email,
+            password: companyDetails.passwrod,
+            headQuartersLocation: `${district},${country}`,
+            telephoneNumber:companyDetails.tel,
+            ownership: operationDetailsDetails2.typeOfOwnership,
+            productionCapacity: operationDetails.prodCapacity,
+            numberOfEmployees: operationDetails.nEmployees,
+            miniLicenseNumber: 34343434,
+            companyCEONationalId: operationDetails.ceoNationalId,
+            mineralTypes: [
+              "GOLD",
+              "ZINC"
+            ],
+            mininLicenseNumber: 454
+        }
+      })
+      console.log(response)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  return (
+  <div className="w-screen h-screen flex flex-col justify-center content-center items-center">
+  <div className="rounded-lg w-full md:w-[50%] lg:w-[30%] bg-white space-y-4 flex flex-col justify-center content-center py-20 px-12">
+    <GeneralComp number={3} title="Tell us about your address " />
+     <Input2  label="Country" type="select" state={country} setState={setCountry}  placeholder={'Company name'} />
+     <Input2  label="District" type="select" state={district} setState={setDistrict}  placeholder={'District name'} />
+    <Input2
+      state={postalCode}
+      placeholder="Ex:0000"
+      setState={setPostalCode}
+      label="Postal Code"
+      type="number"
+    />
+    <Button onClick={handleNextClick}>Next</Button>
+  </div>
+</div>
+);
+}
+
 const CompanyDetails = () => {
-  const [currentStep, setCurrentStep] = useState(3);
+  const [currentStep, setCurrentStep] = useState(1);
 
   const handleNextButtonClick = () => {
     setCurrentStep(currentStep + 1);
@@ -162,6 +249,7 @@ const CompanyDetails = () => {
       {currentStep === 1 && <CompanyOne onNext={handleNextButtonClick} />}
       {currentStep === 2 && <CompanyTwo onNext={handleNextButtonClick} />}
       {currentStep === 3 && <CompanyThree onNext={handleNextButtonClick} />}
+      {currentStep === 4 && <CompanyFour onNext={handleNextButtonClick} />}
     </div>
   );
 };
