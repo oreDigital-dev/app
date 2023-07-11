@@ -4,7 +4,8 @@ import Input2 from "@/components/units/input2";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import axios from "axios";
-import { baseUrli } from "@/utils/dataAssets";
+import { baseUrl } from "@/utils/dataAssets";
+import Loader from "@/components/ui/loader";
 
 const GeneralComp = ({ number, title }: { number: number; title: string }) => {
   return (
@@ -186,14 +187,18 @@ const CompanyFour = ({ onNext } : any) => {
   const [country, setCountry ] = useState('');
   const [postalCode , setPostalCode ] = useState('');
 
+  const [loading,setLoading]= useState(false)
+
   const handleNextClick = async() => {
+    if(loading) return ;
+    setLoading(true)
     try {
       const companyDetails = JSON.parse(localStorage.getItem('companyDetails') || '{}');
       const operationDetails = JSON.parse(localStorage.getItem("operationDetails") || '{}')
       const operationDetailsDetails2 = JSON.parse(localStorage.getItem("operationDetailsDetails2") || '{}')
       const response = await axios({
         method:'POST',
-        url:`${baseUrli}/companies/create`,
+        url:`${baseUrl}/companies/create`,
         data:{
             companyName: companyDetails.name,
             companyCEOName: "oreDigital",
@@ -213,6 +218,7 @@ const CompanyFour = ({ onNext } : any) => {
             mininLicenseNumber: 454
         }
       })
+      setLoading(false)
       console.log(response)
     } catch (error) {
       console.log(error)
@@ -231,7 +237,7 @@ const CompanyFour = ({ onNext } : any) => {
       label="Postal Code"
       type="number"
     />
-    <Button onClick={handleNextClick}>Next</Button>
+    <Button onClick={handleNextClick}> {loading ? <Loader/> : 'Next'}</Button>
   </div>
 </div>
 );

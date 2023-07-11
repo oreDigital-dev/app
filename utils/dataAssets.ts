@@ -34,5 +34,5 @@ export const districts : String[] = [
 ]
 
 
-export const baseUrli = "http://localhost:5000/ap1/v1"
-// export const baseUrl = "https://ore-d-iot.onrender.com"
+// export const baseUrli = "http://localhost:5000/ap1/v1"
+export const baseUrl = "https://ore-d-iot.onrender.com/api/v1"
