@@ -104,7 +104,7 @@ export default function DashBoardLayout({
   };
   return (
     <>
-      {visibility == true && (
+      {visibility == true ? (
         <div className="flex gap-0 bg-bg">
           <div className="w-[20vw]  bg-white h-screen ">
             <div className="px-[40px] h-[60px] flex items-center border-b-2 border-bg">
@@ -134,6 +134,8 @@ export default function DashBoardLayout({
             <div className="">{children}</div>
           </div>
         </div>
+      ) : (
+        <div className="">{children}</div>
       )}
     </>
   );

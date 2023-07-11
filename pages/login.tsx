@@ -12,7 +12,7 @@ const Login = () => {
 
   return (
     <div className=" h-screen w-screen flex flex-col md:flex-row items-center justify-center content-center  bg-bg">
-        <div className="space-y-4 m-auto">
+        <div className="space-y-10 m-auto">
           <div className="flex items-center gap-4">
             <Logo withText />
           </div>

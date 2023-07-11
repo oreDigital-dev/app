@@ -5,7 +5,7 @@ export default function NotFoundPage(){
     const router  = useRouter()
     useEffect(() => {
       setTimeout(() => {
-        router.push('/dashboard')
+        router.push('/d/dashboard')
       },2000)
     }, [])
     
