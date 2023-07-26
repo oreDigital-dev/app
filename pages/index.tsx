@@ -9,7 +9,7 @@ export default function Home() {
   };
   useEffect(() => {
     setTimeout(() => {
-      redirectToLogin();
+      // redirectToLogin();
     },2000)
   }, []);
   return (
