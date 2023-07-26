@@ -5,7 +5,7 @@ import { baseUrl } from "@/utils/dataAssets";
 import axios from "axios";
 
 export default function LogsPanel({ siteId }: { siteId: string }) {
-  const [siteIncidents, setSiteIncidents] = useState({});
+  const [siteIncidents, setSiteIncidents] = useState<object | any>({});
 
   const getIncidents = async () => {
     try {
@@ -22,14 +22,6 @@ export default function LogsPanel({ siteId }: { siteId: string }) {
         acc[createdAt].push(obj)
         return acc;
       })
-      const incidents_d = Object.keys(groupedIncidents)
-
-      const incidents_e = incidents_d.map(item => {
-        console.log(item);
-        return item;
-      })
-      console.log(incidents_e)
-      
       setSiteIncidents(groupedIncidents)
     } catch (error) {
       console.log(error)
@@ -40,7 +32,7 @@ export default function LogsPanel({ siteId }: { siteId: string }) {
     getIncidents();
   }, []);
 
-
+  if(Object.keys(siteIncidents).length == 0) return <div>Wait while we get all the logs for you....</div>
   return (
     <div>
       <table
@@ -58,133 +50,19 @@ export default function LogsPanel({ siteId }: { siteId: string }) {
         </thead>
 
         <tbody>
-          <tr className=" text-white text-left font-sans rounded-tl-md rounded-tr-md w-full h-10 logs-panel-td">
-            <td className="py-1 px-4">Mon 23 Jan 2023 11:00 AM</td>
-            <td className="py-1 px-4">20 °C</td>
-            <td className="py-1 px-4">300 Atm</td>
-            <td className="py-1 px-4">14 °C</td>
+          {(Object.keys(siteIncidents)).filter((inc: any) => siteIncidents[inc].length >= 3).map(arrItem => {
+            console.log(siteIncidents[arrItem][0]['mesurement'])
+            if(!siteIncidents[arrItem][0]['mesurement']) return;
+            return <tr className=" text-white text-left font-sans rounded-tl-md rounded-tr-md w-full h-10 logs-panel-td">
+            <td className="py-1 px-4">{siteIncidents.createdAt}</td>
+            <td className="py-1 px-4">{siteIncidents[arrItem][0]['mesurement']} °C</td>
+            <td className="py-1 px-4">{siteIncidents[arrItem][1]['mesurement']} Atm</td>
+            <td className="py-1 px-4">{siteIncidents[arrItem][2]['mesurement']} °C</td>
             <td className="py-1 px-4">
-              <StatusView status={Status.DANGER} />
+              <StatusView status={'HEALTHY'} />
             </td>
           </tr>
-          <tr className=" text-white text-left font-sans rounded-tl-md rounded-tr-md w-full h-10 logs-panel-td">
-            <td className="py-1 px-4">Mon 23 Jan 2023 11:00 AM</td>
-            <td className="py-1 px-4">20 °C</td>
-            <td className="py-1 px-4">300 Atm</td>
-            <td className="py-1 px-4">14 °C</td>
-            <td className="py-1 px-4">
-              <StatusView status={Status.DANGER} />
-            </td>
-          </tr>
-          <tr className=" text-white text-left font-sans rounded-tl-md rounded-tr-md w-full h-10 logs-panel-td">
-            <td className="py-1 px-4">Mon 23 Jan 2023 11:00 AM</td>
-            <td className="py-1 px-4">20 °C</td>
-            <td className="py-1 px-4">300 Atm</td>
-            <td className="py-1 px-4">14 °C</td>
-            <td className="py-1 px-4">
-              <StatusView status={Status.DANGER} />
-            </td>
-          </tr>
-          <tr className=" text-white text-left font-sans rounded-tl-md rounded-tr-md w-full h-10 logs-panel-td">
-            <td className="py-1 px-4">Mon 23 Jan 2023 11:00 AM</td>
-            <td className="py-1 px-4">20 °C</td>
-            <td className="py-1 px-4">300 Atm</td>
-            <td className="py-1 px-4">14 °C</td>
-            <td className="py-1 px-4">
-              <StatusView status={Status.DANGER} />
-            </td>
-          </tr>
-          <tr className=" text-white text-left font-sans rounded-tl-md rounded-tr-md w-full h-10 logs-panel-td">
-            <td className="py-1 px-4">Mon 23 Jan 2023 11:00 AM</td>
-            <td className="py-1 px-4">20 °C</td>
-            <td className="py-1 px-4">300 Atm</td>
-            <td className="py-1 px-4">14 °C</td>
-            <td className="py-1 px-4">
-              <StatusView status={Status.DANGER} />
-            </td>
-          </tr>
-          <tr className=" text-white text-left font-sans rounded-tl-md rounded-tr-md w-full h-10 logs-panel-td">
-            <td className="py-1 px-4">Mon 23 Jan 2023 11:00 AM</td>
-            <td className="py-1 px-4">20 °C</td>
-            <td className="py-1 px-4">300 Atm</td>
-            <td className="py-1 px-4">14 °C</td>
-            <td className="py-1 px-4">
-              <StatusView status={Status.DANGER} />
-            </td>
-          </tr>
-          <tr className=" text-white text-left font-sans rounded-tl-md rounded-tr-md w-full h-10 logs-panel-td">
-            <td className="py-1 px-4">Mon 23 Jan 2023 11:00 AM</td>
-            <td className="py-1 px-4">20 °C</td>
-            <td className="py-1 px-4">300 Atm</td>
-            <td className="py-1 px-4">14 °C</td>
-            <td className="py-1 px-4">
-              <StatusView status={Status.DANGER} />
-            </td>
-          </tr>
-          <tr className=" text-white text-left font-sans rounded-tl-md rounded-tr-md w-full h-10 logs-panel-td">
-            <td className="py-1 px-4">Mon 23 Jan 2023 11:00 AM</td>
-            <td className="py-1 px-4">20 °C</td>
-            <td className="py-1 px-4">300 Atm</td>
-            <td className="py-1 px-4">14 °C</td>
-            <td className="py-1 px-4">
-              <StatusView status={Status.DANGER} />
-            </td>
-          </tr>
-          <tr className=" text-white text-left font-sans rounded-tl-md rounded-tr-md w-full h-10 logs-panel-td">
-            <td className="py-1 px-4">Mon 23 Jan 2023 11:00 AM</td>
-            <td className="py-1 px-4">20 °C</td>
-            <td className="py-1 px-4">300 Atm</td>
-            <td className="py-1 px-4">14 °C</td>
-            <td className="py-1 px-4">
-              <StatusView status={Status.DANGER} />
-            </td>
-          </tr>
-          <tr className=" text-white text-left font-sans rounded-tl-md rounded-tr-md w-full h-10 logs-panel-td">
-            <td className="py-1 px-4">Mon 23 Jan 2023 11:00 AM</td>
-            <td className="py-1 px-4">20 °C</td>
-            <td className="py-1 px-4">300 Atm</td>
-            <td className="py-1 px-4">14 °C</td>
-            <td className="py-1 px-4">
-              <StatusView status={Status.DANGER} />
-            </td>
-          </tr>
-          <tr className=" text-white text-left font-sans rounded-tl-md rounded-tr-md w-full h-10 logs-panel-td">
-            <td className="py-1 px-4">Mon 23 Jan 2023 11:00 AM</td>
-            <td className="py-1 px-4">20 °C</td>
-            <td className="py-1 px-4">300 Atm</td>
-            <td className="py-1 px-4">14 °C</td>
-            <td className="py-1 px-4">
-              <StatusView status={Status.DANGER} />
-            </td>
-          </tr>
-          <tr className=" text-white text-left font-sans rounded-tl-md rounded-tr-md w-full h-10 logs-panel-td">
-            <td className="py-1 px-4">Mon 23 Jan 2023 11:00 AM</td>
-            <td className="py-1 px-4">20 °C</td>
-            <td className="py-1 px-4">300 Atm</td>
-            <td className="py-1 px-4">14 °C</td>
-            <td className="py-1 px-4">
-              <StatusView status={Status.DANGER} />
-            </td>
-          </tr>
-          <tr className=" text-white text-left font-sans rounded-tl-md rounded-tr-md w-full h-10 logs-panel-td">
-            <td className="py-1 px-4">Mon 23 Jan 2023 11:00 AM</td>
-            <td className="py-1 px-4">20 °C</td>
-            <td className="py-1 px-4">300 Atm</td>
-            <td className="py-1 px-4">14 °C</td>
-            <td className="py-1 px-4">
-              <StatusView status={Status.DANGER} />
-            </td>
-          </tr>
-          <tr className=" text-white text-left font-sans rounded-tl-md rounded-tr-md w-full h-10 logs-panel-td">
-            <td className="py-1 px-4">Mon 23 Jan 2023 11:00 AM</td>
-            <td className="py-1 px-4">20 °C</td>
-            <td className="py-1 px-4">300 Atm</td>
-            <td className="py-1 px-4">14 °C</td>
-            <td className="py-1 px-4">
-              <StatusView status={Status.DANGER} />
-            </td>
-          </tr>
-          
+          })}
         </tbody>
       </table>
     </div>
