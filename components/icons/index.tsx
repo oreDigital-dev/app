@@ -212,6 +212,7 @@ export const ExpandIcon = () => {
   );
 };
 export const ThreeDotsIcon = () => {
+  return(
   <svg 
   width="24" 
   height="24" 
@@ -225,5 +226,5 @@ export const ThreeDotsIcon = () => {
 
   </svg>
   
-
+  )
 }
