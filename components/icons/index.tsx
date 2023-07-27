@@ -228,3 +228,17 @@ export const ThreeDotsIcon = () => {
   
   )
 }
+export const PlusIcon = () => {
+  return(
+    <svg 
+    width="10" 
+    height="10" 
+    viewBox="0 0 10 10" 
+    fill="none" 
+    xmlns="http://www.w3.org/2000/svg">
+<path d="M0.28775 4.144H3.66375V0.768H5.67975V4.144H9.05575V6.16H5.67975V9.536H3.66375V6.16H0.28775V4.144Z" 
+fill="#3949D2"/>
+</svg>
+
+  )
+}
