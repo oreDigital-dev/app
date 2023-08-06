@@ -24,6 +24,7 @@ export default function Logs() {
   },
 ]
 
+
 const showPanelInFullScreen = () => {
     const panel_div = document.getElementById('logs-panel') ;
     if(panel_div){

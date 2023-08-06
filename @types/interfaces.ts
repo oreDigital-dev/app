@@ -7,3 +7,10 @@ export interface MiningSite {
     img: string;
     status: Status;
 }
+export interface CompanyRecords {
+    id: string;
+    title: string;
+    sites: Number;
+    reports: Number;
+    
+}

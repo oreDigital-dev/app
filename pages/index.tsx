@@ -9,14 +9,14 @@ export default function Home() {
   };
   useEffect(() => {
     setTimeout(() => {
-      redirectToLogin();
+      // redirectToLogin();
     },2000)
   }, []);
   return (
     <main className="flex w-sreen h-screen items-center justify-center bg-bg">
-      <div className="w-fit h-fit animate-bounce ">
+      <div className="w-fit h-fit ">
         <Logo withText />
-        <p className="text-neutral-300 text-sm font-semibold">Loading...</p>
+        {/* <p className="text-neutral-300 text-sm font-semibold">Loading...</p> */}
       </div>
     </main>
   );
