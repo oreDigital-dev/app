@@ -12,6 +12,7 @@ import Logo from "@/components/ui/logo";
 import CurrentUser from "@/components/units/currentUser";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import NotificationLayout from "./notificationLayout";
 
 interface DashBoardSection {
   title: string;
@@ -89,6 +90,7 @@ export default function DashBoardLayout({
   const router = useRouter();
   const [activeLink, setActiveLink] = useState(links[0].title);
   const [visibility, setVisibility] = useState(false);
+  const [hiddeNotifications, setHideNotifications] = useState(false);
 
   useEffect(() => {
     if (router.pathname.includes("/d")) {
@@ -125,7 +127,10 @@ export default function DashBoardLayout({
             <div className="px-5 h-[60px] border-l-2 border-bg flex items-center  justify-between bg-white">
               <h1 className="font-bold text-[20px]">{activeLink}</h1>
               <div className="flex items-center gap-6 ">
-                <button className="fill-black-300 text-black-300 hover:fill-app hover:text-app ">
+                <button
+                  onClick={() => setHideNotifications(!hiddeNotifications)}
+                  className="fill-black-300 text-black-300 hover:fill-app hover:text-app "
+                >
                   <NofiticationsIcon />
                 </button>
                 <CurrentUser
@@ -133,6 +138,7 @@ export default function DashBoardLayout({
                 />
               </div>
             </div>
+            {hiddeNotifications && <NotificationLayout />}
             <div>{children}</div>
           </div>
         </div>

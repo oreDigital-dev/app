@@ -34,5 +34,30 @@ export const districts : String[] = [
 ]
 
 
+export const notificationLinks = [
+    {
+        id:1,
+        name:"All",
+        number:90,
+    },
+    {
+        id:2,
+        name:"Minesites & Incidents",
+        number:34,
+    },
+    {
+        id:3,
+        name:"Companies & resports",
+        number:23
+    },
+    {
+        id:4,
+        name:"Users & employees",
+        number:12,
+    }
+]
+
+
+export const notificationLength : String = "Hello your minesite has quired the highest temperature  highest temperature  highest temperature"
 // export const baseUrli = "http://localhost:5000/api/v1"
 export const baseUrli = "https://ore-d-iot.onrender.com/api/v1"

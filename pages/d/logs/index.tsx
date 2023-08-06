@@ -7,7 +7,7 @@ import SectionHead from "@/components/ui/sectionHead";
 import { useEffect, useState } from "react";
 import LogsPanel from "@/components/units/logsPanel";
 import Sites from "../sites";
-
+import NotificationLayout from "@/layout/notificationLayout";
 export default function Logs() {
   let minesites: any[] = [
     {
