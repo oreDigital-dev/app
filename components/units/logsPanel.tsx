@@ -1,7 +1,7 @@
 import { Status } from "@/@types/status";
 import StatusView from "../ui/status";
 import { useEffect, useState } from "react";
-import { baseUrl } from "@/utils/dataAssets";
+import { baseUrli } from "@/utils/dataAssets";
 import axios from "axios";
 
 export default function LogsPanel({ siteId }: { siteId: string }) {
@@ -9,7 +9,11 @@ export default function LogsPanel({ siteId }: { siteId: string }) {
 
   const getIncidents = async () => {
     try {
-      const res = await axios.get(`${baseUrl}/incidents`);
+      const res = await axios.get(`${baseUrli}/incidents`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("authKey")}`,
+        },
+      });
       const incidents = res.data["incidents"];
 
       const groupedIncidents = await incidents.reduce((acc: any, obj: any) => {
@@ -53,11 +57,13 @@ export default function LogsPanel({ siteId }: { siteId: string }) {
         <tbody>
           {Object.keys(siteIncidents)
             .filter((inc: any) => siteIncidents[inc].length >= 3)
-            .map((arrItem) => {
-              console.log(siteIncidents[arrItem][0]["mesurement"]);
+            .map((arrItem, index) => {
               if (!siteIncidents[arrItem][0]["mesurement"]) return;
               return (
-                <tr className=" text-white text-left font-sans rounded-tl-md rounded-tr-md w-full h-10 logs-panel-td">
+                <tr
+                  key={index}
+                  className=" text-white text-left font-sans rounded-tl-md rounded-tr-md w-full h-10 logs-panel-td"
+                >
                   <td className="py-1 px-4">{siteIncidents.createdAt}</td>
                   <td className="py-1 px-4">
                     {siteIncidents[arrItem][0]["mesurement"]} °C

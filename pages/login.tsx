@@ -28,7 +28,9 @@ const Login = () => {
           password: password,
         }
       );
+
       const responseData = await response.data;
+      localStorage.setItem("loggedInUser", JSON.stringify(responseData.user));
       localStorage.setItem("authKey", responseData.token);
       router.push("/d/logs");
     } catch (error) {

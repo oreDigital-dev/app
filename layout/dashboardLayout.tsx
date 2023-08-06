@@ -128,7 +128,9 @@ export default function DashBoardLayout({
                 <button className="fill-black-300 text-black-300 hover:fill-app hover:text-app ">
                   <NofiticationsIcon />
                 </button>
-                <CurrentUser email="admin@zubamines.oredigital.com" />
+                <CurrentUser
+                  email={localStorage.getItem("loggedInUser")?.toString()}
+                />
               </div>
             </div>
             <div>{children}</div>

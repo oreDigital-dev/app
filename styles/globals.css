@@ -8,10 +8,9 @@
 *{
  font-family: 'Avenir',  sans-serif;
 }
-
-
-
-
+ #statuses:-webkit-full-screen{
+  color: white;
+ }
 .scrollable::-webkit-scrollbar {
   width: 4px;
   height: 4px;
