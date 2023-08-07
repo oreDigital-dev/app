@@ -47,7 +47,7 @@ export const notificationLinks = [
     },
     {
         id:3,
-        name:"Companies & resports",
+        name:"Companies & Reports",
         number:23
     },
     {
@@ -59,5 +59,5 @@ export const notificationLinks = [
 
 
 export const notificationLength : String = "Hello your minesite has quired the highest temperature  highest temperature  highest temperature"
-// export const baseUrli = "http://localhost:5000/api/v1"
-export const baseUrli = "https://ore-d-iot.onrender.com/api/v1"
+export const baseUrli = "http://localhost:5000/api/v1"
+// export const baseUrli = "https://ore-d-iot.onrender.com/api/v1"

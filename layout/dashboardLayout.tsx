@@ -13,6 +13,7 @@ import CurrentUser from "@/components/units/currentUser";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import NotificationLayout from "./notificationLayout";
+import { AiOutlineCloseCircle } from "react-icons/ai";
 
 interface DashBoardSection {
   title: string;
@@ -138,7 +139,11 @@ export default function DashBoardLayout({
                 />
               </div>
             </div>
-            {hiddeNotifications && <NotificationLayout />}
+            {hiddeNotifications && (
+              <NotificationLayout
+                setHiddenNotification={setHideNotifications}
+              />
+            )}
             <div>{children}</div>
           </div>
         </div>
