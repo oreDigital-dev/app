@@ -15,43 +15,51 @@ function NotificationLayout(props: any) {
     notificationLinks[0]
   );
 
+  const getNotifications = async () => {
+    await axios
+      .get(`${baseUrli}/notifications/loggedIn-company-notifications`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("authKey")}`,
+        },
+      })
+      .then((response) => {
+        setNotifications(response.data.notifications);
+      })
+      .catch((error) => {
+        console.log("Error : " + error);
+      });
+  };
   useEffect(() => {
-    const getNotifications = async () => {
-      await axios
-        .get(`${baseUrli}/notifications/loggedIn-company-notifications`, {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("authKey")}`,
-          },
-        })
-        .then((response) => {
-          setNotifications(response.data.notifications);
-        })
-        .catch((error) => {
-          console.log("Error : " + error);
-        });
-    };
     getNotifications();
-    let filteredNotifications: any;
-    if (selectedNotification.name == "All") {
-      filteredNotifications = notifications;
+    const getFilteredNotifications = () => {
+      if (selectedNotification.name === "All") {
+        getNotifications();
+        return notifications;
+      } else if (selectedNotification.name === "Users & employees") {
+        return notifications.filter(
+          (notification: any) =>
+            notification.nofiticationType === "USER_AND_EMPLOYEES"
+        );
+      } else if (selectedNotification.name === "Companies & Reports") {
+        return notifications.filter(
+          (notification: any) =>
+            notification.nofiticationType === "COMPANIES_AND_REPORTS"
+        );
+      } else if (selectedNotification.name === "Minesites & Incidents") {
+        return notifications.filter(
+          (notification: any) =>
+            notification.nofiticationType === "MINESITES_AND_INCIDENTS"
+        );
+      } else {
+        return [];
+      }
+    };
+
+    if (selectedNotification) {
+      const filteredNotifications = getFilteredNotifications();
       setNotifications(filteredNotifications);
-    } else if (selectedNotification.name == "Users & employees") {
-      filteredNotifications = notifications.filter(
-        (notification: any) =>
-          notification.nofiticationType == "USER_AND_EMPLOYEES"
-      );
-      setNotifications(filteredNotifications);
-    } else if (selectedNotification.name == "Companies & Reports") {
-      filteredNotifications = notifications.filter(
-        (notification: any) =>
-          notification.nofiticationType == "COMPANIES_AND_REPORTS"
-      );
-      setNotifications(filteredNotifications);
-    } else {
-      setNotifications(notifications);
-      console.log(selectedNotification);
     }
-  });
+  }, [notifications, selectedNotification]);
 
   const handleClick = (link: any) => {
     setSelectedNotification(link);
