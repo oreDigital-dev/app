@@ -14,6 +14,7 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import NotificationLayout from "./notificationLayout";
 import { AiOutlineCloseCircle } from "react-icons/ai";
+import ProfileLayout from "./profileLayout";
 
 interface DashBoardSection {
   title: string;
@@ -127,7 +128,7 @@ export default function DashBoardLayout({
           <div className="w-[80vw]">
             <div className="px-5 header h-[60px] sticky top-0 border-l-2 border-bg flex items-center  justify-between bg-white">
               <h1 className="font-bold text-[20px]">{activeLink}</h1>
-              <div className="flex items-center gap-6 ">
+              <div className="flex items-center hover:cursor-pointer gap-6 ">
                 <button
                   onClick={() => setHideNotifications(!hiddeNotifications)}
                   className="fill-black-300 text-black-300 hover:fill-app hover:text-app "
@@ -139,11 +140,13 @@ export default function DashBoardLayout({
                 />
               </div>
             </div>
+
             {hiddeNotifications && (
               <NotificationLayout
                 setHiddenNotification={setHideNotifications}
               />
             )}
+            <ProfileLayout />
             <div>{children}</div>
           </div>
         </div>

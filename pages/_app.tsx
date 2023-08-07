@@ -1,11 +1,14 @@
 import DashBoardLayout from "@/layout/dashboardLayout";
 import "@/styles/globals.css";
 import type { AppProps } from "next/app";
-
+import { store } from "@/stores/store";
+import { Provider } from "react-redux";
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <DashBoardLayout>
-      <Component {...pageProps} />
-    </DashBoardLayout>
+    <Provider store={store}>
+      <DashBoardLayout>
+        <Component {...pageProps} />
+      </DashBoardLayout>
+    </Provider>
   );
 }

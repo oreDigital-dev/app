@@ -45,7 +45,9 @@ export default function Sites() {
                 <RegisteredSite {...site} key={index} />
               ))}
         </div>
-        <CreateMinesite />
+        <div className="w-[70%] p-4 absolute top-20">
+          <CreateMinesite />
+        </div>
       </div>
       <div className=" bg-white p-[20px] rounded-md shadow-sm shadow-neutal-300 mt-4">
         <div className="items-start justify-between">
