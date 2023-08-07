@@ -57,6 +57,25 @@ export const notificationLinks = [
     }
 ]
 
+export const mineSiteDetails = [
+    {
+        name:"minesiteName",
+        type:"text"
+    },
+    {
+        name:"MineralTypes",
+        type:"select"
+    },
+    {
+        name:"Country",
+        type:"text"
+    },
+    {
+        name:"District",
+        type:"text"
+    }
+]
+
 
 export const notificationLength : String = "Hello your minesite has quired the highest temperature  highest temperature  highest temperature"
 // export const baseUrli = "http://localhost:5000/api/v1"

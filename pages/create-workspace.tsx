@@ -1,10 +1,10 @@
 import Button from "@/components/ui/button";
 import Input from "@/components/units/input";
 import Input2 from "@/components/units/input2";
-import { useRouter } from "next/router";
+import { Router, useRouter } from "next/router";
 import { useState } from "react";
 import axios from "axios";
-import { baseUrl } from "@/utils/dataAssets";
+import { baseUrli } from "@/utils/dataAssets";
 import Loader from "@/components/ui/loader";
 
 const GeneralComp = ({ number, title }: { number: number; title: string }) => {
@@ -27,26 +27,32 @@ const GeneralComp = ({ number, title }: { number: number; title: string }) => {
   );
 };
 
-const CompanyOne = ({ onNext }: { onNext: () => void }) => {
+const CompanyOne = ({
+  onNext,
+  onPrev,
+}: {
+  onNext: () => void;
+  onPrev: () => void;
+}) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [location, setLocation] = useState("");
-  const [password, setPassword ] = useState("")
+  const [password, setPassword] = useState("");
   const [tel, setTel] = useState("");
-   
+
   const companyDetails = {
-    name:name,
-    email:email,
-    password:password,
-    location:location,
-    tel:tel
+    name: name,
+    email: email,
+    password: password,
+    location: location,
+    tel: tel,
   };
 
   const handleSave = () => {
-    localStorage.setItem("companyDetails", JSON.stringify(companyDetails))
-    onNext()
-  }
-  // const createWorkspace 
+    localStorage.setItem("companyDetails", JSON.stringify(companyDetails));
+    onNext();
+  };
+  // const createWorkspace
   return (
     <div className="w-screen h-screen flex flex-col justify-center md:content-center md:items-center">
       <div className="rounded-lg w-full md:w-[50%] lg:w-[35%] bg-white space-y-4 flex flex-col md:justify-center md:content-center py-20 px-12">
@@ -90,17 +96,20 @@ const CompanyTwo = ({ onNext }: any) => {
   const [mineral, setMineral] = useState("");
   const [typeOfOwnership, setTypeOfOwnership] = useState("");
   const [tel, setTel] = useState("");
-    const operationDetailsDetails2 = {
-      licence:licence,
-      mineral:mineral,
-      typeOfOwnership:typeOfOwnership,
-      tel:tel
-    }
-    const handleSave = () => {
-      localStorage.setItem("operationDetailsDetails2", JSON.stringify(operationDetailsDetails2))
-      onNext()
-    }
-    
+  const operationDetailsDetails2 = {
+    licence: licence,
+    mineral: mineral,
+    typeOfOwnership: typeOfOwnership,
+    tel: tel,
+  };
+  const handleSave = () => {
+    localStorage.setItem(
+      "operationDetailsDetails2",
+      JSON.stringify(operationDetailsDetails2)
+    );
+    onNext();
+  };
+
   return (
     <div className="w-screen h-screen flex flex-col justify-center content-center items-center">
       <div className="rounded-lg  w-full md:w-[50%] lg:w-[30%] bg-white space-y-4 flex flex-col justify-center content-center py-20 px-12">
@@ -139,16 +148,16 @@ const CompanyThree = ({ onNext }: any) => {
   const [nEmployees, setNEmployees] = useState("");
   const [tel, setTel] = useState("");
 
-    const operationDetails = {
-      ceoNationalId:ceoNationalId,
-      prodCapacity:prodCapacity,
-      nEmployees:nEmployees,
-      tel:tel
-    }
-    const handleSave = () => {
-      localStorage.setItem("operationDetails", JSON.stringify(operationDetails))
-      onNext()
-    }
+  const operationDetails = {
+    ceoNationalId: ceoNationalId,
+    prodCapacity: prodCapacity,
+    nEmployees: nEmployees,
+    tel: tel,
+  };
+  const handleSave = () => {
+    localStorage.setItem("operationDetails", JSON.stringify(operationDetails));
+    onNext();
+  };
 
   return (
     <div className="w-screen h-screen flex flex-col justify-center content-center items-center">
@@ -181,67 +190,85 @@ const CompanyThree = ({ onNext }: any) => {
   );
 };
 
+const CompanyFour = ({ onNext }: any) => {
+  const [district, setDistrict] = useState("");
+  const [country, setCountry] = useState("");
+  const [postalCode, setPostalCode] = useState("");
+  const router = useRouter();
+  const [loading, setLoading] = useState(false);
 
-const CompanyFour = ({ onNext } : any) => {
-  const [district, setDistrict ] = useState('');
-  const [country, setCountry ] = useState('');
-  const [postalCode , setPostalCode ] = useState('');
+  const handleNextClick = async () => {
+    if (loading) return;
+    const companyDetails = JSON.parse(
+      localStorage.getItem("companyDetails") || "{}"
+    );
+    const operationDetails = JSON.parse(
+      localStorage.getItem("operationDetails") || "{}"
+    );
+    const operationDetailsDetails2 = JSON.parse(
+      localStorage.getItem("operationDetailsDetails2") || "{}"
+    );
 
-  const [loading,setLoading]= useState(false)
-
-  const handleNextClick = async() => {
-    if(loading) return ;
-    setLoading(true)
-    try {
-      const companyDetails = JSON.parse(localStorage.getItem('companyDetails') || '{}');
-      const operationDetails = JSON.parse(localStorage.getItem("operationDetails") || '{}')
-      const operationDetailsDetails2 = JSON.parse(localStorage.getItem("operationDetailsDetails2") || '{}')
-      const response = await axios({
-        method:'POST',
-        url:`${baseUrl}/companies/create`,
-        data:{
-            companyName: companyDetails.name,
-            companyCEOName: "oreDigital",
-            companyEmail: companyDetails.email,
-            password: companyDetails.passwrod,
-            headQuartersLocation: `${district},${country}`,
-            telephoneNumber:companyDetails.tel,
-            ownership: operationDetailsDetails2.typeOfOwnership,
-            productionCapacity: operationDetails.prodCapacity,
-            numberOfEmployees: operationDetails.nEmployees,
-            miniLicenseNumber: 34343434,
-            companyCEONationalId: operationDetails.ceoNationalId,
-            mineralTypes: [
-              "GOLD",
-              "ZINC"
-            ],
-            mininLicenseNumber: 454
-        }
+    setLoading(true);
+    await axios
+      .post(`${baseUrli}/companies/create`, {
+        companyName: companyDetails.name,
+        companyCEOName: "oreDigital",
+        companyEmail: companyDetails.email,
+        password: companyDetails.password,
+        headQuartersLocation: "kjdfsdhkfj",
+        telephoneNumber: companyDetails.tel,
+        ownership: operationDetailsDetails2.typeOfOwnership,
+        productionCapacity: operationDetails.prodCapacity,
+        numberOfEmployees: operationDetails.nEmployees,
+        miniLicenseNumber: 34343434,
+        companyCEONationalId: operationDetails.ceoNationalId,
+        mineralTypes: ["GOLD", "ZINC"],
+        mininLicenseNumber: 454,
       })
-      setLoading(false)
-      console.log(response)
-    } catch (error) {
-      console.log(error)
-    }
-  }
+      .then((response) => {
+        console.log(response);
+        localStorage.setItem("AuthKey", response.data.Access_token);
+        setLoading(false);
+        router.push("/d/logs");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
   return (
-  <div className="w-screen h-screen flex flex-col justify-center content-center items-center">
-  <div className="rounded-lg w-full md:w-[50%] lg:w-[30%] bg-white space-y-4 flex flex-col justify-center content-center py-20 px-12">
-    <GeneralComp number={3} title="Tell us about your address " />
-     <Input2  label="Country" type="select" state={country} setState={setCountry}  placeholder={'Company name'} />
-     <Input2  label="District" type="select" state={district} setState={setDistrict}  placeholder={'District name'} />
-    <Input2
-      state={postalCode}
-      placeholder="Ex:0000"
-      setState={setPostalCode}
-      label="Postal Code"
-      type="number"
-    />
-    <Button onClick={handleNextClick}> {loading ? <Loader/> : 'Next'}</Button>
-  </div>
-</div>
-);
-}
+    <div className="w-screen h-screen flex flex-col justify-center content-center items-center">
+      <div className="rounded-lg w-full md:w-[50%] lg:w-[30%] bg-white space-y-4 flex flex-col justify-center content-center py-20 px-12">
+        <GeneralComp number={3} title="Tell us about your address " />
+        <Input2
+          label="Country"
+          type="select"
+          state={country}
+          setState={setCountry}
+          placeholder={"Company name"}
+        />
+        <Input2
+          label="District"
+          type="select"
+          state={district}
+          setState={setDistrict}
+          placeholder={"District name"}
+        />
+        <Input2
+          state={postalCode}
+          placeholder="Ex:0000"
+          setState={setPostalCode}
+          label="Postal Code"
+          type="number"
+        />
+        <Button onClick={handleNextClick}>
+          {" "}
+          {loading ? <Loader /> : "Next"}
+        </Button>
+      </div>
+    </div>
+  );
+};
 
 const CompanyDetails = () => {
   const [currentStep, setCurrentStep] = useState(1);
@@ -250,12 +277,24 @@ const CompanyDetails = () => {
     setCurrentStep(currentStep + 1);
   };
 
+  const handlePrev = () => {
+    setCurrentStep(currentStep - 1);
+  };
+
   return (
     <div className="w-screen h-screen flex flex-col md:justify-center md:content-center md:items-center bg-bg">
-      {currentStep === 1 && <CompanyOne onNext={handleNextButtonClick} />}
-      {currentStep === 2 && <CompanyTwo onNext={handleNextButtonClick} />}
-      {currentStep === 3 && <CompanyThree onNext={handleNextButtonClick} />}
-      {currentStep === 4 && <CompanyFour onNext={handleNextButtonClick} />}
+      {currentStep === 1 && (
+        <CompanyOne onPrev={handlePrev} onNext={handleNextButtonClick} />
+      )}
+      {currentStep === 2 && (
+        <CompanyTwo onPrev={handlePrev} onNext={handleNextButtonClick} />
+      )}
+      {currentStep === 3 && (
+        <CompanyThree onPrev={handlePrev} onNext={handleNextButtonClick} />
+      )}
+      {currentStep === 4 && (
+        <CompanyFour onPrev={handlePrev} onNext={handleNextButtonClick} />
+      )}
     </div>
   );
 };

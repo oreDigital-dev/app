@@ -12,6 +12,15 @@ import {
   Tooltip,
 } from "recharts";
 import { PieChart, Pie, Sector, Cell } from "recharts";
+import { baseUrli, mineSiteDetails } from "@/utils/dataAssets";
+import Input from "@/components/units/input";
+import { useState } from "react";
+import Button from "@/components/ui/button";
+import Input3 from "@/components/units/input";
+import Input2 from "@/components/units/input2";
+import axios from "axios";
+import { error } from "console";
+import CreateMinesite from "@/components/ui/createMinesite";
 const piData = [
   { name: "Group A", value: 400 },
   { name: "Group B", value: 300 },
@@ -119,8 +128,8 @@ export default function Dashboar() {
   ];
   return (
     <div className="m-[20px] rounded-md ">
-      <div className=" bg-white p-[20px] rounded-md shadow-sm shadow-neutal-300">
-        <div className="flex items-start justify-between">
+      <div className=" bg-white  relative p-[20px] rounded-md shadow-sm shadow-neutal-300">
+        <div className="flex  z-100  items-start justify-between">
           <SectionHead
             title="Summary"
             desc="All mining sites registered in workspace"
@@ -135,6 +144,7 @@ export default function Dashboar() {
             <CompanyRecordDetails {...item} key={index} />
           ))}
         </div>
+        <CreateMinesite />
       </div>
       <div className=" bg-white p-[20px] rounded-md shadow-sm shadow-neutal-300 mt-2">
         <div className="flex items-start justify-between">

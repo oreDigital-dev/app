@@ -35,6 +35,12 @@
 .scrollable::-webkit-scrollbar-thumb:hover {
   background: #656565;
 }
+.form-1{
+  z-index: 0.4;
+}
+.header{
+  z-index: 100;
+}
 #para::before{
   content: "";
   background-color: black;
@@ -85,10 +91,6 @@ border-radius: 10px;
 #file-upload-button {
 background-color: aliceblue;
 }
-
-
-
-
 .logs-panel-td:fullscreen{
   max-height: 30px;
 }

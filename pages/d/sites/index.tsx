@@ -7,6 +7,7 @@ import RegisteredSite from "@/components/units/registeredSite";
 import SiteStatus from "@/components/units/siteStatus";
 import { PlusIcon } from "@/components/icons";
 import { ArrowIcon, ExpandIcon } from "@/components/icons";
+import CreateMinesite from "@/components/ui/createMinesite";
 export default function Sites() {
   const [mineSites, setMineSites]: any = useState([]);
 
@@ -44,6 +45,7 @@ export default function Sites() {
                 <RegisteredSite {...site} key={index} />
               ))}
         </div>
+        <CreateMinesite />
       </div>
       <div className=" bg-white p-[20px] rounded-md shadow-sm shadow-neutal-300 mt-4">
         <div className="items-start justify-between">

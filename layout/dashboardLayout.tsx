@@ -108,8 +108,8 @@ export default function DashBoardLayout({
   return (
     <>
       {visibility == true ? (
-        <div className="flex gap-0 bg-bg max-w-screen-2xl mx-auto">
-          <div className="w-[20vw]  bg-white h-screen ">
+        <div className="flex gap-0  bg-bg max-w-screen-2xl mx-auto">
+          <div className="w-[20vw]  sticky top-0   bg-white h-screen ">
             <div className="px-[40px] h-[60px] flex items-center border-b-2 border-bg">
               <Logo withText />
             </div>
@@ -125,7 +125,7 @@ export default function DashBoardLayout({
             </div>
           </div>
           <div className="w-[80vw]">
-            <div className="px-5 h-[60px] border-l-2 border-bg flex items-center  justify-between bg-white">
+            <div className="px-5 header h-[60px] sticky top-0 border-l-2 border-bg flex items-center  justify-between bg-white">
               <h1 className="font-bold text-[20px]">{activeLink}</h1>
               <div className="flex items-center gap-6 ">
                 <button
