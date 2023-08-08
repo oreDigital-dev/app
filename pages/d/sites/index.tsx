@@ -62,17 +62,8 @@ export default function Sites() {
       </div>
       <div className=" bg-white p-[20px] rounded-md shadow-sm shadow-neutal-300 mt-4">
         <div className="items-start justify-between">
-          <div className="flex items-center justify-center">
-            <SectionHead title="Statuses" desc="Your records so far" />
-            <button
-              className="w-[15%] flex justify-center py-3 items-center  gap-2  rounded-full bg-app/10  hover:bg-app/30  text-app fill-app"
-              onClick={showPanelInFullScreen}
-            >
-              <ExpandIcon />
-              <span>Full screen</span>
-            </button>
-          </div>
-          <SiteStatus sites={mineSites.slice(1, mineSites.length)} />
+          <SectionHead title="Statuses" desc="Your records so far" />
+          <SiteStatus />
         </div>
       </div>
     </div>

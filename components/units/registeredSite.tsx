@@ -1,6 +1,9 @@
 import React from "react";
 import SectionHead from "../ui/sectionHead";
 import { MiningSite } from "@/@types/interfaces";
+import MapSite from "@/pages/d/sites/mapSite";
+import DetailsSite from "@/pages/d/sites/detailsSite";
+import Link from "next/link";
 interface RegisteredSiteProps extends MiningSite {
   location: string | null;
 }
