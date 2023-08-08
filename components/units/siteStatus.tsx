@@ -20,32 +20,33 @@ export default function SiteStatus(props: any) {
         </thead>
 
         <tbody>
-          {props.sites.map((site: any, index: any) => {
-            return (
-              <tr
-                key={index}
-                className=" text-left font-sans rounded-tl-md rounded-tr-md w-full h-10 logs-panel-td"
-              >
-                <th>
-                  {" "}
-                  <div className="h-6 w-6 bg-gray-200 rounded-md"></div>
-                </th>
-                <td className="py-1 px-4">{site.minesiteName + " site"}</td>
-                <td className="py-1 px-4">Muhanga, Gihanga</td>
-                <td className="py-1 px-4">33.56 E</td>
-                <td className="py-1 px-4">56.05</td>
-                <td className="py-1 px-4">South-Zuba</td>
-                <td className="py-1 px-4">
-                  <StatusView status={"HEALTHY"} />
-                </td>
-                <td>
-                  <button className="py-2  flex items-center  gap-2 px-4 rounded-full bg-app/10  hover:bg-app/30  text-app fill-app">
-                    <span>Details</span>
-                  </button>
-                </td>
-              </tr>
-            );
-          })}
+          {props.sites &&
+            props.sites.map((site: any, index: any) => {
+              return (
+                <tr
+                  key={index}
+                  className=" text-left font-sans rounded-tl-md rounded-tr-md w-full h-10 logs-panel-td"
+                >
+                  <th>
+                    {" "}
+                    <div className="h-6 w-6 bg-gray-200 rounded-md"></div>
+                  </th>
+                  <td className="py-1 px-4">{site.minesiteName + " site"}</td>
+                  <td className="py-1 px-4">Muhanga, Gihanga</td>
+                  <td className="py-1 px-4">33.56 E</td>
+                  <td className="py-1 px-4">56.05</td>
+                  <td className="py-1 px-4">South-Zuba</td>
+                  <td className="py-1 px-4">
+                    <StatusView status={"HEALTHY"} />
+                  </td>
+                  <td>
+                    <button className="py-2  flex items-center  gap-2 px-4 rounded-full bg-app/10  hover:bg-app/30  text-app fill-app">
+                      <span>Details</span>
+                    </button>
+                  </td>
+                </tr>
+              );
+            })}
         </tbody>
       </table>
     </div>

@@ -9,11 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-<<<<<<< HEAD
-    "@reduxjs/toolkit": "^1.9.5",
-=======
     "@react-google-maps/api": "^2.19.2",
->>>>>>> 41d144d (worked on site details)
     "@types/node": "20.4.1",
     "@types/react": "18.2.14",
     "@types/react-dom": "18.2.6",

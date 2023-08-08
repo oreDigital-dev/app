@@ -51,13 +51,8 @@ export default function Sites() {
       </div>
       <div className=" bg-white p-[20px] rounded-md shadow-sm shadow-neutal-300 mt-4">
         <div className="items-start justify-between">
-          <SectionHead
-            title="Statuses"
-            desc="Your records so far"
-          />
+          <SectionHead title="Statuses" desc="Your records so far" />
           <SiteStatus />
-      
-
         </div>
       </div>
     </div>
