@@ -115,13 +115,13 @@ export const companyHolds: CompanyRecords[] = [
     },
     {
       id: "550e8400-e29b-41d4-a716-446655440000",
-      title: "Reports incidents",
+      title: "Reported incidents",
       sites: 0,
       reports: 3,
     },
     {
       id: "550e8400-e29b-41d4-a716-446655440000",
-      title: "Mine sites under contol",
+      title: "Number of employees",
       sites: 30,
       reports: 0,
     },

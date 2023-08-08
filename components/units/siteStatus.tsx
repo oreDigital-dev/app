@@ -20,7 +20,13 @@ export default function SiteStatus(props: any) {
         </thead>
 
         <tbody>
-          {props.sites &&
+          {props.sites == null ? (
+            <div>
+              <p>
+                No statuses yet!, becuase there are not minesites registered
+              </p>
+            </div>
+          ) : (
             props.sites.map((site: any, index: any) => {
               return (
                 <tr
@@ -46,7 +52,8 @@ export default function SiteStatus(props: any) {
                   </td>
                 </tr>
               );
-            })}
+            })
+          )}
         </tbody>
       </table>
     </div>

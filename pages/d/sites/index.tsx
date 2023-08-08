@@ -11,6 +11,9 @@ import CreateMinesite from "@/components/ui/createMinesite";
 import { useAppDispatch } from "@/stores/store";
 import { setCreateMineSiteVisibility } from "@/features/appPages";
 import { ToastContainer } from "react-toastify";
+import MapSite from "./mapSite";
+import axios from "axios";
+import { baseUrli } from "@/utils/dataAssets";
 export default function Sites() {
   const dispatch = useAppDispatch();
   const [mineSites, setMineSites]: any = useState([]);
@@ -27,12 +30,29 @@ export default function Sites() {
       let sites = JSON.parse(localStorage.getItem("loggedInUser")!).minesites;
       setMineSites(sites);
     }
+    const getMineSites = async () => {
+      await axios
+        .get(`${baseUrli}/minesites/forlogged-in-company`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("authKey")}`,
+          },
+        })
+        .then((response) => {
+          console.log(response.data.mineSites);
+          setMineSites(response.data.mineSites);
+        })
+        .catch((error: any) => {
+          console.log(error);
+        });
+    };
+    getMineSites();
   }, []);
   return (
     <div className="m-[20px] rounded-md ">
       <div className=" bg-white p-[20px] rounded-md shadow-sm shadow-neutal-300">
         <div className="flex items-start justify-between">
           <ToastContainer />
+          {/* <MapSite /> */}
           <SectionHead
             title="Registered sites"
             desc="All mining sites registered in workspace"
@@ -49,12 +69,17 @@ export default function Sites() {
           </button>
         </div>
         <div className="flex gap-4 my-[20px] overflow-x-scroll scrollable">
-          {mineSites != null &&
+          {mineSites == null ? (
+            <div>
+              <p>You don't have minesites</p>
+            </div>
+          ) : (
             mineSites
               .slice(1, mineSites.length)
               .map((site: any, index: any) => (
                 <RegisteredSite {...site} key={index} />
-              ))}
+              ))
+          )}
         </div>
         <div className="w-[70%] p-4 absolute top-20">
           <CreateMinesite />
@@ -63,7 +88,7 @@ export default function Sites() {
       <div className=" bg-white p-[20px] rounded-md shadow-sm shadow-neutal-300 mt-4">
         <div className="items-start justify-between">
           <SectionHead title="Statuses" desc="Your records so far" />
-          <SiteStatus />
+          <SiteStatus sites={mineSites} />
         </div>
       </div>
     </div>
