@@ -1,4 +1,4 @@
-import { countryList, loginTypes } from "@/utils/dataAssets";
+import { countryList, loginTypes, ownerShipDetails } from "@/utils/dataAssets";
 import { districts } from "@/utils/dataAssets";
 interface InputProps {
   label: string | null;
@@ -37,8 +37,22 @@ export default function Input2({
           placeholder="How do you want to login"
           onChange={(e) => setState(e.target.value)}
         >
-          <option>Rwanda</option>
+          <option>Select country</option>
           {countryList.map((country, index) => (
+            <option key={index} value={country as string}>
+              {country}
+            </option>
+          ))}
+        </select>
+      )}
+      {label === "Type of ownership" && (
+        <select
+          className=" border border-black-300/10 font-regular  outline-none  w-full py-[14px] px-3 rounded-md text-[black]"
+          placeholder="How do you want to login"
+          onChange={(e) => setState(e.target.value)}
+        >
+          <option>Select ownership</option>
+          {ownerShipDetails.map((country, index) => (
             <option key={index} value={country as string}>
               {country}
             </option>
@@ -51,7 +65,7 @@ export default function Input2({
           placeholder="How do you want to login"
           onChange={(e) => setState(e.target.value)}
         >
-          <option>Nyabihu</option>
+          <option>Select district</option>
           {districts.map((district, index) => (
             <option key={index} value={district as string}>
               {district}

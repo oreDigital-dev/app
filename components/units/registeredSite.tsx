@@ -1,7 +1,9 @@
 import React from "react";
 import SectionHead from "../ui/sectionHead";
 import { MiningSite } from "@/@types/interfaces";
-interface RegisteredSiteProps extends MiningSite {}
+interface RegisteredSiteProps extends MiningSite {
+  location: string | null;
+}
 export default function RegisteredSite(props: RegisteredSiteProps) {
   return (
     <div className="flex items-center p-3 hover:bg-grey-200 hover:shadow-xl min-w-[300px]  gap-4 border cursor-pointer rounded-lg shadow-sm">

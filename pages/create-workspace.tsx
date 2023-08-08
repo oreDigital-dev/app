@@ -6,6 +6,12 @@ import { useState } from "react";
 import axios from "axios";
 import { baseUrli } from "@/utils/dataAssets";
 import Loader from "@/components/ui/loader";
+import { toast, ToastContainer } from "react-toastify";
+import {
+  setLoggedInSuccessfully,
+  setWelcomeMessage,
+} from "@/features/appPages";
+import { useDispatch } from "react-redux";
 
 const GeneralComp = ({ number, title }: { number: number; title: string }) => {
   return (
@@ -128,7 +134,7 @@ const CompanyTwo = ({ onNext }: any) => {
           label="Type of mineral"
           type="text"
         />
-        <Input
+        <Input2
           state={typeOfOwnership}
           placeholder={null}
           setState={setTypeOfOwnership}
@@ -142,7 +148,6 @@ const CompanyTwo = ({ onNext }: any) => {
 };
 
 const CompanyThree = ({ onNext }: any) => {
-  const router = useRouter();
   const [ceoNationalId, setCeoNationalId] = useState("");
   const [prodCapacity, setProdCapacity] = useState("");
   const [nEmployees, setNEmployees] = useState("");
@@ -161,6 +166,7 @@ const CompanyThree = ({ onNext }: any) => {
 
   return (
     <div className="w-screen h-screen flex flex-col justify-center content-center items-center">
+      <ToastContainer />
       <div className="rounded-lg w-full md:w-[50%] lg:w-[30%] bg-white space-y-4 flex flex-col justify-center content-center py-20 px-12">
         <GeneralComp number={3} title="Operational details" />
         <Input
@@ -191,6 +197,7 @@ const CompanyThree = ({ onNext }: any) => {
 };
 
 const CompanyFour = ({ onNext }: any) => {
+  const dispatch = useDispatch();
   const [district, setDistrict] = useState("");
   const [country, setCountry] = useState("");
   const [postalCode, setPostalCode] = useState("");
@@ -227,17 +234,30 @@ const CompanyFour = ({ onNext }: any) => {
         mininLicenseNumber: 454,
       })
       .then((response) => {
-        console.log(response);
         localStorage.setItem("AuthKey", response.data.Access_token);
         setLoading(false);
-        router.push("/d/logs");
+        dispatch(
+          setWelcomeMessage({ message: "Hi! You've loggedIn successfully" })
+        );
+        dispatch(setLoggedInSuccessfully({ type: true }));
+        router.push("/d/dashboard");
       })
       .catch((error) => {
-        console.log(error);
+        if (error.code != "ERR_NETWORK") {
+          if (error.response.data.status != 500) {
+            toast(error.response.data.message);
+          } else {
+            toast("Some thing went wrong, please try again");
+          }
+        } else {
+          toast("Some thing went wrong, please try again");
+        }
+        setLoading(false);
       });
   };
   return (
     <div className="w-screen h-screen flex flex-col justify-center content-center items-center">
+      <ToastContainer />
       <div className="rounded-lg w-full md:w-[50%] lg:w-[30%] bg-white space-y-4 flex flex-col justify-center content-center py-20 px-12">
         <GeneralComp number={3} title="Tell us about your address " />
         <Input2

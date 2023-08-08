@@ -52,15 +52,18 @@ function CreateMinesite() {
         }
       )
       .then((response) => {
+        console.log(response);
         toast(response.data.message);
         dispatch(setCreateMineSiteVisibility({ type: "close" }));
         setLoading(false);
       })
       .catch((error) => {
-        if (error.response.data.status != 500 && error.code != "ERR_NETWORK") {
-          toast(error.response.data.message);
-        } else {
-          toast("Some thing went wrong, please try again");
+        if (error.code != "ERR_NETWORK") {
+          if (error.response.data.status != 500) {
+            toast(error.response.data.message);
+          } else {
+            toast("Some thing went wrong, please try again");
+          }
         }
         setLoading(false);
       });

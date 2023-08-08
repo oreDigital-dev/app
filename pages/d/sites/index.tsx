@@ -8,7 +8,11 @@ import SiteStatus from "@/components/units/siteStatus";
 import { PlusIcon } from "@/components/icons";
 import { ArrowIcon, ExpandIcon } from "@/components/icons";
 import CreateMinesite from "@/components/ui/createMinesite";
+import { useAppDispatch } from "@/stores/store";
+import { setCreateMineSiteVisibility } from "@/features/appPages";
+import { ToastContainer } from "react-toastify";
 export default function Sites() {
+  const dispatch = useAppDispatch();
   const [mineSites, setMineSites]: any = useState([]);
 
   const showPanelInFullScreen = () => {
@@ -28,12 +32,19 @@ export default function Sites() {
     <div className="m-[20px] rounded-md ">
       <div className=" bg-white p-[20px] rounded-md shadow-sm shadow-neutal-300">
         <div className="flex items-start justify-between">
+          <ToastContainer />
           <SectionHead
             title="Registered sites"
             desc="All mining sites registered in workspace"
           />
           <button className="py-3 w-[15%] flex items-center  gap-2 justify-center rounded-full bg-app/10  hover:bg-app/30  text-app fill-app">
-            <span>Add Site</span>
+            <span
+              onClick={() =>
+                dispatch(setCreateMineSiteVisibility({ type: "open" }))
+              }
+            >
+              Add Site
+            </span>
             <PlusIcon />
           </button>
         </div>

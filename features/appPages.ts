@@ -7,7 +7,8 @@ const initialState : any = {
    loggedInSuccessfully:false,
    isCreateMineSiteVisible:false,
    isNotificationPanelVisible:false,
-   isProfilePanelVisibile:false
+   isProfilePanelVisibile:false,
+   welcomeMessage:""
 }
 
 const appPagesSlice = createSlice({
@@ -47,10 +48,13 @@ const appPagesSlice = createSlice({
             }else{
                 throw new Error("Please provide the valid action type")
             }
+        },
+        setWelcomeMessage : (state:RootState, action:PayloadAction<{message:String}>) => {
+           state.welcomeMessage = action.payload.message
         }
 
     }
 })
 
-export const {setLoggedInSuccessfully, setCreateMineSiteVisibility, setNotificationPanelVisibility, setProfilePanelVisibility} = appPagesSlice.actions;
+export const {setLoggedInSuccessfully, setCreateMineSiteVisibility, setWelcomeMessage, setNotificationPanelVisibility, setProfilePanelVisibility} = appPagesSlice.actions;
 export const appPagesReducer = appPagesSlice.reducer

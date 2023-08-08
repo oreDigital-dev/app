@@ -8,9 +8,11 @@ import { useRouter } from "next/router";
 import { baseUrli, loginTypes } from "@/utils/dataAssets";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useDispatch, useSelector } from "react-redux";
 import { useAppDispatch } from "@/stores/store";
-import { setLoggedInSuccessfully } from "@/features/appPages";
+import {
+  setLoggedInSuccessfully,
+  setWelcomeMessage,
+} from "@/features/appPages";
 import Input2 from "@/components/units/input2";
 
 /* eslint-disable react/no-unescaped-entities */
@@ -38,6 +40,9 @@ const Login = () => {
       console.log(responseData);
       localStorage.setItem("loggedInUser", JSON.stringify(responseData.user));
       localStorage.setItem("authKey", responseData.token);
+      dispatch(
+        setWelcomeMessage({ message: "Hi! You've loggedIn successfully" })
+      );
       dispatch(setLoggedInSuccessfully({ type: true }));
       router.push("/d/dashboard");
     } catch (error: any) {
