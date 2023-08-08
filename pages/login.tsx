@@ -5,15 +5,22 @@ import axios from "axios";
 import Link from "next/link";
 import { useState } from "react";
 import { useRouter } from "next/router";
-import { baseUrli } from "@/utils/dataAssets";
+import { baseUrli, loginTypes } from "@/utils/dataAssets";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch } from "@/stores/store";
+import { setLoggedInSuccessfully } from "@/features/appPages";
+import Input2 from "@/components/units/input2";
 
 /* eslint-disable react/no-unescaped-entities */
 const Login = () => {
+  const dispatch = useAppDispatch();
   const router = useRouter();
   const [companyName, setCompanyName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [accountType, setAccountType] = useState("");
+  const [accountType, setAccountType] = useState(loginTypes[0]);
 
   const loginRequest = async (
     email: string,
@@ -21,20 +28,24 @@ const Login = () => {
     accountType: string
   ) => {
     try {
-      const response = await axios.post(
-        `${baseUrli}/auth/login?loginType=${accountType}`,
-        {
-          emailAddress: email,
-          password: password,
-        }
-      );
+      const response = await axios.post(`${baseUrli}/auth/login`, {
+        emailAddress: email,
+        password: password,
+        logginType: accountType,
+      });
 
       const responseData = await response.data;
+      console.log(responseData);
       localStorage.setItem("loggedInUser", JSON.stringify(responseData.user));
       localStorage.setItem("authKey", responseData.token);
-      router.push("/d/logs");
-    } catch (error) {
-      console.log(error);
+      dispatch(setLoggedInSuccessfully({ type: true }));
+      router.push("/d/dashboard");
+    } catch (error: any) {
+      if (error.response.data.status != 500) {
+        toast(error.response.data.message);
+      } else {
+        toast("Some thing went wrong, please try again");
+      }
     }
   };
 
@@ -44,6 +55,7 @@ const Login = () => {
         <div className="flex items-center gap-4">
           <Logo withText />
         </div>
+        <ToastContainer />
         <p className="text-5xl text-black-900 font-bold w-[50%] ">
           Login to your account
         </p>
@@ -67,7 +79,7 @@ const Login = () => {
           setState={setEmail}
           placeholder={"Email address"}
         />
-        <Input
+        <Input2
           label="Login as"
           type="select"
           state={accountType}

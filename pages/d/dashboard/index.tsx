@@ -11,16 +11,18 @@ import {
   CartesianGrid,
   Tooltip,
 } from "recharts";
-import { PieChart, Pie, Sector, Cell } from "recharts";
-import { baseUrli, mineSiteDetails } from "@/utils/dataAssets";
-import Input from "@/components/units/input";
-import { useState } from "react";
-import Button from "@/components/ui/button";
-import Input3 from "@/components/units/input";
-import Input2 from "@/components/units/input2";
-import axios from "axios";
-import { error } from "console";
+import { PieChart, Pie, Cell } from "recharts";
 import CreateMinesite from "@/components/ui/createMinesite";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useEffect } from "react";
+import { companyHolds, quickActions } from "@/utils/dataAssets";
+import { useSelector } from "react-redux";
+import { RootState, store, useAppDispatch } from "@/stores/store";
+import {
+  setCreateMineSiteVisibility,
+  setLoggedInSuccessfully,
+} from "@/features/appPages";
 const piData = [
   { name: "Group A", value: 400 },
   { name: "Group B", value: 300 },
@@ -72,60 +74,28 @@ const data = [
   },
 ];
 
-export default function Dashboar() {
-  const companyHolds: CompanyRecords[] = [
-    {
-      id: "550e8400-e29b-41d4-a716-446655440000",
-      title: "Mine sites under contol",
-      sites: 30,
-      reports: 0,
-    },
-    {
-      id: "550e8400-e29b-41d4-a716-446655440000",
-      title: "Reports incidents",
-      sites: 0,
-      reports: 3,
-    },
-    {
-      id: "550e8400-e29b-41d4-a716-446655440000",
-      title: "Mine sites under contol",
-      sites: 30,
-      reports: 0,
-    },
-    {
-      id: "550e8400-e29b-41d4-a716-446655440000",
-      title: "Mine sites under contol",
-      sites: 30,
-      reports: 0,
-    },
-  ];
-  const quickActions = [
-    {
-      text: "Add user",
-      textColor: "#3949D2",
-      bgColor: "#3949D210",
-    },
-    {
-      text: "Add mine site",
-      textColor: "#FFB800",
-      bgColor: "#FFB80010",
-    },
-    {
-      text: "Add employee",
-      textColor: "#0057FF",
-      bgColor: "#0057FF10",
-    },
-    {
-      text: "Generate monthly report",
-      textColor: "#2CA900",
-      bgColor: "#2CA90010",
-    },
-    {
-      text: "Contact support",
-      textColor: "#D29539",
-      bgColor: "#D2953910",
-    },
-  ];
+export default function Dashboard() {
+  const dispatch = useAppDispatch();
+  const isLoggedInSuccessFully = useSelector(
+    (store: RootState) => store.appPages.loggedInSuccessfully
+  );
+
+  const handleActionClick = (index: number) => {
+    switch (index) {
+      case 1:
+        dispatch(setCreateMineSiteVisibility({ type: "open" }));
+      default:
+        console.log("hello");
+    }
+  };
+  useEffect(() => {
+    if (isLoggedInSuccessFully) {
+      toast("Loggedin successfully");
+    }
+    setTimeout(() => {
+      dispatch(setLoggedInSuccessfully({ type: false }));
+    }, 2000);
+  }, []);
   return (
     <div className="m-[20px] rounded-md ">
       <div className=" bg-white  relative p-[20px] rounded-md shadow-sm shadow-neutal-300">
@@ -144,6 +114,7 @@ export default function Dashboar() {
             <CompanyRecordDetails {...item} key={index} />
           ))}
         </div>
+        <ToastContainer />
         <CreateMinesite />
       </div>
       <div className=" bg-white p-[20px] rounded-md shadow-sm shadow-neutal-300 mt-2">
@@ -156,6 +127,7 @@ export default function Dashboar() {
         <div className="flex gap-4 my-[20px] overflow-x-scroll scrollable">
           {quickActions.map((quickAction, index) => (
             <button
+              onClick={() => handleActionClick(index)}
               key={index}
               style={{
                 color: quickAction.textColor,

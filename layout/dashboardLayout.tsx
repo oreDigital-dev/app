@@ -15,50 +15,12 @@ import { useEffect, useState } from "react";
 import NotificationLayout from "./notificationLayout";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 import ProfileLayout from "./profileLayout";
-
-interface DashBoardSection {
-  title: string;
-  url: string;
-  icon: () => JSX.Element;
-}
-
-const links: DashBoardSection[] = [
-  {
-    title: "Dashboard",
-    url: "dashboard",
-    icon: DashBoardIcon,
-  },
-  {
-    title: "Sites",
-    url: "sites",
-    icon: SitesIcon,
-  },
-  {
-    title: "Reports",
-    url: "reports",
-    icon: ReportsIcon,
-  },
-  {
-    title: "Employees",
-    url: "employees",
-    icon: EmployeesIcon,
-  },
-  {
-    title: "Accounts",
-    url: "accounts",
-    icon: AccountsIcon,
-  },
-  {
-    title: "Logs",
-    url: "logs",
-    icon: LogsIcon,
-  },
-  {
-    title: "Support",
-    url: "support",
-    icon: SupportIcon,
-  },
-];
+import { DashBoardSection, links } from "@/utils/dataAssets";
+import { useAppDispatch } from "@/stores/store";
+import {
+  setNotificationPanelVisibility,
+  setProfilePanelVisibility,
+} from "@/features/appPages";
 
 const NavLink = ({
   props,
@@ -90,6 +52,7 @@ export default function DashBoardLayout({
   children: React.ReactNode;
 }) {
   const router = useRouter();
+  const dispatch = useAppDispatch();
   const [activeLink, setActiveLink] = useState(links[0].title);
   const [visibility, setVisibility] = useState(false);
   const [hiddeNotifications, setHideNotifications] = useState(false);
@@ -105,6 +68,10 @@ export default function DashBoardLayout({
       ("/d/" + links.find((link) => link.title === href)?.url) as string
     );
     setActiveLink(href);
+  };
+  const dispatchActions = () => {
+    dispatch(setProfilePanelVisibility({ type: "close" }));
+    dispatch(setNotificationPanelVisibility({ type: "open" }));
   };
   return (
     <>
@@ -130,7 +97,7 @@ export default function DashBoardLayout({
               <h1 className="font-bold text-[20px]">{activeLink}</h1>
               <div className="flex items-center hover:cursor-pointer gap-6 ">
                 <button
-                  onClick={() => setHideNotifications(!hiddeNotifications)}
+                  onClick={() => dispatchActions()}
                   className="fill-black-300 text-black-300 hover:fill-app hover:text-app "
                 >
                   <NofiticationsIcon />
@@ -141,11 +108,7 @@ export default function DashBoardLayout({
               </div>
             </div>
 
-            {hiddeNotifications && (
-              <NotificationLayout
-                setHiddenNotification={setHideNotifications}
-              />
-            )}
+            <NotificationLayout />
             <ProfileLayout />
             <div>{children}</div>
           </div>

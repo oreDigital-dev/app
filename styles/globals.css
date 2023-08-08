@@ -8,6 +8,24 @@
 *{
  font-family: 'Avenir',  sans-serif;
 }
+
+
+#profile{
+  z-index: 100;
+  background-color: white;
+}
+
+#actions{
+  z-index: 0;
+}
+
+#over::-webkit-scrollbar{
+  display: none;
+  background-color: black;
+}
+#notification{
+  z-index: 50;
+}
  #statuses:-webkit-full-screen{
   color: white;
  }

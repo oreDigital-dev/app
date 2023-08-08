@@ -1,10 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { useDispatch } from "react-redux";
+import { appPagesReducer } from "@/features/appPages";
 
-
-
-export const store = configureStore({
+export const store :any = configureStore({
     reducer:{
+        appPages:appPagesReducer
 
     }
 })

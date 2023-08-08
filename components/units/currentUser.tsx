@@ -1,9 +1,15 @@
+import { useAppDispatch } from "@/stores/store";
 import { CurrentUserIcon } from "../icons";
+import { setProfilePanelVisibility } from "@/features/appPages";
 
 export default function CurrentUser({ email }: { email: any }) {
-  // const user: any = JSON.parse(localStorage.getItem("loggedInUser")!);
+  const dispatch = useAppDispatch();
   return (
-    <div className="flex items-center gap-2">
+    <div
+      id="profile"
+      onClick={() => dispatch(setProfilePanelVisibility({ type: "open" }))}
+      className="flex z-100 items-center gap-2"
+    >
       <CurrentUserIcon />
       <div className="text-sm">
         <p className=" text-black-300">Logged in as</p>
