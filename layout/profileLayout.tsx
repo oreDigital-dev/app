@@ -94,7 +94,7 @@ function ProfileLayout(props: any) {
             >
               <div className="flex items-center hover:cursor-pointer gap-6 ">
                 <CurrentUser
-                  email={localStorage.getItem("loggedInUser")?.toString()}
+                  email={localStorage.getItem("")?.toString()}
                 />
               </div>
             </div>
