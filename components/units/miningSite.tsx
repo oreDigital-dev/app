@@ -3,6 +3,9 @@ import SectionHead from "../ui/sectionHead";
 import StatusView from "../ui/status";
 import { Status } from "@/@types/status";
 import { MiningSite } from "@/@types/interfaces";
+import { useDispatch } from "react-redux";
+import { setSelectedMineSite } from "@/features/minesitesSlice";
+import minesiteImage from "../../assets/images/images.jpeg";
 
 interface MiningSiteProps extends MiningSite {
   isSelected: boolean;
@@ -10,14 +13,21 @@ interface MiningSiteProps extends MiningSite {
 }
 
 export default function MiningSite(props: MiningSiteProps) {
+  const dispatch = useDispatch();
   return (
     <div
       className={`flex items-center p-3 min-w-[300px]  gap-4 border cursor-pointer rounded-lg shadow-sm  ${
-        props.isSelected ? "bg-app/10 border-2 border-app" : "border-black-100"
+        props.isSelected ? "border-2 border-app" : "border-black-100"
       }`}
-      onClick={() => props.setSelectedSite(props.id)}
+      onClick={() => dispatch(setSelectedMineSite({ mineSite: props }))}
     >
-      {/* <Image src={props.img} alt={props.name} width={100} height={100} className="w-auto" /> */}
+      <Image
+        src={minesiteImage}
+        alt={props.minesiteName}
+        width={100}
+        height={100}
+        className="w-auto"
+      />
       <div>
         <SectionHead
           title={props.minesiteName}

@@ -2,8 +2,21 @@ import React from "react";
 import { PlusIcon } from "@/components/icons";
 import SectionHead from "@/components/ui/sectionHead";
 import Link from "next/link";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "@/stores/store";
+import UpdateMineSite from "@/components/ui/UpdateMinesite";
+import { ToastContainer } from "react-toastify";
+import { setUpdateMineSiteVisibility } from "@/features/appPages";
 function DetailsSite() {
+  const dispatch = useDispatch();
   const minerals = ["Silver", "Zinc", "Gold"];
+  const selectedMineSite = useSelector(
+    (store: RootState) => store.mineSites.selectedMineSite
+  );
+
+  const update = () => {
+    dispatch(setUpdateMineSiteVisibility({ type: "open" }));
+  };
   return (
     <div className="m-[20px] rounded-md ">
       <div className=" bg-white p-[20px] rounded-md shadow-sm shadow-neutal-300">
@@ -11,11 +24,18 @@ function DetailsSite() {
           <div className="flex">
             <div className="h-16 w-16 bg-gray-200 rounded-md"></div>
             <div className="ml-4 mt-2">
-              <SectionHead title="Gihanga Site" desc="Muhabura, Gihanga" />
+              <SectionHead
+                title={selectedMineSite.minesiteName}
+                desc="Muhabura, Gihanga"
+              />
             </div>
           </div>
+          <div className="w-[70%] p-4 absolute top-20">
+            <ToastContainer />
+            <UpdateMineSite />
+          </div>
           <button className="py-3 flex items-center  gap-2 px-4 rounded-full bg-app/10  hover:bg-app/30  text-app fill-app">
-            <span>Edit data</span>
+            <span onClick={() => update()}>Edit data</span>
             {/* <PlusIcon /> */}
           </button>
         </div>
@@ -52,7 +72,7 @@ function DetailsSite() {
         <div className="flex items-start justify-between mt-6 border-b-2 border-b-gray-200 pb-4">
           <p>Site logs</p>
           <button className="text-app">
-            <Link href="/d/sites">
+            <Link href="/d/logs">
               <span>Go to site logs</span>
             </Link>
           </button>
