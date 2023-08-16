@@ -1,10 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { useDispatch } from "react-redux";
 import { appPagesReducer } from "@/features/appPages";
+import { mineSiteReducer } from "@/features/minesitesSlice";
 
 export const store :any = configureStore({
     reducer:{
-        appPages:appPagesReducer
+        appPages:appPagesReducer,
+        mineSites:mineSiteReducer
 
     }
 })

@@ -8,24 +8,17 @@ import { useEffect, useState } from "react";
 import LogsPanel from "@/components/units/logsPanel";
 import Sites from "../sites";
 import NotificationLayout from "@/layout/notificationLayout";
-export default function Logs() {
-  let minesites: any[] = [
-    {
-      id: "550e8400-e29b-41d4-a716-446655440000",
-      name: "Gihanga site",
-      location: "Gihanga, Muhanga",
-      img: "https://images.unsplash.com/photo-1675600360075-5564fe1a7e5a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fG1pbmluZyUyMHNpdGV8ZW58MHx8MHx8fDA%3D",
-      status: Status.HEALTHY,
-    },
-    {
-      id: "550e8400-e29b-41d4-a716-446655449900",
-      name: "Cyamudongo zinc mine",
-      location: "Cyamudongo, Rusizi",
-      img: "https://images.unsplash.com/photo-1675600360075-5564fe1a7e5a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fG1pbmluZyUyMHNpdGV8ZW58MHx8MHx8fDA%3D",
-      status: Status.WARNING,
-    },
-  ];
+import { useDispatch, useSelector } from "react-redux";
+import { RootState, store } from "@/stores/store";
+import axios from "axios";
+import { baseUrli } from "@/utils/dataAssets";
+import { initializeMinesites } from "@/features/minesitesSlice";
 
+export default function Logs() {
+  const dispatch = useDispatch();
+  const selectedMineSite = useSelector(
+    (store: RootState) => store.mineSites.selectedMineSite
+  );
   const showPanelInFullScreen = () => {
     const panel_div = document.getElementById("logs-panel");
     if (panel_div) {
@@ -33,15 +26,28 @@ export default function Logs() {
     }
   };
 
-  const [selectedSite, setSelectedSite] = useState(minesites[0].id);
-  const [mineSites, setMineSites]: any = useState([]);
+  const mineSites = useSelector(
+    (store: RootState) => store.mineSites.minesites
+  );
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser")!);
-      setMineSites(loggedInUser?.minesites || []);
-    }
+    const getMineSites = async () => {
+      await axios
+        .get(`${baseUrli}/minesites/forlogged-in-company`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("authKey")}`,
+          },
+        })
+        .then((response) => {
+          dispatch(initializeMinesites({ minesites: response.data.mineSites }));
+        })
+        .catch((error: any) => {
+          console.log(error);
+        });
+    };
+    getMineSites();
   }, []);
+
   return (
     <div className="m-[20px] rounded-md ">
       <div className=" bg-white p-[20px] rounded-md shadow-sm shadow-neutal-300">
@@ -56,14 +62,23 @@ export default function Logs() {
           </button>
         </div>
         <div className="flex gap-4 my-[20px] overflow-x-scroll scrollable">
-          {mineSites.slice(1, mineSites.length).map((site: any, index: any) => (
-            <MiningSite
-              {...site}
-              key={index}
-              isSelected={selectedSite === site.id}
-              setSelectedSite={setSelectedSite}
-            />
-          ))}
+          {selectedMineSite && (
+            <MiningSite {...selectedMineSite} key={10000} isSelected={true} />
+          )}
+          {mineSites &&
+            mineSites
+              .slice(1, mineSites.length)
+              .map((site: any, index: any) => (
+                <div>
+                  {selectedMineSite._id != site._id && (
+                    <MiningSite
+                      {...site}
+                      key={index}
+                      isSelected={selectedMineSite._id === site._id}
+                    />
+                  )}
+                </div>
+              ))}
         </div>
       </div>
       <div className=" bg-white p-[20px] rounded-md shadow-sm shadow-neutal-300 mt-4">
@@ -71,8 +86,9 @@ export default function Logs() {
           <SectionHead
             title="Logs"
             desc={`What's happening at ${
-              mineSites.find((minesite: any) => minesite.id == selectedSite)
-                ?.minesiteName as string
+              selectedMineSite == null
+                ? "All minesites "
+                : selectedMineSite.minesiteName + " Minesite"
             }`}
           />
           <button
@@ -83,7 +99,7 @@ export default function Logs() {
             <span>Full screen</span>
           </button>
         </div>
-        <LogsPanel siteId={selectedSite} />
+        <LogsPanel siteId={selectedMineSite._id} />
       </div>
     </div>
   );

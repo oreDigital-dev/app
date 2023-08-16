@@ -8,28 +8,24 @@ import SiteStatus from "@/components/units/siteStatus";
 import { PlusIcon } from "@/components/icons";
 import { ArrowIcon, ExpandIcon } from "@/components/icons";
 import CreateMinesite from "@/components/ui/createMinesite";
-import { useAppDispatch } from "@/stores/store";
-import { setCreateMineSiteVisibility } from "@/features/appPages";
+import { RootState, useAppDispatch } from "@/stores/store";
+import {
+  setCreateMineSiteVisibility,
+  setUpdateMineSiteVisibility,
+} from "@/features/appPages";
 import { ToastContainer } from "react-toastify";
 import MapSite from "./mapSite";
 import axios from "axios";
 import { baseUrli } from "@/utils/dataAssets";
+import { initializeMinesites } from "@/features/minesitesSlice";
+import { useSelector } from "react-redux";
 export default function Sites() {
   const dispatch = useAppDispatch();
-  const [mineSites, setMineSites]: any = useState([]);
-
-  const showPanelInFullScreen = () => {
-    const panel_div = document.getElementById("statuses");
-    if (panel_div) {
-      panel_div.requestFullscreen();
-    }
-  };
-
+  const mineSites = useSelector(
+    (store: RootState) => store.mineSites.minesites
+  );
+  const mineSitess = useSelector((store: RootState) => store);
   useEffect(() => {
-    if (typeof window != "undefined") {
-      let sites = JSON.parse(localStorage.getItem("loggedInUser")!).minesites;
-      setMineSites(sites);
-    }
     const getMineSites = async () => {
       await axios
         .get(`${baseUrli}/minesites/forlogged-in-company`, {
@@ -38,8 +34,7 @@ export default function Sites() {
           },
         })
         .then((response) => {
-          console.log(response.data.mineSites);
-          setMineSites(response.data.mineSites);
+          dispatch(initializeMinesites({ minesites: response.data.mineSites }));
         })
         .catch((error: any) => {
           console.log(error);
@@ -47,6 +42,17 @@ export default function Sites() {
     };
     getMineSites();
   }, []);
+  const showPanelInFullScreen = () => {
+    const panel_div = document.getElementById("statuses");
+    if (panel_div) {
+      panel_div.requestFullscreen();
+    }
+  };
+
+  const handleAddSite = () => {
+    dispatch(setUpdateMineSiteVisibility({ type: "close" }));
+    dispatch(setCreateMineSiteVisibility({ type: "open" }));
+  };
   return (
     <div className="m-[20px] rounded-md ">
       <div className=" bg-white p-[20px] rounded-md shadow-sm shadow-neutal-300">
@@ -58,13 +64,7 @@ export default function Sites() {
             desc="All mining sites registered in workspace"
           />
           <button className="py-3 w-[15%] flex items-center  gap-2 justify-center rounded-full bg-app/10  hover:bg-app/30  text-app fill-app">
-            <span
-              onClick={() =>
-                dispatch(setCreateMineSiteVisibility({ type: "open" }))
-              }
-            >
-              Add Site
-            </span>
+            <span onClick={() => handleAddSite()}>Add Site</span>
             <PlusIcon />
           </button>
         </div>
