@@ -69,7 +69,7 @@ export default function Dashboard() {
         </div>
         <div className="flex gap-4 my-[20px] overflow-x-scroll scrollable">
           {companyHolds.map((item, index) => (
-            <CompanyRecordDetails {...item} minesites={0} key={index} />
+            <CompanyRecordDetails {...item} key={index} />
           ))}
         </div>
         <ToastContainer />
