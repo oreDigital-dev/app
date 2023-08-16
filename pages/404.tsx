@@ -8,7 +8,7 @@ export default function NotFoundPage() {
       router.push("/d/dashboard");
     }, 2000);
   }, []);
-
+  
   return (
     <div className="items-center h-[100vh]  justify-center flex">
       <h1 className="text-xl  text-center">

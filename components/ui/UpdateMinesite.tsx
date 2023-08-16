@@ -39,6 +39,7 @@ function UpdateMineSite() {
 
   const handleHideForm = () => {
     dispatch(setUpdateMineSiteVisibility({ type: "close" }));
+    
   };
 
   const registerMineSite = async () => {
