@@ -4,6 +4,8 @@ import { setProfilePanelVisibility } from "@/features/appPages";
 
 export default function CurrentUser({ email }: { email: any }) {
   const dispatch = useAppDispatch();
+  const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser") || "{}");
+  
   return (
     <div
       id="profile"
@@ -12,11 +14,9 @@ export default function CurrentUser({ email }: { email: any }) {
     >
       <CurrentUserIcon />
       <div className="text-sm">
-        <p className=" text-black-300">Logged in as</p>
+        <p className="text-black-300">Logged in as</p>
         <p className="font-bold text-black-500 ">
-          {JSON.parse(
-            localStorage.getItem("loggedInUser")!
-          ).companyEmail.toString()}
+          {loggedInUser.companyEmail ? loggedInUser.companyEmail.toString() : ""}
         </p>
       </div>
     </div>

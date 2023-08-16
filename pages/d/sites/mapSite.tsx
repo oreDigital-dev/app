@@ -1,5 +1,4 @@
 import React from "react";
-import { useJsApiLoader, GoogleMap } from "@react-google-maps/api";
 import SectionHead from "@/components/ui/sectionHead";
 import Link from "next/link";
 function MapSite() {
