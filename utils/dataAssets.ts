@@ -180,6 +180,11 @@ export interface DashBoardSection {
       icon: SitesIcon,
     },
     {
+      title: "Settings",
+      url: "settings",
+      icon: SettingsIcon,
+    },
+    {
       title: "Reports",
       url: "reports",
       icon: ReportsIcon,

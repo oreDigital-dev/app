@@ -6,6 +6,7 @@ import MiningSite from "@/components/units/miningSite";
 import RegisteredSite from "@/components/units/registeredSite";
 import SiteStatus from "@/components/units/siteStatus";
 import { PlusIcon } from "@/components/icons";
+import { ViewIcon } from "@/components/icons";
 import { ArrowIcon, ExpandIcon } from "@/components/icons";
 import CreateMinesite from "@/components/ui/createMinesite";
 import { useAppDispatch } from "@/stores/store";
@@ -60,7 +61,18 @@ export default function Sites() {
             title="Registered sites"
             desc="All mining sites registered in workspace"
           />
-          <button className="py-3 w-[15%] flex items-center  gap-2 justify-center rounded-full bg-app/10  hover:bg-app/30  text-app fill-app">
+         
+          <div className="w-[80%] flex">
+          <button className="py-3 w-[40%] flex items-center  gap-2 justify-center rounded-full bg-app/10  hover:bg-app/30  text-app fill-app">
+          <ViewIcon />
+            <span
+           
+            >
+              View plots on map
+            </span>
+            
+          </button>
+          <button className="py-3 w-[25%] flex items-center  gap-2 justify-center rounded-full bg-app/10  hover:bg-app/30 ml-4 text-app fill-app">
             <span
               onClick={() =>
                 dispatch(setCreateMineSiteVisibility({ type: "open" }))
@@ -70,6 +82,7 @@ export default function Sites() {
             </span>
             <PlusIcon />
           </button>
+          </div>
         </div>
         <div className="flex gap-4 my-[20px] overflow-x-scroll scrollable">
           {mineSites == null ? (
