@@ -6,10 +6,13 @@ import { Payload } from "recharts/types/component/DefaultLegendContent";
 const initialState : any = {
    loggedInSuccessfully:false,
    isCreateMineSiteVisible:false,
+   isCompanyDetailsVisible:true,
    isNotificationPanelVisible:false,
    isProfilePanelVisibile:false,
    welcomeMessage:"",
-   isUpdateMineSiteVisible:false
+   isUpdateMineSiteVisible:false,
+   currentCardTitle:"",
+   currentIndex:2
 }
 
 const appPagesSlice = createSlice({
@@ -50,8 +53,18 @@ const appPagesSlice = createSlice({
                 throw new Error("Please provide the valid action type")
             }
         },
+        setCompanyDetailsVisibility:(state:RootState) =>{
+      state.isCompanyDetailsVisible = !state.isCompanyDetailsVisible
+        },
         setWelcomeMessage : (state:RootState, action:PayloadAction<{message:String}>) => {
            state.welcomeMessage = action.payload.message
+        },
+        setCurrentCardTitle:(state:RootState,action:PayloadAction<string>)=>{
+            state.currentCardTitle = action.payload;
+
+        },
+        setCurrentIndex:(state:RootState,action:PayloadAction<number>)=>{
+            state.currentIndex = action.payload;
         },
         setUpdateMineSiteVisibility: (state:RootState, action:PayloadAction<{type:String}>) => {
             if(action.payload.type.toString() == "close"){
@@ -67,5 +80,5 @@ const appPagesSlice = createSlice({
     }
 })
 
-export const {setLoggedInSuccessfully, setUpdateMineSiteVisibility, setCreateMineSiteVisibility, setWelcomeMessage, setNotificationPanelVisibility, setProfilePanelVisibility} = appPagesSlice.actions;
+export const {setLoggedInSuccessfully, setUpdateMineSiteVisibility, setCreateMineSiteVisibility, setWelcomeMessage, setNotificationPanelVisibility, setProfilePanelVisibility,setCompanyDetailsVisibility,setCurrentCardTitle,setCurrentIndex} = appPagesSlice.actions;
 export const appPagesReducer = appPagesSlice.reducer

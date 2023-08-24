@@ -6,16 +6,38 @@ export interface MiningSite {
     headQuartersLocation: string;
     img: string;
     status: Status;
-    address:{
-        sector:String,
-        district:String
+    address: {
+        sector: String,
+        district: String
     }
-  
+
 }
 export interface CompanyRecords {
     id: string;
     title: string;
     sites: Number;
     reports: Number;
-    
+
+}
+export interface RmbDetails {
+    id: string;
+    title: string;
+    viewName: string;
+    zones?: Number;
+    reports?: Number;
+    companies?: Number;
+}
+export interface CompanyDetails {
+    companyName: string;
+    hqName: string;
+    licenseType: string;
+    id:number;
+}
+export interface ExpandedCompanyDetails {
+    companyName:string;
+    districtLocation:string;
+    activeSites:number;
+    description:string
+    id?:number;
+
 }
