@@ -15,7 +15,7 @@ import { useEffect, useState } from "react";
 import NotificationLayout from "./notificationLayout";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 import ProfileLayout from "./profileLayout";
-import { DashBoardSection, links } from "@/utils/dataAssets";
+import { DashBoardSection, links, rmbLinks } from "@/utils/dataAssets";
 import { useAppDispatch } from "@/stores/store";
 import {
   setNotificationPanelVisibility,
@@ -58,7 +58,7 @@ export default function DashBoardLayout({
   const [hiddeNotifications, setHideNotifications] = useState(false);
 
   useEffect(() => {
-    if (router.pathname.includes("/d")) {
+    if (router.pathname.includes("/d") || (router.pathname.includes("/rmb"))) {
       setVisibility(true);
     }
   }, [router.pathname]);
@@ -82,7 +82,15 @@ export default function DashBoardLayout({
               <Logo withText />
             </div>
             <div className="mt-10 px-[20px]">
-              {links.map((link, index) => (
+              
+              {router.pathname.includes("/d")? links.map((link, index) => (
+                <NavLink
+                  isActive={activeLink === link.title}
+                  props={link}
+                  key={index}
+                  setActiveSection={setActiveLinkHandler}
+                />
+              )):rmbLinks.map((link, index) => (
                 <NavLink
                   isActive={activeLink === link.title}
                   props={link}
