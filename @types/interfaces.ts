@@ -38,7 +38,7 @@ export interface ExpandedCompanyDetails {
     districtLocation:string;
     activeSites:number;
     description:string
-    id?:number;
+    id:number;
 
 }
 export interface SiteDetails {

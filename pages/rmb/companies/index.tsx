@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import { PlusIcon } from "@/components/icons";
 import CompanyDetails2 from "@/components/ui/CompanyDetails";
 import RegisteredCompanies from "@/components/units/registeredCompanies";
@@ -12,7 +12,7 @@ const CompaniesView = () => {
   const currentIndex = useSelector(
     (store: RootState) => store.appPages.currentIndex
   );
-  const [indexNum, setIndexNum] = useState(2);
+  const [indexNum, setIndexNum] = useState(0);
   useEffect(() => {
     console.log(currentIndex);
     setIndexNum(currentIndex);
@@ -47,10 +47,11 @@ const CompaniesView = () => {
           </div>
           <div className="absolute z-20 bg-green-200">
             <CompanyDetails2
-              companyName={cardDetailsData[indexNum].companyName}
-              activeSites={cardDetailsData[indexNum].activeSites}
-              description={cardDetailsData[indexNum].description}
-              districtLocation={cardDetailsData[indexNum].districtLocation}
+              id={cardDetailsData[currentIndex].id}
+              companyName={cardDetailsData[currentIndex].companyName}
+              activeSites={cardDetailsData[currentIndex].activeSites}
+              description={cardDetailsData[currentIndex].description}
+              districtLocation={cardDetailsData[currentIndex].districtLocation}
             />
           </div>
         </div>

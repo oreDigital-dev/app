@@ -122,7 +122,6 @@ const CompanyDetailsPage = ({data }:any) => {
 export default CompanyDetailsPage;
 export function getStaticProps  ({params}:any) {
   const id = params.id;
-  console.log(id)
   const data = moreCompanyDetailsData[id-1];
   return {
     props: {

@@ -2,12 +2,18 @@ import { ExpandedCompanyDetails } from "@/@types/interfaces";
 import { SitesIcon } from "../icons";
 import { useSelector } from "react-redux";
 import { RootState } from "@/stores/store";
+import { useRouter } from "next/router";
 
 interface CompanyDetailsProps extends ExpandedCompanyDetails {}
 const CompanyDetails2 = (props: CompanyDetailsProps) => {
+  const router = useRouter();
+
   const isCompanyDetailsVisible = useSelector(
     (store: RootState) => store.appPages.isCompanyDetailsVisible
   );
+  const setNavigationToPage:any = async(compNo:number) => {
+  await router.push(`/rmb/companies/${compNo}`)
+  };
 
   return (
     <div>
@@ -36,7 +42,10 @@ const CompanyDetails2 = (props: CompanyDetailsProps) => {
             <p className="text-gray-500 font-medium">{props.description}</p>
           </div>
           <div className="flex gap-4 justify-center">
-            <button className="py-3 mt-3 flex items-center  gap-2 px-4 rounded-full bg-app/10  hover:bg-app/30  text-app fill-app">
+            <button
+              className="py-3 mt-3 flex items-center  gap-2 px-4 rounded-full bg-app/10  hover:bg-app/30  text-app fill-app"
+              onClick={setNavigationToPage(props.id)}
+            >
               <span>more details</span>
             </button>
             <button className="py-3 mt-3 flex items-center  gap-2 px-4 rounded-full bg-app/10  hover:bg-app/30  text-app fill-app">

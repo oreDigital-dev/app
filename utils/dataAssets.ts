@@ -244,29 +244,22 @@ export const links: DashBoardSection[] = [
 ];
 export const cardDetailsData: ExpandedCompanyDetails[] = [
   {
-    id: 0,
-    companyName: "Rwanda Mining Company (RMC)",
-    activeSites: 12,
-    description: "is a subsidiary of Tri Metals Mining and is involved in mineral exploration and mining activities in Rwanda.",
-    districtLocation: "Kicukiro"
-  },
-  {
     id: 1,
-    companyName: " LUNA SMELTER",
+    companyName: "Rwanda Mining Company (RMC)",
     activeSites: 12,
     description: "is a subsidiary of Tri Metals Mining and is involved in mineral exploration and mining activities in Rwanda.",
     districtLocation: "Kicukiro"
   },
   {
     id: 2,
-    companyName: "AL-KAREEM Ltd",
+    companyName: " LUNA SMELTER",
     activeSites: 12,
     description: "is a subsidiary of Tri Metals Mining and is involved in mineral exploration and mining activities in Rwanda.",
     districtLocation: "Kicukiro"
   },
   {
     id: 3,
-    companyName: "Rwanda Mining Company (RMC)",
+    companyName: "AL-KAREEM Ltd",
     activeSites: 12,
     description: "is a subsidiary of Tri Metals Mining and is involved in mineral exploration and mining activities in Rwanda.",
     districtLocation: "Kicukiro"
@@ -294,6 +287,13 @@ export const cardDetailsData: ExpandedCompanyDetails[] = [
   },
   {
     id: 7,
+    companyName: "Rwanda Mining Company (RMC)",
+    activeSites: 12,
+    description: "is a subsidiary of Tri Metals Mining and is involved in mineral exploration and mining activities in Rwanda.",
+    districtLocation: "Kicukiro"
+  },
+  {
+    id: 8,
     companyName: "Rwanda Mining Company (RMC)",
     activeSites: 12,
     description: "is a subsidiary of Tri Metals Mining and is involved in mineral exploration and mining activities in Rwanda.",
@@ -386,22 +386,16 @@ export const companyDetails: CompanyDetails[] = [
     companyName: "RMC",
     hqName: "Muhabura,Gihanga",
     licenseType: "Mineral processing",
-    id: 0,
+    id: 1,
   },
   {
     companyName: "LUNA SMELTER",
     hqName: "Muhabura,Gihanga",
     licenseType: "Mineral processing",
-    id: 1,
-  },
-  {
-    companyName: "AL-KAREEM Ltd",
-    hqName: "Muhabura,Gihanga",
-    licenseType: "Mineral processing",
     id: 2,
   },
   {
-    companyName: "RMC",
+    companyName: "AL-KAREEM Ltd",
     hqName: "Muhabura,Gihanga",
     licenseType: "Mineral processing",
     id: 3,
@@ -428,7 +422,13 @@ export const companyDetails: CompanyDetails[] = [
     companyName: "RMC",
     hqName: "Muhabura,Gihanga",
     licenseType: "Mineral processing",
-    id: 7
+    id: 7,
+  },
+  {
+    companyName: "RMC",
+    hqName: "Muhabura,Gihanga",
+    licenseType: "Mineral processing",
+    id: 8
   },
 ]
 
