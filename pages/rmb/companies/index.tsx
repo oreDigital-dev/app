@@ -19,9 +19,9 @@ const CompaniesView = () => {
   }, [currentIndex]);
 
   return (
-    <div className="mx-[20px] mt-[20px] rounded-md h-[90vh]">
-      <div className="bg-white  relative p-[20px] rounded-md shadow-sm shadow-neutal-300">
-        <div className="flex z-100 items-start justify-between">
+    <div className="mx-[20px] mt-[20px] rounded-md h-[88vh]">
+      <div className="bg-white  relative p-[20px] rounded-md shadow-sm shadow-neutal-300 h-full">
+        <div className="md:flex space-y-4 md:space-y-0 z-100 items-start justify-between">
           <div>
             <h6 className="text-black-500 font-bold">Registered companies</h6>
             <p className="text-black-300 font-light text-sm">
@@ -40,7 +40,7 @@ const CompaniesView = () => {
           </div>
         </div>
         <div className="relative">
-          <div className="grid grid-cols-4 gap-4 mt-12 px-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-12 px-4">
             {companyDetails.map((company, index) => {
               return <RegisteredCompanies {...company} key={index} />;
             })}

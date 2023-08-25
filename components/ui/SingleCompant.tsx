@@ -16,19 +16,19 @@ const SingleCompany = (props: SingleCompanyProps) => {
           <button>To be done 😂 </button>
         </div>
       </div>
-      <div className="w-full flex justify-between ">
-        <div className="h-40 w-36 rounded-md bg-gray-200" />
-        <div className="px-12 space-y-4">
+      <div className="w-full md:flex justify-between ">
+        <div className="h-40 w-36 md:mx-0 mx-auto space-y-4 md:space-y-0 rounded-md bg-gray-200" />
+        <div className="md:px-12 space-y-4">
           <p className="text-gray-400 text-sm">{props.companyOverview}</p>
           <p className="text-gray-400 text-sm">{props.companyOverview}</p>
-          <div className="flex gap-4">
-            <button className="py-2 mt-3 flex items-center  gap-2 px-4 rounded-full bg-app/10  hover:bg-app/30  text-app fill-app">
+          <div className="md:flex gap-4 ">
+            <button className="w-3/4 md:w-fit py-2 mt-3 flex items-center  gap-2 px-4 rounded-full bg-app/10  hover:bg-app/30  text-app fill-app">
               <span>Visit</span>
             </button>
-            <button className="py-2 mt-3 flex items-center  gap-2 px-4 rounded-full bg-app/10  hover:bg-app/30  text-app fill-app">
+            <button className="w-3/4 md:w-fit py-2 mt-3 flex items-center  gap-2 px-4 rounded-full bg-app/10  hover:bg-app/30  text-app fill-app">
               <span>View sites</span>
             </button>
-            <button className="py-2 mt-3 flex items-center  gap-2 px-4 rounded-full bg-app/10  hover:bg-app/30  text-app fill-app">
+            <button className="w-3/4 md:w-fit py-2 mt-3 flex items-center  gap-2 px-4 rounded-full bg-app/10  hover:bg-app/30  text-app fill-app">
               <span>Contact</span>
             </button>
           </div>
@@ -39,7 +39,7 @@ const SingleCompany = (props: SingleCompanyProps) => {
                 {props.companyType}
               </span>
             </div>
-            <div className="flex justify-between w-5/12 ">
+            <div className="flex justify-between w-full md:w-5/12 ">
               <span className="basis-2/4 text-sm text-gray-400">License:</span>
               <span className="basis-1/2 flex justify-start text-sm text-gray-400">
                 {props.companyLicense}
@@ -53,7 +53,7 @@ const SingleCompany = (props: SingleCompanyProps) => {
             </div>
             <div className="flex justify-between w-5/12 ">
               <span className="basis-2/4 text-sm text-gray-400">
-                Company CEO:{" "}
+                Company CEO:
               </span>
               <span className="basis-1/2 flex justify-start text-sm text-gray-400">
                 {props.companyCEO}

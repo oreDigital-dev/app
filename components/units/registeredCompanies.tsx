@@ -16,7 +16,7 @@ const handleShowCard = () => {
       onClick={handleShowCard}
     >
       <div className="w-[60px] h-[57px] bg-[#DBDAE0] rounded-sm" />
-      <p className="font-semibold text-md">{props.companyName}</p>
+      <p className="font-semibold text-sm text-black-500">{props.companyName}</p>
       <p className="text-gray-300 text-sm">
         HQ:<span>{props.hqName}</span>
       </p>

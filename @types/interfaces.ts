@@ -62,3 +62,13 @@ export interface MoreCompanyDetails {
     sites:SiteDetails[]
 
 }
+export interface ReportDetails {
+    id:number;
+    reportName:string;
+    issuedDate:string;
+}
+export interface CompanyReports {
+    companyName:string;
+    id:number;
+    companyReports:ReportDetails[]
+}
