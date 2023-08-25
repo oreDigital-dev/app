@@ -12,7 +12,7 @@ const handleShowCard = () => {
 }
   return (
     <div
-      className="bg-white  rounded-lg hover:border-[#FF0000]/20 border-gray-200 border-[1px] hover:cursor-pointer p-4 space-y-2 shadow-sm shadow-gray-200"
+      className="bg-white  rounded-lg hover:border-[#FF0000]/20 border-gray-200 border-[0.1px] hover:cursor-pointer p-4 space-y-2 shadow-xs shadow-gray-200"
       onClick={handleShowCard}
     >
       <div className="w-[60px] h-[57px] bg-[#DBDAE0] rounded-sm" />
