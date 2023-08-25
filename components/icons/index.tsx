@@ -373,3 +373,22 @@ export const PersonIcon = () => {
 
   )
 }
+export const ToggleOnIcon = () => {
+  return (
+
+    <svg width="36" height="15" viewBox="0 0 36 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="35.3226" height="15" rx="7.5" fill="#5160B3"/>
+<rect x="22.4551" y="1.93542" width="11.129" height="11.129" rx="5.56452" fill="white"/>
+</svg>
+
+  )
+}
+export const ToggleOffIcon = () => {
+  return (
+    <svg width="35" height="15" viewBox="0 0 35 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="35" height="15" rx="7.5" fill="#8F9199"/>
+<rect x="2" y="2" width="11" height="11" rx="5.5" fill="white"/>
+</svg>
+
+  )
+}
