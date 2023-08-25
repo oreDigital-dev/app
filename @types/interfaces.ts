@@ -51,6 +51,7 @@ longitude:string
 dateOfCreation:string ;
 }
 export interface MoreCompanyDetails {
+    id:number,
     companyName:string;
     companyOverview:string;
     companyType:string;
