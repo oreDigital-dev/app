@@ -301,7 +301,7 @@ export const cardDetailsData: ExpandedCompanyDetails[] = [
   },
 ]
 export const moreCompanyDetailsData: MoreCompanyDetails[] = [
-  {
+  {id:1,
     companyCEO: "Unknown",
     companyName: "Rwanda Mining Company",
     companyOverview: "is a subsidiary of Tri Metals Mining and is involved in mineral exploration and mining activities in Rwanda.",
@@ -312,7 +312,7 @@ export const moreCompanyDetailsData: MoreCompanyDetails[] = [
     sites: [
       {
         siteName: "Gihanga Site",
-        siteLocation: "Muhabura,Gihanga",
+        siteLocation: "Muhabura, Gihanga",
         siteGeolocation: {
           latitude: "33.99E",
           longitude: "44.56"
@@ -320,7 +320,7 @@ export const moreCompanyDetailsData: MoreCompanyDetails[] = [
         dateOfCreation: "12 May 2026"
       }, {
         siteName: "Kabuye Site",
-        siteLocation: "Muhabura,Gasabo",
+        siteLocation: "Muhabura, Gasabo",
         siteGeolocation: {
           latitude: "30.99E",
           longitude: "44.56"
@@ -329,7 +329,7 @@ export const moreCompanyDetailsData: MoreCompanyDetails[] = [
       }
     ]
   },
-  {
+  {id:2,
     companyCEO: "Unknown2",
     companyName: "Rwanda Mining Company2",
     companyOverview: "is a subsidiary of Tri Metals Mining and is involved in mineral exploration and mining activities in Rwanda.",
