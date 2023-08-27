@@ -26,6 +26,7 @@ export interface RmbDetails {
     zones?: Number;
     reports?: Number;
     companies?: Number;
+    url:string;
 }
 export interface CompanyDetails {
     companyName: string;
@@ -67,7 +68,7 @@ export interface ReportDetails {
     reportName:string;
     issuedDate:string;
 }
-export interface CompanyReports {
+export interface CpyReports {
     companyName:string;
     id:number;
     companyReports:ReportDetails[]

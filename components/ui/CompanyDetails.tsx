@@ -11,6 +11,7 @@ const CompanyDetails2 = (props: CompanyDetailsProps) => {
   const isCompanyDetailsVisible = useSelector(
     (store: RootState) => store.appPages.isCompanyDetailsVisible
   );
+
   const setNavigationToPage:any = async(compNo:number) => {
   await router.push(`/rmb/companies/${compNo}`)
   };
@@ -44,7 +45,7 @@ const CompanyDetails2 = (props: CompanyDetailsProps) => {
           <div className="flex gap-4 justify-center">
             <button
               className="py-3 mt-3 flex items-center  gap-2 px-4 rounded-full bg-app/10  hover:bg-app/30  text-app fill-app"
-              onClick={setNavigationToPage(props.id)}
+              onClick={()=>setNavigationToPage(props.id)}
             >
               <span>more details</span>
             </button>

@@ -34,7 +34,7 @@ const Dashboard = () => {
     }
   };
   return (
-    <div className="m-[20px] rounded-md">
+    <div className="m-[20px] rounded-md"> 
       <div className=" bg-white  relative p-[20px] rounded-md shadow-sm shadow-neutal-300">
         <div className="flex  z-100  items-start justify-between">
           <SectionHead title="Summary" desc="Your records so far" />

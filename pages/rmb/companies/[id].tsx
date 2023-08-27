@@ -4,7 +4,6 @@ import SingleCompany from "@/components/ui/SingleCompant";
 import Site from "@/components/ui/Site";
 import SectionHead from "@/components/ui/sectionHead";
 import { COLORS, moreCompanyDetailsData, piData,data as dataPie } from "@/utils/dataAssets";
-import { useRouter } from "next/router";
 import { Area, AreaChart, CartesianGrid, Cell, Pie, PieChart, Tooltip, XAxis, YAxis } from "recharts";
 export interface CompanyDetailsPageProps extends MoreCompanyDetails {}
 
