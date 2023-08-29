@@ -1,4 +1,4 @@
-import { CompanyRecords } from "@/@types/interfaces";
+import { CompanyRecords, ExpandedCompanyDetails, MoreCompanyDetails } from "@/@types/interfaces";
 
 import { AccountsIcon, DashBoardIcon, EmployeesIcon, LogsIcon, ReportsIcon, SettingsIcon, SitesIcon, SupportIcon, feedBackIcon, helpIcon, logoutIcon } from "@/components/icons";
 export let countryList: String[] = ["Afghanistan", "Albania", "Algeria", "Andorra", "Angola", "Anguilla", "Antigua &amp; Barbuda", "Argentina", "Armenia", "Aruba", "Australia", "Austria", "Azerbaijan", "Bahamas", "Bahrain", "Bangladesh", "Barbados", "Belarus", "Belgium", "Belize", "Benin", "Bermuda", "Bhutan", "Bolivia", "Bosnia &amp; Herzegovina", "Botswana", "Brazil", "British Virgin Islands", "Brunei", "Bulgaria", "Burkina Faso", "Burundi", "Cambodia", "Cameroon", "Cape Verde", "Cayman Islands", "Chad", "Chile", "China", "Colombia", "Congo", "Cook Islands", "Costa Rica", "Cote D Ivoire", "Croatia", "Cruise Ship", "Cuba", "Cyprus", "Czech Republic", "Denmark", "Djibouti", "Dominica", "Dominican Republic", "Ecuador", "Egypt", "El Salvador", "Equatorial Guinea", "Estonia", "Ethiopia", "Falkland Islands", "Faroe Islands", "Fiji", "Finland", "France", "French Polynesia", "French West Indies", "Gabon", "Gambia", "Georgia", "Germany", "Ghana", "Gibraltar", "Greece", "Greenland", "Grenada", "Guam", "Guatemala", "Guernsey", "Guinea", "Guinea Bissau", "Guyana", "Haiti", "Honduras", "Hong Kong", "Hungary", "Iceland", "India", "Indonesia", "Iran", "Iraq", "Ireland", "Isle of Man", "Israel", "Italy", "Jamaica", "Japan", "Jersey", "Jordan", "Kazakhstan", "Kenya", "Kuwait", "Kyrgyz Republic", "Laos", "Latvia", "Lebanon", "Lesotho", "Liberia", "Libya", "Liechtenstein", "Lithuania", "Luxembourg", "Macau", "Macedonia", "Madagascar", "Malawi", "Malaysia", "Maldives", "Mali", "Malta", "Mauritania", "Mauritius", "Mexico", "Moldova", "Monaco", "Mongolia", "Montenegro", "Montserrat", "Morocco", "Mozambique", "Namibia", "Nepal", "Netherlands", "Netherlands Antilles", "New Caledonia", "New Zealand", "Nicaragua", "Niger", "Nigeria", "Norway", "Oman", "Pakistan", "Palestine", "Panama", "Papua New Guinea", "Paraguay", "Peru", "Philippines", "Poland", "Portugal", "Puerto Rico", "Qatar", "Reunion", "Romania", "Russia", "Rwanda", "Saint Pierre &amp; Miquelon", "Samoa", "San Marino", "Satellite", "Saudi Arabia", "Senegal", "Serbia", "Seychelles", "Sierra Leone", "Singapore", "Slovakia", "Slovenia", "South Africa", "South Korea", "Spain", "Sri Lanka", "St Kitts &amp; Nevis", "St Lucia", "St Vincent", "St. Lucia", "Sudan", "Suriname", "Swaziland", "Sweden", "Switzerland", "Syria", "Taiwan", "Tajikistan", "Tanzania", "Thailand", "Timor L'Este", "Togo", "Tonga", "Trinidad &amp; Tobago", "Tunisia", "Turkey", "Turkmenistan", "Turks &amp; Caicos", "Uganda", "Ukraine", "United Arab Emirates", "United Kingdom", "Uruguay", "Uzbekistan", "Venezuela", "Vietnam", "Virgin Islands (US)", "Yemen", "Zambia", "Zimbabwe"];
@@ -168,48 +168,178 @@ export interface DashBoardSection {
   icon: () => JSX.Element;
 }
 
-  export const links: DashBoardSection[] = [
-    {
-      title: "Dashboard",
-      url: "dashboard",
-      icon: DashBoardIcon,
-    },
-    {
-      title: "Sites",
-      url: "sites",
-      icon: SitesIcon,
-    },
-    {
-      title: "Settings",
-      url: "settings",
-      icon: SettingsIcon,
-    },
-    {
-      title: "Reports",
-      url: "reports",
-      icon: ReportsIcon,
-    },
-    {
-      title: "Employees",
-      url: "employees",
-      icon: EmployeesIcon,
-    },
-    {
-      title: "Accounts",
-      url: "accounts",
-      icon: AccountsIcon,
-    },
-    {
-      title: "Logs",
-      url: "logs",
-      icon: LogsIcon,
-    },
-    {
-      title: "Support",
-      url: "support",
-      icon: SupportIcon,
-    },
-  ];
+export const links: DashBoardSection[] = [
+  {
+    title: "Dashboard",
+    url: "dashboard",
+    icon: DashBoardIcon,
+  },
+  {
+    title: "Sites",
+    url: "sites",
+    icon: SitesIcon,
+  },
+  {
+    title: "Reports",
+    url: "reports",
+    icon: ReportsIcon,
+  },
+  {
+    title: "Employees",
+    url: "employees",
+    icon: EmployeesIcon,
+  },
+  {
+    title: "Accounts",
+    url: "accounts",
+    icon: AccountsIcon,
+  },
+  {
+    title: "Logs",
+    url: "logs",
+    icon: LogsIcon,
+  },
+  {
+    title: "Support",
+    url: "support",
+    icon: SupportIcon,
+  },
+];
+export const cardDetailsData: ExpandedCompanyDetails[] = [
+  {
+    id: 0,
+    companyName: "Rwanda Mining Company (RMC)",
+    activeSites: 12,
+    description: "is a subsidiary of Tri Metals Mining and is involved in mineral exploration and mining activities in Rwanda.",
+    districtLocation: "Kicukiro"
+  },
+  {
+    id: 1,
+    companyName: " LUNA SMELTER",
+    activeSites: 12,
+    description: "is a subsidiary of Tri Metals Mining and is involved in mineral exploration and mining activities in Rwanda.",
+    districtLocation: "Kicukiro"
+  },
+  {
+    id: 2,
+    companyName: "AL-KAREEM Ltd",
+    activeSites: 12,
+    description: "is a subsidiary of Tri Metals Mining and is involved in mineral exploration and mining activities in Rwanda.",
+    districtLocation: "Kicukiro"
+  },
+  {
+    id: 3,
+    companyName: "Rwanda Mining Company (RMC)",
+    activeSites: 12,
+    description: "is a subsidiary of Tri Metals Mining and is involved in mineral exploration and mining activities in Rwanda.",
+    districtLocation: "Kicukiro"
+  },
+  {
+    id: 4,
+    companyName: "Rwanda Mining Company (RMC)",
+    activeSites: 12,
+    description: "is a subsidiary of Tri Metals Mining and is involved in mineral exploration and mining activities in Rwanda.",
+    districtLocation: "Kicukiro"
+  },
+  {
+    id: 5,
+    companyName: "Rwanda Mining Company (RMC)",
+    activeSites: 12,
+    description: "is a subsidiary of Tri Metals Mining and is involved in mineral exploration and mining activities in Rwanda.",
+    districtLocation: "Kicukiro"
+  },
+  {
+    id: 6,
+    companyName: "Rwanda Mining Company (RMC)",
+    activeSites: 12,
+    description: "is a subsidiary of Tri Metals Mining and is involved in mineral exploration and mining activities in Rwanda.",
+    districtLocation: "Kicukiro"
+  },
+  {
+    id: 7,
+    companyName: "Rwanda Mining Company (RMC)",
+    activeSites: 12,
+    description: "is a subsidiary of Tri Metals Mining and is involved in mineral exploration and mining activities in Rwanda.",
+    districtLocation: "Kicukiro"
+  },
+]
+export const moreCompanyDetailsData: MoreCompanyDetails[] = [
+  {
+    companyCEO: "Unknown",
+    companyName: "Rwanda Mining Company",
+    companyOverview: "is a subsidiary of Tri Metals Mining and is involved in mineral exploration and mining activities in Rwanda.",
+    companyLicense: "Mineral Processing",
+    companyType: "Production company",
+    headQuarters: "Kicukiro/Rwanda",
+    formed: 2019,
+    sites: [
+      {
+        siteName: "Gihanga Site",
+        siteLocation: "Muhabura,Gihanga",
+        siteGeolocation: {
+          latitude: "33.99E",
+          longitude: "44.56"
+        },
+        dateOfCreation: "12 May 2026"
+      }, {
+        siteName: "Kabuye Site",
+        siteLocation: "Muhabura,Gasabo",
+        siteGeolocation: {
+          latitude: "30.99E",
+          longitude: "44.56"
+        },
+        dateOfCreation: "12 May 2026"
+      }
+    ]
+  },
+  {
+    companyCEO: "Unknown2",
+    companyName: "Rwanda Mining Company2",
+    companyOverview: "is a subsidiary of Tri Metals Mining and is involved in mineral exploration and mining activities in Rwanda.",
+    companyLicense: "Mineral Processing2",
+    companyType: "Production company2",
+    headQuarters: "Kicukiro/Rwanda2",
+    formed: 2020,
+    sites: [
+      {
+        siteName: "Kabuye Site",
+        siteLocation: "Muhabura,Gasabo",
+        siteGeolocation: {
+          latitude: "30.99E",
+          longitude: "44.56"
+        },
+        dateOfCreation: "12 May 2026"
+      },
+      {
+        siteName: "Gihanga Site",
+        siteLocation: "Muhabura,Gihanga",
+        siteGeolocation: {
+          latitude: "33.99E",
+          longitude: "44.56"
+        },
+        dateOfCreation: "12 May 2026"
+      }
+    ]
+  },
+]
+export const rmbLinks: DashBoardSection[] = [
+  {
+    title: "Dashboard",
+    url: "dashboard",
+    icon: DashBoardIcon,
+  },
+  {
+    title: "Sites",
+    url: "sites",
+    icon: SitesIcon,
+  },
+  {
+    title: "Reports",
+    url: "reports",
+    icon: ReportsIcon,
+  }
+
+]
 
 
  export  const piData = [
