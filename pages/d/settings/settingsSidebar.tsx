@@ -18,11 +18,15 @@ function SettingsSidebar() {
               </div>
               <div className="flex gap-2 py-4 px-4">
                 {/* <AddIcon /> */}
-                <span>Notifications</span>
+                <Link href="/d/settings/security">
+                <span>Security</span>
+                </Link>
               </div>
               <div className="flex gap-2 py-4 px-4">
                 {/* <AddIcon /> */}
+                
                 <span>Notifications</span>
+                
               </div>
               <div className="flex gap-2 py-4 px-4">
                 {/* <AddIcon /> */}
