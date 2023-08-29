@@ -373,3 +373,36 @@ export const PersonIcon = () => {
 
   )
 }
+export const ToggleOnIcon = () => {
+  return (
+
+    <svg width="36" height="15" viewBox="0 0 36 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="35.3226" height="15" rx="7.5" fill="#5160B3"/>
+<rect x="22.4551" y="1.93542" width="11.129" height="11.129" rx="5.56452" fill="white"/>
+</svg>
+
+  )
+}
+export const ToggleOffIcon = () => {
+  return (
+    <svg width="35" height="15" viewBox="0 0 35 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="35" height="15" rx="7.5" fill="#8F9199"/>
+<rect x="2" y="2" width="11" height="11" rx="5.5" fill="white"/>
+</svg>
+
+  )
+}
+export const LogOutIcon = () => {
+  return (
+    <svg width="90" height="90" viewBox="0 0 90 90" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <rect width="90" height="90" fill="url(#pattern0)"/>
+    <defs>
+    <pattern id="pattern0" patternContentUnits="objectBoundingBox" width="1" height="1">
+    <use  href="#image0_970_2783" transform="scale(0.0111111)"/>
+    </pattern>
+    <image id="image0_970_2783" width="90" height="90" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFoAAABaCAYAAAA4qEECAAAACXBIWXMAAAsTAAALEwEAmpwYAAACjElEQVR4nO2dv24TQRDGJxT8kXgB4LlcW7I0n6Ujh+QGSncg0VBQpeIdKCKeIIEihJdAQqICgiKqRatcgShihG93vux+P2lKr3d/Hs2eb8dnMyGEEEIIIYRogXEc7wB4AuA9gAsA6YbERZ6zux8uFovbxsx6vX7k7p8IpKU94zyvxVgzuRHJKYe7f6TM7KlcpMbisbHh7h8IxKSZ49TYcPcfBGLSnJHXZGxES0GhMDaihUCi42VBGR0vEiodoAhjI1oIJDpeFpTR8SKh0gGKMDaihUCi42VBGR0vEiodoAhjI1oIJDpeFpTRbZSOzWZzz92PpgPer+7+Mh/tqXRgXtGT5L9fe1xEdscZfXDN6dL8snsuHQC+XzPGvLJ7Fu3ur3aMM5/snkWPV91Zx1Vk9yw6k5tt3P3tjvHeLZfLu7YPvYuuJjtaCAhEV5EdLQQkoovLjhYCItFFZUcLAZnoYrIrC/jl7k9Xq9XDfUQQrevfL/0qi35WWnDAul6wTSgBeFDccP11fWGbUKpRMgLW9ZltQqnR0vGcbUIpb4ZZtjbDhsI6v7xL7KL1hQXlResrOMpntG4qoXzp0G1SlK/RuvGP8puhjrJQ56oDwOsd4+hwFnuK3m63twD8rCJ5+lRTx6Ivq0juWXQGwJsqkqc361b0MAz3J9mXuT0sN9SoyRHzi/6DAytNzxldlWghkOh4WVBGx4uESgcowtiIFgKJjpcFZXS8SKh0gCKMjWghkOh4WVBGx4uESgcowtiIFoJeRDf6ENhvxsb0qPnWRJ8YGwDGBkUPxsbU23AeLQfzxRnlo+cz+Q8IGpF9VvNXBf/F1Bp1mOvbTdog/epQNc95oM1kIYQQQgghhLAgfgNLLfSpdFdNzwAAAABJRU5ErkJggg=="/>
+    </defs>
+    </svg>
+    
+  )
+}
