@@ -168,178 +168,48 @@ export interface DashBoardSection {
   icon: () => JSX.Element;
 }
 
-export const links: DashBoardSection[] = [
-  {
-    title: "Dashboard",
-    url: "dashboard",
-    icon: DashBoardIcon,
-  },
-  {
-    title: "Sites",
-    url: "sites",
-    icon: SitesIcon,
-  },
-  {
-    title: "Reports",
-    url: "reports",
-    icon: ReportsIcon,
-  },
-  {
-    title: "Employees",
-    url: "employees",
-    icon: EmployeesIcon,
-  },
-  {
-    title: "Accounts",
-    url: "accounts",
-    icon: AccountsIcon,
-  },
-  {
-    title: "Logs",
-    url: "logs",
-    icon: LogsIcon,
-  },
-  {
-    title: "Support",
-    url: "support",
-    icon: SupportIcon,
-  },
-];
-export const cardDetailsData: ExpandedCompanyDetails[] = [
-  {
-    id: 0,
-    companyName: "Rwanda Mining Company (RMC)",
-    activeSites: 12,
-    description: "is a subsidiary of Tri Metals Mining and is involved in mineral exploration and mining activities in Rwanda.",
-    districtLocation: "Kicukiro"
-  },
-  {
-    id: 1,
-    companyName: " LUNA SMELTER",
-    activeSites: 12,
-    description: "is a subsidiary of Tri Metals Mining and is involved in mineral exploration and mining activities in Rwanda.",
-    districtLocation: "Kicukiro"
-  },
-  {
-    id: 2,
-    companyName: "AL-KAREEM Ltd",
-    activeSites: 12,
-    description: "is a subsidiary of Tri Metals Mining and is involved in mineral exploration and mining activities in Rwanda.",
-    districtLocation: "Kicukiro"
-  },
-  {
-    id: 3,
-    companyName: "Rwanda Mining Company (RMC)",
-    activeSites: 12,
-    description: "is a subsidiary of Tri Metals Mining and is involved in mineral exploration and mining activities in Rwanda.",
-    districtLocation: "Kicukiro"
-  },
-  {
-    id: 4,
-    companyName: "Rwanda Mining Company (RMC)",
-    activeSites: 12,
-    description: "is a subsidiary of Tri Metals Mining and is involved in mineral exploration and mining activities in Rwanda.",
-    districtLocation: "Kicukiro"
-  },
-  {
-    id: 5,
-    companyName: "Rwanda Mining Company (RMC)",
-    activeSites: 12,
-    description: "is a subsidiary of Tri Metals Mining and is involved in mineral exploration and mining activities in Rwanda.",
-    districtLocation: "Kicukiro"
-  },
-  {
-    id: 6,
-    companyName: "Rwanda Mining Company (RMC)",
-    activeSites: 12,
-    description: "is a subsidiary of Tri Metals Mining and is involved in mineral exploration and mining activities in Rwanda.",
-    districtLocation: "Kicukiro"
-  },
-  {
-    id: 7,
-    companyName: "Rwanda Mining Company (RMC)",
-    activeSites: 12,
-    description: "is a subsidiary of Tri Metals Mining and is involved in mineral exploration and mining activities in Rwanda.",
-    districtLocation: "Kicukiro"
-  },
-]
-export const moreCompanyDetailsData: MoreCompanyDetails[] = [
-  {
-    companyCEO: "Unknown",
-    companyName: "Rwanda Mining Company",
-    companyOverview: "is a subsidiary of Tri Metals Mining and is involved in mineral exploration and mining activities in Rwanda.",
-    companyLicense: "Mineral Processing",
-    companyType: "Production company",
-    headQuarters: "Kicukiro/Rwanda",
-    formed: 2019,
-    sites: [
-      {
-        siteName: "Gihanga Site",
-        siteLocation: "Muhabura,Gihanga",
-        siteGeolocation: {
-          latitude: "33.99E",
-          longitude: "44.56"
-        },
-        dateOfCreation: "12 May 2026"
-      }, {
-        siteName: "Kabuye Site",
-        siteLocation: "Muhabura,Gasabo",
-        siteGeolocation: {
-          latitude: "30.99E",
-          longitude: "44.56"
-        },
-        dateOfCreation: "12 May 2026"
-      }
-    ]
-  },
-  {
-    companyCEO: "Unknown2",
-    companyName: "Rwanda Mining Company2",
-    companyOverview: "is a subsidiary of Tri Metals Mining and is involved in mineral exploration and mining activities in Rwanda.",
-    companyLicense: "Mineral Processing2",
-    companyType: "Production company2",
-    headQuarters: "Kicukiro/Rwanda2",
-    formed: 2020,
-    sites: [
-      {
-        siteName: "Kabuye Site",
-        siteLocation: "Muhabura,Gasabo",
-        siteGeolocation: {
-          latitude: "30.99E",
-          longitude: "44.56"
-        },
-        dateOfCreation: "12 May 2026"
-      },
-      {
-        siteName: "Gihanga Site",
-        siteLocation: "Muhabura,Gihanga",
-        siteGeolocation: {
-          latitude: "33.99E",
-          longitude: "44.56"
-        },
-        dateOfCreation: "12 May 2026"
-      }
-    ]
-  },
-]
-export const rmbLinks: DashBoardSection[] = [
-  {
-    title: "Dashboard",
-    url: "dashboard",
-    icon: DashBoardIcon,
-  },
-  {
-    title: "Sites",
-    url: "sites",
-    icon: SitesIcon,
-  },
-  {
-    title: "Reports",
-    url: "reports",
-    icon: ReportsIcon,
-  }
-
-]
+  export const links: DashBoardSection[] = [
+    {
+      title: "Dashboard",
+      url: "dashboard",
+      icon: DashBoardIcon,
+    },
+    {
+      title: "Sites",
+      url: "sites",
+      icon: SitesIcon,
+    },
+    {
+      title: "Settings",
+      url: "settings",
+      icon: SettingsIcon,
+    },
+    {
+      title: "Reports",
+      url: "reports",
+      icon: ReportsIcon,
+    },
+    {
+      title: "Employees",
+      url: "employees",
+      icon: EmployeesIcon,
+    },
+    {
+      title: "Accounts",
+      url: "accounts",
+      icon: AccountsIcon,
+    },
+    {
+      title: "Logs",
+      url: "logs",
+      icon: LogsIcon,
+    },
+    {
+      title: "Support",
+      url: "support",
+      icon: SupportIcon,
+    },
+  ];
 
 
  export  const piData = [
