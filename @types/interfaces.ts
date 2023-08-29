@@ -41,3 +41,23 @@ export interface ExpandedCompanyDetails {
     id?:number;
 
 }
+export interface SiteDetails {
+siteName:string;
+siteLocation:string;
+siteGeolocation:{
+latitude:string,
+longitude:string
+},
+dateOfCreation:string ;
+}
+export interface MoreCompanyDetails {
+    companyName:string;
+    companyOverview:string;
+    companyType:string;
+    companyLicense:string;
+    companyCEO:string;
+    formed:number;
+    headQuarters:string;
+    sites:SiteDetails[]
+
+}
