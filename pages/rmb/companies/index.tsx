@@ -20,7 +20,7 @@ const CompaniesView = () => {
 
   return (
     <div className="mx-[20px] mt-[20px] rounded-md h-[88vh]">
-      <div className="bg-white  relative p-[20px] rounded-md shadow-sm shadow-neutal-300 h-full">
+      <div className="bg-white  relative p-[20px] rounded-md shadow-sm shadow-neutal-300 h-full overflow-y-scroll">
         <div className="md:flex space-y-4 md:space-y-0 z-100 items-start justify-between">
           <div>
             <h6 className="text-black-500 font-bold">Registered companies</h6>
@@ -45,7 +45,7 @@ const CompaniesView = () => {
               return <RegisteredCompanies {...company} key={index} />;
             })}
           </div>
-          <div className="absolute z-20 bg-green-200">
+          <div className="absolute z-20">
             <CompanyDetails2
               id={cardDetailsData[currentIndex].id}
               companyName={cardDetailsData[currentIndex].companyName}
