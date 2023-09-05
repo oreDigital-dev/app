@@ -17,9 +17,9 @@ const CompanyDetails2 = (props: CompanyDetailsProps) => {
   };
 
   return (
-    <div>
+    <div className="relative">
       {isCompanyDetailsVisible && (
-        <div className="mx-auto shadow-lg bg-white rounded-md absolute w-[60vw] md:w-[50vw] lg:w-[30vw] bottom-[440px] md:bottom-[270px]  lg:bottom-12 left-1 md:left-20  lg:left-48 px-12 pb-12 pt-6 space-y-8">
+        <div className="mx-auto shadow-lg bg-white rounded-md absolute w-[60vw] md:w-[50vw] lg:w-[30vw] bottom-[1200px] md:bottom-[270px]  lg:bottom-12 left-1 md:left-20  lg:left-48 px-12 pb-12 pt-6 space-y-8">
           <h6 className="text-black-500 font-bold w-full text-center">
             {props.companyName}
           </h6>
