@@ -41,7 +41,7 @@ const NavLink = ({
       onClick={() => setActiveSection(props.title)}
     >
       <props.icon />
-      <span>{props.title}</span>
+      <span className="hidden lg:block">{props.title}</span>
     </div>
   );
 };

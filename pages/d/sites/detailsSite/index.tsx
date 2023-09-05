@@ -1,10 +1,11 @@
 import React from "react";
-import { PlusIcon } from "@/components/icons";
+import { AddIcon, CrossIcon, DeleteIcon, PlusIcon, RecycleIcon } from "@/components/icons";
 import SectionHead from "@/components/ui/sectionHead";
 import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/stores/store";
 import UpdateMineSite from "@/components/ui/UpdateMinesite";
+import { EditIcon } from "@/components/icons";
 import { ToastContainer } from "react-toastify";
 import { setUpdateMineSiteVisibility } from "@/features/appPages";
 function DetailsSite() {
@@ -35,6 +36,7 @@ function DetailsSite() {
             <UpdateMineSite />
           </div>
           <button className="py-3 flex items-center  gap-2 px-4 rounded-full bg-app/10  hover:bg-app/30  text-app fill-app">
+            <EditIcon />
             <span onClick={() => update()}>Edit data</span>
             {/* <PlusIcon /> */}
           </button>
@@ -62,11 +64,12 @@ function DetailsSite() {
               className="py-2 flex items-center gap-2 px-4 rounded-full bg-gray-200 ml-4"
             >
               <span>{mineral}</span>
+              <CrossIcon />          
             </button>
           ))}
           <button className="py-2 flex items-center gap-2 px-4 rounded-full bg-white border-2 border-gray-300 ml-4">
             <span>Add Mineral</span>
-            {/* <PlusIcon /> */}
+            <AddIcon />
           </button>
         </div>
         <div className="flex items-start justify-between mt-6 border-b-2 border-b-gray-200 pb-4">
@@ -94,6 +97,7 @@ function DetailsSite() {
             </div>
           </div>
           <button className="py-3 flex items-center  gap-2 px-4 rounded-full bg-[#FF494910]  hover:bg-[#FF494920]  text-[#FF4949] fill-app">
+            <DeleteIcon />
             <span>Delete data</span>
             {/* <PlusIcon /> */}
           </button>
@@ -109,6 +113,7 @@ function DetailsSite() {
             </div>
           </div>
           <button className="py-3 flex items-center  gap-2 px-4 rounded-full bg-[#00B86010]  hover:bg-[#00B86020]  text-[#00B860] fill-app">
+            <RecycleIcon />
             <span>Transfer ownership</span>
             {/* <PlusIcon /> */}
           </button>

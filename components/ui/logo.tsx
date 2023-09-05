@@ -16,7 +16,7 @@ export default function Logo({ withText }: { withText?: boolean }) {
         <circle cx="24" cy="24" r="3" stroke="#5160B3" strokeWidth="2" />
       </svg>
       {withText && (
-        <h1 className="text-xl w-fit font-bold text-app">OreDigital</h1>
+        <h1 className="text-xl w-fit font-bold text-app hidden lg:block">OreDigital</h1>
       )}
     </div>
   );

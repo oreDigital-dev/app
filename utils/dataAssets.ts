@@ -139,7 +139,7 @@ export const rmbHolds: RmbDetails[] = [
     title: "Companies",
     companies: 6,
     viewName: "companies",
-    url:"companies"
+    url: "companies"
 
   },
   {
@@ -147,15 +147,15 @@ export const rmbHolds: RmbDetails[] = [
     title: "Pending incidents",
     reports: 3,
     viewName: 'reports',
-    url:"reports"
-    
+    url: "reports"
+
   },
   {
     id: "550e8400-e29b-41d4-a716-446655440000",
     title: "Danger Zones",
     zones: 3,
     viewName: "zones",
-    url:""
+    url: ""
   },
 ]
 export const quickActions = [
@@ -202,6 +202,8 @@ export const rmbQuickActions = [
     bgColor: "#D2953910",
   },
 ]
+
+
 
 export interface DashBoardSection {
   title: string;
@@ -505,53 +507,58 @@ export const reports = [
     id: 1,
     issuedDate: "23 September 2022",
     reportName: "Temperature_rise_report-2023-08-10_Mashyuza-zinc-mine.pdf",
-  },  
+  },
   {
     id: 2,
     issuedDate: "23 September 2022",
     reportName: "Temperature_rise_report-2023-08-10_Mashyuza-zinc-mine.pdf",
-  },  
+  },
   {
     id: 3,
     issuedDate: "23 September 2022",
     reportName: "Temperature_rise_report-2023-08-10_Mashyuza-zinc-mine.pdf",
-  },  
+  },
   {
     id: 4,
     issuedDate: "23 September 2022",
     reportName: "Temperature_rise_report-2023-08-10_Mashyuza-zinc-mine.pdf",
-  },  
+  },
   {
     id: 5,
     issuedDate: "23 September 2022",
     reportName: "Temperature_rise_report-2023-08-10_Mashyuza-zinc-mine.pdf",
-  },  
+  },
   {
     id: 6,
     issuedDate: "23 September 2022",
     reportName: "Temperature_rise_report-2023-08-10_Mashyuza-zinc-mine.pdf",
-  },  
+  },
   {
     id: 7,
     issuedDate: "23 September 2022",
     reportName: "Temperature_rise_report-2023-08-10_Mashyuza-zinc-mine.pdf",
-  },  
+  },
   {
     id: 8,
     issuedDate: "23 September 2022",
     reportName: "Temperature_rise_report-2023-08-10_Mashyuza-zinc-mine.pdf",
-  },  
+  },
   {
     id: 9,
     issuedDate: "23 September 2022",
     reportName: "Temperature_rise_report-2023-08-10_Mashyuza-zinc-mine.pdf",
-  },  
+  },
   {
     id: 10,
     issuedDate: "23 September 2022",
     reportName: "Temperature_rise_report-2023-08-10_Mashyuza-zinc-mine.pdf",
-  },  
+  },
 ]
+
+export const notificationLength: String = "Hello your minesite has quired the highest temperature  highest temperature  highest temperature"
+
+
+
 export const piData = [
   { name: "Group A", value: 400 },
   { name: "Group B", value: 300 },
@@ -602,6 +609,5 @@ export const data = [
     amt: 2100,
   },
 ];
-export const notificationLength: String = "Hello your minesite has quired the highest temperature  highest temperature  highest temperature"
 // export const baseUrli = "http://localhost:5000/api/v1"
 export const baseUrli = "https://ore-d-iot.onrender.com/api/v1"

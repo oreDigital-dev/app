@@ -41,7 +41,7 @@ const CompaniesView = () => {
         </div>
         <div className="relative">
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-12 px-4">
-            {companyDetails.map((company, index) => {
+            {companyDetails.map((company:any, index:any) => {
               return <RegisteredCompanies {...company} key={index} />;
             })}
           </div>
