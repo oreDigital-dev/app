@@ -104,7 +104,7 @@ export default function Dashboard() {
       <div className=" bg-white p-[20px] rounded-md shadow-sm shadow-neutal-300 mt-2">
         <div className="items-start justify-between">
           <SectionHead title="Analytics" desc="Some stats for your company" />
-          <div className="flex mt-14 justify-between">
+          <div className="lg:flex md:block sm:block xs:block mt-14 justify-between">
             <div className="">
               <p>Monthly Incident reports</p>
               <AreaChart
@@ -113,7 +113,7 @@ export default function Dashboard() {
                 data={data}
                 margin={{
                   top: 20,
-                  right: 30,
+                  right: 50,
                   left: 0,
                   bottom: 0,
                 }}

@@ -55,21 +55,21 @@ const Login = () => {
   };
 
   return (
-    <div className=" h-screen w-screen flex flex-col md:flex-row items-center justify-center content-center  bg-bg">
-      <div className="space-y-10 m-auto">
-        <div className="flex items-center gap-4">
+    <div className="lg:flex md:flex sm:block justify-evenly items-center h-screen lg:w-full md:w-full bg-bg">
+      <div className="space-y-10 m-auto lg:w-1/3 md:w-1/2 sm:w-3/4 xs:w-3/4">
+        <div className="flex items-center gap-4 sm:pt-8">
           <Logo withText />
         </div>
         <ToastContainer />
-        <p className="text-5xl text-black-900 font-bold w-[50%] ">
+        <p className="text-5xl text-black-900 font-bold">
           Login to your account
         </p>
-        <p className=" w-[65%] text-black-300">
+        <p className="text-black-300 sm:pb-12">
           We aim at making your company develop by maximizing security for both
           employees and the products.
         </p>
       </div>
-      <div className="rounded-lg w-[30%] bg-white px-12 h-fit m-auto space-y-4 flex flex-col justify-center content-center  p-10">
+      <div className="rounded-lg lg:w-1/3 md:w-1/3 sm:w-3/4 xs:w-3/4 bg-white h-fit m-auto space-y-4 flex flex-col content-center p-10">
         <p className=" text-2xl font-semibold">Welcome Back!</p>
         <p className="text-black-300">
           Don't have a workspace?{" "}
