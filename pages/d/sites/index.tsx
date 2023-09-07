@@ -62,8 +62,8 @@ export default function Sites() {
             desc="All mining sites registered in workspace"
           />
          
-          <div className="w-[80%] flex">
-          <button className="py-3 w-[40%] flex items-center  gap-2 justify-center rounded-full bg-app/10  hover:bg-app/30  text-app fill-app">
+          <div className="w-[80%] lg:flex md:flex sm:block xs:block">
+          <button className="py-3 lg:w-[40%] md:w-[60%] pl-2 pr-2 flex items-center  gap-2 justify-center rounded-full bg-app/10  hover:bg-app/30  text-app fill-app">
           <ViewIcon />
             <span
            
@@ -72,7 +72,7 @@ export default function Sites() {
             </span>
             
           </button>
-          <button className="py-3 w-[25%] flex items-center  gap-2 justify-center rounded-full bg-app/10  hover:bg-app/30 ml-4 text-app fill-app">
+          <button className="py-3 lg:w-[25%] pl-2 pr-2 flex items-center  gap-2 justify-center rounded-full bg-app/10  hover:bg-app/30 ml-4 text-app fill-app">
             <span
               onClick={() =>
                 dispatch(setCreateMineSiteVisibility({ type: "open" }))

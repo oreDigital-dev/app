@@ -16,6 +16,7 @@ const CompanyDetails2 = (props: CompanyDetailsProps) => {
   await router.push(`/rmb/companies/${compNo}`)
   };
 
+
   return (
     <div className="relative">
       {isCompanyDetailsVisible && (
