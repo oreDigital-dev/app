@@ -6,13 +6,13 @@ import { Payload } from "recharts/types/component/DefaultLegendContent";
 const initialState : any = {
    loggedInSuccessfully:false,
    isCreateMineSiteVisible:false,
-   isCompanyDetailsVisible:true,
+   isCompanyDetailsVisible:false,
    isNotificationPanelVisible:false,
    isProfilePanelVisibile:false,
    welcomeMessage:"",
    isUpdateMineSiteVisible:false,
    currentCardTitle:"",
-   currentIndex:2
+   currentIndex:0
 }
 
 const appPagesSlice = createSlice({

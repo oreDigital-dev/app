@@ -41,7 +41,7 @@ const NavLink = ({
       onClick={() => setActiveSection(props.title)}
     >
       <props.icon />
-      <span>{props.title}</span>
+      <span className="hidden lg:block">{props.title}</span>
     </div>
   );
 };
@@ -64,9 +64,15 @@ export default function DashBoardLayout({
   }, [router.pathname]);
 
   const setActiveLinkHandler = async (href: string) => {
-    await router.push(
-      ("/d/" + links.find((link) => link.title === href)?.url) as string
-    );
+    if(router.pathname.includes("/d")){
+
+      await router.push(
+        ("/d/" + links.find((link) => link.title === href)?.url) as string
+      );
+    }
+    else {
+      await router.push(("/rmb/"+rmbLinks.find((link)=>link.title === href)?.url)  as string );
+     }
     setActiveLink(href);
   };
   const dispatchActions = () => {

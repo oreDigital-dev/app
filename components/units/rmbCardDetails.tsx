@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { RmbDetails } from "@/@types/interfaces";
 import { ThreeDotsIcon } from "../icons";
 import SectionHead from "../ui/sectionHead";
+import { useRouter } from "next/router";
 
 interface RmbDetailsProps extends RmbDetails {}
 
@@ -9,9 +10,13 @@ const COLORS = ["#5160B3", "#000000"];
 
 function RmbDetailsCard(props: RmbDetailsProps) {
   const [viewButton, setViewButton] = useState<Boolean>(false);
+  const router = useRouter();
   const handleShowViewButton = () => {
     setViewButton((prev) => !prev);
   };
+  const handleRedirection = async(href:string) => {
+await router.push(`/rmb/${href}`)
+  }
   return (
     <div className="flex items-center mb-4 p-3 min-w-[250px] gap-4 border cursor-pointer rounded-lg shadow-sm">
       <div className="w-full">
@@ -37,7 +42,7 @@ function RmbDetailsCard(props: RmbDetailsProps) {
           <ThreeDotsIcon />
         </button>
         {viewButton && (
-          <button className="translate-y-14 translate-x-52 z-40 border-2 shadow-sm px-4 py-3 bg-white rounded-tl-[16px] text-gray-400">
+          <button className="translate-y-14 translate-x-52 z-40 border-2 shadow-sm px-4 py-3 bg-white rounded-tl-[16px] text-gray-400" onClick={()=>handleRedirection(props.url)}>
             View {props.viewName}
           </button>
         )}

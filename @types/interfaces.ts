@@ -26,6 +26,7 @@ export interface RmbDetails {
     zones?: Number;
     reports?: Number;
     companies?: Number;
+    url:string;
 }
 export interface CompanyDetails {
     companyName: string;
@@ -38,7 +39,7 @@ export interface ExpandedCompanyDetails {
     districtLocation:string;
     activeSites:number;
     description:string
-    id?:number;
+    id:number;
 
 }
 export interface SiteDetails {
@@ -51,6 +52,7 @@ longitude:string
 dateOfCreation:string ;
 }
 export interface MoreCompanyDetails {
+    id:number,
     companyName:string;
     companyOverview:string;
     companyType:string;
@@ -60,4 +62,14 @@ export interface MoreCompanyDetails {
     headQuarters:string;
     sites:SiteDetails[]
 
+}
+export interface ReportDetails {
+    id:number;
+    reportName:string;
+    issuedDate:string;
+}
+export interface CpyReports {
+    companyName:string;
+    id:number;
+    companyReports:ReportDetails[]
 }
