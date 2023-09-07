@@ -58,21 +58,21 @@ export default function DashBoardLayout({
   const [hiddeNotifications, setHideNotifications] = useState(false);
 
   useEffect(() => {
-    if (router.pathname.includes("/d") || (router.pathname.includes("/rmb"))) {
+    if (router.pathname.includes("/d") || router.pathname.includes("/rmb")) {
       setVisibility(true);
     }
   }, [router.pathname]);
 
   const setActiveLinkHandler = async (href: string) => {
-    if(router.pathname.includes("/d")){
-
+    if (router.pathname.includes("/d")) {
       await router.push(
         ("/d/" + links.find((link) => link.title === href)?.url) as string
       );
+    } else {
+      await router.push(
+        ("/rmb/" + rmbLinks.find((link) => link.title === href)?.url) as string
+      );
     }
-    else {
-      await router.push(("/rmb/"+rmbLinks.find((link)=>link.title === href)?.url)  as string );
-     }
     setActiveLink(href);
   };
   const dispatchActions = () => {
@@ -82,31 +82,32 @@ export default function DashBoardLayout({
   return (
     <>
       {visibility == true ? (
-        <div className="flex gap-0  bg-bg max-w-screen-2xl mx-auto">
-          <div className="w-[20vw]  sticky top-0   bg-white h-screen ">
+        <div className="flex flex-col sm:flex gap-0 bg-bg max-w-screen-2xl mx-auto">
+          <div className="hidden sm:block w-[20vw]  sticky top-0   bg-white h-screen ">
             <div className="px-[40px] h-[60px] flex items-center border-b-2 border-bg">
               <Logo withText />
             </div>
-            <div className="mt-10 px-[20px]">
-              
-              {router.pathname.includes("/d")? links.map((link, index) => (
-                <NavLink
-                  isActive={activeLink === link.title}
-                  props={link}
-                  key={index}
-                  setActiveSection={setActiveLinkHandler}
-                />
-              )):rmbLinks.map((link, index) => (
-                <NavLink
-                  isActive={activeLink === link.title}
-                  props={link}
-                  key={index}
-                  setActiveSection={setActiveLinkHandler}
-                />
-              ))}
+            <div className="mt-10 px-[20px] ">
+              {router.pathname.includes("/d")
+                ? links.map((link, index) => (
+                    <NavLink
+                      isActive={activeLink === link.title}
+                      props={link}
+                      key={index}
+                      setActiveSection={setActiveLinkHandler}
+                    />
+                  ))
+                : rmbLinks.map((link, index) => (
+                    <NavLink
+                      isActive={activeLink === link.title}
+                      props={link}
+                      key={index}
+                      setActiveSection={setActiveLinkHandler}
+                    />
+                  ))}
             </div>
           </div>
-          <div className="w-[80vw]">
+          <div className="w-[100vw] sm:w-[80vw]">
             <div className="px-5 header h-[60px] sticky top-0 border-l-2 border-bg flex items-center  justify-between bg-white">
               <h1 className="font-bold text-[20px]">{activeLink}</h1>
               <div className="flex items-center hover:cursor-pointer gap-6 ">
@@ -125,6 +126,27 @@ export default function DashBoardLayout({
             <NotificationLayout />
             <ProfileLayout />
             <div>{children}</div>
+          </div>
+          <div className="sm:hidden w-[100vw]  ">
+            <div className="mt-10 flex  justify-evenly ">
+              {router.pathname.includes("/d")
+                ? links.map((link, index) => (
+                    <NavLink
+                      isActive={activeLink === link.title}
+                      props={link}
+                      key={index}
+                      setActiveSection={setActiveLinkHandler}
+                    />
+                  ))
+                : rmbLinks.map((link, index) => (
+                    <NavLink
+                      isActive={activeLink === link.title}
+                      props={link}
+                      key={index}
+                      setActiveSection={setActiveLinkHandler}
+                    />
+                  ))}
+            </div>
           </div>
         </div>
       ) : (
