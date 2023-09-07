@@ -11,6 +11,7 @@ const CompanyDetails2 = (props: CompanyDetailsProps) => {
   const isCompanyDetailsVisible = useSelector(
     (store: RootState) => store.appPages.isCompanyDetailsVisible
   );
+
   const setNavigationToPage:any = async(compNo:number) => {
   await router.push(`/rmb/companies/${compNo}`)
   };
