@@ -82,7 +82,7 @@ export default function DashBoardLayout({
   return (
     <>
       {visibility == true ? (
-        <div className="flex flex-col sm:flex gap-0 bg-bg max-w-screen-2xl mx-auto">
+        <div className="sm:flex gap-0 bg-bg max-w-screen-2xl mx-auto">
           <div className="hidden sm:block w-[20vw]  sticky top-0   bg-white h-screen ">
             <div className="px-[40px] h-[60px] flex items-center border-b-2 border-bg">
               <Logo withText />
