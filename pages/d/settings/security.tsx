@@ -11,7 +11,7 @@ function Security() {
         <div>
         <div className="w-full h-32 ml-6 border-b-2 border-[#CCD6FF] flex justify-between mt-6 pt-6 flex pr-6">
               <div>
-                 <h1 className="font-bolder">Security</h1>
+                 <h1 className="font-extrabold">Security</h1>
                  <p className="text-gray-400 pt-6 text-sm">Email Address</p>
                  <h1 className="font-bold">The email address associated with your account</h1>
               </div>
