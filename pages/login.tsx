@@ -1,7 +1,6 @@
 import Button from "@/components/ui/button";
 import Logo from "@/components/ui/logo";
 import Input from "@/components/units/input";
-import axios from "axios";
 import Link from "next/link";
 import { useState } from "react";
 import { useRouter } from "next/router";
@@ -14,6 +13,7 @@ import {
   setWelcomeMessage,
 } from "@/features/appPages";
 import Input2 from "@/components/units/input2";
+import { axios } from "@/services/axios";
 
 /* eslint-disable react/no-unescaped-entities */
 const Login = () => {
@@ -30,10 +30,10 @@ const Login = () => {
     accountType: string
   ) => {
     try {
-      const response = await axios.post(`${baseUrli}/auth/login`, {
-        emailAddress: email,
-        password: password,
-        logginType: accountType,
+      const response = await axios.post(`/auth/login`, {
+        email:email,
+        password:password
+        // logginType: accountType,
       });
 
       const responseData = await response.data;
@@ -46,8 +46,8 @@ const Login = () => {
       dispatch(setLoggedInSuccessfully({ type: true }));
       router.push("/d/dashboard");
     } catch (error: any) {
-      if (error.response.data.status != 500) {
-        toast(error.response.data.message);
+      if (error) {
+        console.log(error);
       } else {
         toast("Some thing went wrong, please try again");
       }
