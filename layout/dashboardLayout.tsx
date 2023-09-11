@@ -15,7 +15,12 @@ import { useEffect, useState } from "react";
 import NotificationLayout from "./notificationLayout";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 import ProfileLayout from "./profileLayout";
-import { DashBoardSection, links, rmbLinks } from "@/utils/dataAssets";
+import {
+  DashBoardSection,
+  links,
+  mfoLinks,
+  rmbLinks,
+} from "@/utils/dataAssets";
 import { useAppDispatch } from "@/stores/store";
 import {
   setNotificationPanelVisibility,
@@ -33,7 +38,7 @@ const NavLink = ({
 }) => {
   return (
     <div
-      className={`px-[20px] py-[12px] flex items-center gap-4  cursor-pointer  ${
+      className={`px-[20px] py-[12px] lg:flex items-center gap-4  cursor-pointer  ${
         isActive
           ? "text-white  fill-white bg-app rounded-md"
           : "text-black-500 fill-black-500"
@@ -41,7 +46,7 @@ const NavLink = ({
       onClick={() => setActiveSection(props.title)}
     >
       <props.icon />
-      <span className="hidden lg:block">{props.title}</span>
+      <span className="block sm:hidden lg:block">{props.title}</span>
     </div>
   );
 };
@@ -58,7 +63,7 @@ export default function DashBoardLayout({
   const [hiddeNotifications, setHideNotifications] = useState(false);
 
   useEffect(() => {
-    if (router.pathname.includes("/d") || router.pathname.includes("/rmb")) {
+    if (router.pathname.includes("/d") || router.pathname.includes("/rmb")  || router.pathname.includes("/mfo"))  {
       setVisibility(true);
     }
   }, [router.pathname]);
@@ -68,9 +73,14 @@ export default function DashBoardLayout({
       await router.push(
         ("/d/" + links.find((link) => link.title === href)?.url) as string
       );
-    } else {
+    } else if (router.pathname.includes("/rmb")) {
       await router.push(
         ("/rmb/" + rmbLinks.find((link) => link.title === href)?.url) as string
+      );
+    }
+    else{
+      await router.push(
+        ("/mfo/" + rmbLinks.find((link) => link.title === href)?.url) as string
       );
     }
     setActiveLink(href);
@@ -127,25 +137,36 @@ export default function DashBoardLayout({
             <ProfileLayout />
             <div>{children}</div>
           </div>
-          <div className="sm:hidden w-[100vw]  ">
-            <div className="mt-10 flex  justify-evenly ">
-              {router.pathname.includes("/d")
-                ? links.map((link, index) => (
-                    <NavLink
-                      isActive={activeLink === link.title}
-                      props={link}
-                      key={index}
-                      setActiveSection={setActiveLinkHandler}
-                    />
-                  ))
-                : rmbLinks.map((link, index) => (
-                    <NavLink
-                      isActive={activeLink === link.title}
-                      props={link}
-                      key={index}
-                      setActiveSection={setActiveLinkHandler}
-                    />
-                  ))}
+          <div className="sm:hidden w-[100vw]">
+            <div className="mt-10 flex w-[80%] ">
+              {router.pathname.includes("/d") &&
+                links.map((link, index) => (
+                  <NavLink
+                    isActive={activeLink === link.title}
+                    props={link}
+                    key={index}
+                    setActiveSection={setActiveLinkHandler}
+                  />
+                ))}
+                   {router.pathname.includes("/mfo") &&
+                mfoLinks.map((link, index) => (
+                  <NavLink
+                    isActive={activeLink === link.title}
+                    props={link}
+                    key={index}
+                    setActiveSection={setActiveLinkHandler}
+                  />
+                ))}
+              {router.pathname.includes("/rmb") &&
+                rmbLinks.map((link, index) => (
+                  <NavLink
+                    isActive={activeLink === link.title}
+                    props={link}
+                    key={index}
+                    setActiveSection={setActiveLinkHandler}
+                  />
+                ))}
+           
             </div>
           </div>
         </div>
