@@ -1,4 +1,5 @@
-import { CompanyDetails, CompanyRecords, CompanyReports, ExpandedCompanyDetails, MoreCompanyDetails, RmbDetails } from "@/@types/interfaces";
+import { Statuses, TimeZone } from "@/@types/enum";
+import { CompanyDetails, CompanyRecords, CompanyReports, ExpandedCompanyDetails, MoreCompanyDetails, RmbDetails, MfoDetails, MfoRowEntryDetails } from "@/@types/interfaces";
 
 import { AccountsIcon, DashBoardIcon, EmployeesIcon, FormIcon, LogsIcon, ProductionIcon, ReportsIcon, SettingsIcon, SitesIcon, SupportIcon, TagIcon, TraceabilityIcon, feedBackIcon, helpIcon, logoutIcon } from "@/components/icons";
 export let countryList: String[] = ["Afghanistan", "Albania", "Algeria", "Andorra", "Angola", "Anguilla", "Antigua &amp; Barbuda", "Argentina", "Armenia", "Aruba", "Australia", "Austria", "Azerbaijan", "Bahamas", "Bahrain", "Bangladesh", "Barbados", "Belarus", "Belgium", "Belize", "Benin", "Bermuda", "Bhutan", "Bolivia", "Bosnia &amp; Herzegovina", "Botswana", "Brazil", "British Virgin Islands", "Brunei", "Bulgaria", "Burkina Faso", "Burundi", "Cambodia", "Cameroon", "Cape Verde", "Cayman Islands", "Chad", "Chile", "China", "Colombia", "Congo", "Cook Islands", "Costa Rica", "Cote D Ivoire", "Croatia", "Cruise Ship", "Cuba", "Cyprus", "Czech Republic", "Denmark", "Djibouti", "Dominica", "Dominican Republic", "Ecuador", "Egypt", "El Salvador", "Equatorial Guinea", "Estonia", "Ethiopia", "Falkland Islands", "Faroe Islands", "Fiji", "Finland", "France", "French Polynesia", "French West Indies", "Gabon", "Gambia", "Georgia", "Germany", "Ghana", "Gibraltar", "Greece", "Greenland", "Grenada", "Guam", "Guatemala", "Guernsey", "Guinea", "Guinea Bissau", "Guyana", "Haiti", "Honduras", "Hong Kong", "Hungary", "Iceland", "India", "Indonesia", "Iran", "Iraq", "Ireland", "Isle of Man", "Israel", "Italy", "Jamaica", "Japan", "Jersey", "Jordan", "Kazakhstan", "Kenya", "Kuwait", "Kyrgyz Republic", "Laos", "Latvia", "Lebanon", "Lesotho", "Liberia", "Libya", "Liechtenstein", "Lithuania", "Luxembourg", "Macau", "Macedonia", "Madagascar", "Malawi", "Malaysia", "Maldives", "Mali", "Malta", "Mauritania", "Mauritius", "Mexico", "Moldova", "Monaco", "Mongolia", "Montenegro", "Montserrat", "Morocco", "Mozambique", "Namibia", "Nepal", "Netherlands", "Netherlands Antilles", "New Caledonia", "New Zealand", "Nicaragua", "Niger", "Nigeria", "Norway", "Oman", "Pakistan", "Palestine", "Panama", "Papua New Guinea", "Paraguay", "Peru", "Philippines", "Poland", "Portugal", "Puerto Rico", "Qatar", "Reunion", "Romania", "Russia", "Rwanda", "Saint Pierre &amp; Miquelon", "Samoa", "San Marino", "Satellite", "Saudi Arabia", "Senegal", "Serbia", "Seychelles", "Sierra Leone", "Singapore", "Slovakia", "Slovenia", "South Africa", "South Korea", "Spain", "Sri Lanka", "St Kitts &amp; Nevis", "St Lucia", "St Vincent", "St. Lucia", "Sudan", "Suriname", "Swaziland", "Sweden", "Switzerland", "Syria", "Taiwan", "Tajikistan", "Tanzania", "Thailand", "Timor L'Este", "Togo", "Tonga", "Trinidad &amp; Tobago", "Tunisia", "Turkey", "Turkmenistan", "Turks &amp; Caicos", "Uganda", "Ukraine", "United Arab Emirates", "United Kingdom", "Uruguay", "Uzbekistan", "Venezuela", "Vietnam", "Virgin Islands (US)", "Yemen", "Zambia", "Zimbabwe"];
@@ -158,6 +159,26 @@ export const rmbHolds: RmbDetails[] = [
     url: ""
   },
 ]
+export const mfoHols: MfoDetails[] = [
+  {
+    id: 0,
+    category: "Tags",
+    reports: 121,
+    title: "Available tags in total"
+  },
+  {
+    id: 1,
+    category: "Kgs",
+    reports: 0,
+    title: "Prodution (Kg)"
+  },
+  {
+    id:2,
+    category: "Forms",
+    reports: 30,
+    title: "Forms submitted"
+  },
+]
 export const quickActions = [
   {
     text: "Add user",
@@ -202,8 +223,62 @@ export const rmbQuickActions = [
     bgColor: "#D2953910",
   },
 ]
+export const mfoLatestActivities:MfoRowEntryDetails[] = [
+{
+  time:{
+    dayRegion:TimeZone.Evening,
+    hour:1,
+    min:12
+  },
+  entryCategory:"Smelted production form",
+  tagNo:12,
+  qty:50,
+  status:Statuses.Accepted,
+  variety:"Gold"
+},
+{
+  time:{
+    dayRegion:TimeZone.Morning,
+    hour:4,
+    min:55
+  },
+  entryCategory:"Smelted production form",
+  tagNo:2000,
+  qty:520,
+  status:Statuses.Rejected,
+  variety:"Gold"
+},
+{
+  time:{
+    dayRegion:TimeZone.Evening,
+    hour:7,
+    min:12
+  },
+  entryCategory:"Smelted production form",
+  tagNo:12,
+  qty:50,
+  status:Statuses.Pending,
+  variety:"Gold"
+},
+]
 
-
+export const mfoQuickActions = [
+  {
+    text: "View Tag",
+    textColor: "#3949D2",
+    bgColor: "#3949D210",
+  },
+  {
+    text: "Create a form",
+    textColor: "#FFB800",
+    bgColor: "#FFB80010",
+  },
+  {
+    text: "Contact support",
+    textColor: "#D29539",
+    bgColor: "#D2953910",
+  },
+]
 
 export interface DashBoardSection {
   title: string;
@@ -367,31 +442,31 @@ export const moreCompanyDetailsData: MoreCompanyDetails[] = [
     ]
   },
 ]
-export const mfoLinks:DashBoardSection[] = [
+export const mfoLinks: DashBoardSection[] = [
   {
-    title:"Dashboard",
-    icon:DashBoardIcon,
-    url:"/"
+    title: "Dashboard",
+    url: "/",
+    icon: DashBoardIcon
   },
   {
-    title:"Forms",
-    icon:FormIcon,
-    url:"forms"
+    title: "Forms",
+    url: "forms",
+    icon: FormIcon
   },
   {
-    title:"Tags",
-    icon:TagIcon,
-    url:"tags"
+    title: "Tags",
+    url: "tags",
+    icon: TagIcon
   },
   {
-    title:"Production",
-    icon:ProductionIcon,
-    url:"production"
+    title: "Production",
+    url: "production",
+    icon: ProductionIcon
   },
   {
-    title:"Traceability",
-    icon:TraceabilityIcon,
-    url:"traceabililty"
+    title: "Traceability",
+    url: "traceabililty",
+    icon: TraceabilityIcon
   },
 ]
 export const rmbLinks: DashBoardSection[] = [

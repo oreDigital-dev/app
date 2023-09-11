@@ -1,3 +1,4 @@
+import { Statuses, TimeZone } from "./enum";
 import { Status } from "./status";
 
 export interface MiningSite {
@@ -11,7 +12,32 @@ export interface MiningSite {
         district: String
     }
 
+} 
+
+
+//mfo
+export interface MfoDetails {
+    id:number;
+    title:String;
+    reports:Number;
+    category:String;
+    
 }
+export interface MfoRowEntryDetails {
+    time:{
+        hour:Number,
+        min:Number,
+        dayRegion:TimeZone
+    };
+    entryCategory:string;
+    tagNo:Number;
+    qty:Number;
+    variety:String;
+    status:Statuses,
+}
+
+
+
 export interface CompanyRecords {
     id: string;
     title: string;
