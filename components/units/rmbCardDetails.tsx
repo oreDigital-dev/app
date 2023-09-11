@@ -38,7 +38,7 @@ await router.push(`/rmb/${href}`)
           </h1>
         )}
 
-        <button className="float-right mt-4" onClick={handleShowViewButton}>
+<button className="float-right mt-4" onClick={handleShowViewButton}>
           <ThreeDotsIcon />
         </button>
         {viewButton && (

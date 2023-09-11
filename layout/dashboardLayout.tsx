@@ -38,7 +38,7 @@ const NavLink = ({
 }) => {
   return (
     <div
-      className={`px-[20px] py-[2px] sm:py-[12px] lg:flex items-center gap-4  cursor-pointer  ${
+      className={`px-[5px] sm:px-[20px] py-[2px] sm:py-[12px] lg:flex items-center gap-4  cursor-pointer  ${
         isActive
           ? "text-white  fill-white bg-app rounded-md"
           : "text-black-500 fill-black-500"
@@ -99,15 +99,25 @@ export default function DashBoardLayout({
             </div>
             <div className="mt-10 px-[20px] ">
               {router.pathname.includes("/d")
-                ? links.map((link, index) => (
+                && links.map((link, index) => (
                     <NavLink
                       isActive={activeLink === link.title}
                       props={link}
                       key={index}
                       setActiveSection={setActiveLinkHandler}
                     />
-                  ))
-                : rmbLinks.map((link, index) => (
+                  ))}
+                  {router.pathname.includes("/mfo") && 
+                 mfoLinks.map((link, index) => (
+                    <NavLink
+                      isActive={activeLink === link.title}
+                      props={link}
+                      key={index}
+                      setActiveSection={setActiveLinkHandler}
+                    />
+                  ))}
+                  {router.pathname.includes("/rmb") && 
+                 rmbLinks.map((link, index) => (
                     <NavLink
                       isActive={activeLink === link.title}
                       props={link}
