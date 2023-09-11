@@ -14,7 +14,10 @@ import {
 } from "@/features/appPages";
 import Input2 from "@/components/units/input2";
 import { axios } from "@/services/axios";
+<<<<<<< HEAD
 import Loader from "@/components/ui/loader";
+=======
+>>>>>>> b02472e (updates)
 
 /* eslint-disable react/no-unescaped-entities */
 const Login = () => {
@@ -32,7 +35,10 @@ const Login = () => {
     accountType: string
   ) => {
     try {
+<<<<<<< HEAD
       setLaoding(true);
+=======
+>>>>>>> b02472e (updates)
       const response = await axios.post(`/auth/login`, {
         email:email,
         password:password
