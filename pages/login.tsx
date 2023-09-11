@@ -14,11 +14,13 @@ import {
 } from "@/features/appPages";
 import Input2 from "@/components/units/input2";
 import { axios } from "@/services/axios";
+import Loader from "@/components/ui/loader";
 
 /* eslint-disable react/no-unescaped-entities */
 const Login = () => {
   const dispatch = useAppDispatch();
   const router = useRouter();
+  const [loading,setLaoding] = useState(false)
   const [companyName, setCompanyName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -30,6 +32,7 @@ const Login = () => {
     accountType: string
   ) => {
     try {
+      setLaoding(true);
       const response = await axios.post(`/auth/login`, {
         email:email,
         password:password
@@ -51,6 +54,9 @@ const Login = () => {
       } else {
         toast("Some thing went wrong, please try again");
       }
+    }
+    finally{
+      setLaoding(false)
     }
   };
 
@@ -98,8 +104,8 @@ const Login = () => {
           setState={setPassword}
           placeholder={"Your password"}
         />
-        <Button onClick={() => loginRequest(email, password, accountType)}>
-          Log in
+        <Button className={`${loading ? ' w-full py-[14px] px-10 text-center bg-app text-white rounded-md opacity-50':'w-full py-[14px] px-10 text-center bg-app text-white rounded-md'}`} onClick={() => loginRequest(email, password, accountType)}>
+          {loading ?<Loader />:'Login'}
         </Button>
       </div>
     </div>
