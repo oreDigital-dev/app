@@ -15,7 +15,7 @@ function Settings() {
                 <div className="flex">
                   <PersonIcon />
                   <div className="ml-4">
-                    <h1 className="font-bolder">Company Name</h1>
+                    <h1 className="font-extrabold">Company Name</h1>
                     <p className="text-sm">Company CEO</p>
                     <p className="text-sm">Kigali, Rwanda</p>
                   </div>
@@ -30,7 +30,7 @@ function Settings() {
             </div>
             <div className="w-full  rounded-lg border-2 border-[#CCD6FF] flex justify-between mt-6 pt-6 pl-4 flex pr-6 pb-4">
               <div>
-                 <h1 className="font-bolder">Personal Information</h1>
+                 <h1 className="font-extrabold">Personal Information</h1>
                  <p className="text-gray-400 pt-6 text-sm">Company Name</p>
                  <h1 className="font-bold">Admin</h1>
                  <p className="text-gray-400 pt-6 text-sm">Email Address</p>
@@ -53,7 +53,7 @@ function Settings() {
             </div>
             <div className="w-full  rounded-lg border-2 border-[#CCD6FF] flex justify-between mt-6 pt-6 pl-4 flex pr-6 pb-4">
               <div>
-                 <h1 className="font-bolder">Head quarters Location</h1>
+                 <h1 className="font-extrabold">Head quarters Location</h1>
                  <p className="text-gray-400 pt-6 text-sm">Country</p>
                  <h1 className="font-bold">Rwanda</h1>
                  <p className="text-gray-400 pt-6 text-sm">Postal Code</p>
