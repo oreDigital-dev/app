@@ -8,6 +8,7 @@ import { mfoHols, mfoLatestActivities, mfoQuickActions } from "@/utils/dataAsset
 import { ToastContainer } from "react-toastify";
 
 const Dashboard = () => {
+  
   const dispatch = useAppDispatch();
   const handleActionClick = (index: number) => {
     switch (index) {
@@ -19,7 +20,7 @@ const Dashboard = () => {
   };
   return (
     <div className="m-[20px] rounded-md">
-      <div className=" bg-white  relative p-[20px] rounded-md shadow-sm shadow-neutal-300">
+      <div className=" bg-white/40  relative p-[20px] rounded-md shadow-sm shadow-neutal-300">
         <div className="flex  z-100  items-start justify-between">
           <SectionHead title="Summary" desc="Your records so far" />
         </div>
@@ -31,7 +32,7 @@ const Dashboard = () => {
         <ToastContainer />
         <CreateMinesite />
       </div>
-      <div className=" bg-white p-[20px] rounded-md shadow-sm shadow-neutal-300 mt-2">
+      <div className=" bg-white/40 p-[20px] rounded-md shadow-sm shadow-neutal-300 mt-2">
         <div className="flex items-start justify-between">
           <SectionHead
             title="Quick Actions"
@@ -57,7 +58,7 @@ const Dashboard = () => {
           ))}
         </div>
       </div>
-      <div className=" bg-white p-[20px] rounded-md shadow-sm shadow-neutal-300 mt-2 ">
+      <div className=" bg-white/40 p-[20px] rounded-md shadow-sm shadow-neutal-300 mt-2 ">
         <SectionHead title="Latest activity" desc="Recent submitted forms" />
         <div className="space-y-2">
         {mfoLatestActivities.map((activity,index)=>{

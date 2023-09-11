@@ -31,7 +31,7 @@ const Dashboard = () => {
         dispatch(setCreateMineSiteVisibility({ type: "open" }));
       default:
         console.log("hello");
-    }
+  }
   };
   return (
     <div className="m-[20px] rounded-md"> 

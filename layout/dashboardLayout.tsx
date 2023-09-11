@@ -80,7 +80,7 @@ export default function DashBoardLayout({
     }
     else{
       await router.push(
-        ("/mfo/" + rmbLinks.find((link) => link.title === href)?.url) as string
+        ("/mfo/" + mfoLinks.find((link) => link.title === href)?.url) as string
       );
     }
     setActiveLink(href);

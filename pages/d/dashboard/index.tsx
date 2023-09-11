@@ -85,19 +85,19 @@ export default function Dashboard() {
         <div className="flex gap-4 my-[20px] overflow-x-scroll scrollable">
           {quickActions.map((quickAction, index) => (
             <button
-              onClick={() => handleActionClick(index)}
-              key={index}
-              style={{
-                color: quickAction.textColor,
-                backgroundColor: quickAction.bgColor,
-                padding: "10px 20px",
-                margin: "5px",
-                border: "none",
-              }}
-              className="rounded-md"
-            >
-              {quickAction.text}
-            </button>
+            onClick={() => handleActionClick(index)}
+            key={index}
+            style={{
+              color: quickAction.textColor,
+              backgroundColor: quickAction.bgColor,
+              padding: "10px 20px",
+              margin: "5px",
+              border: "none",
+            }}
+            className="rounded-md"
+          >
+            {quickAction.text}
+          </button>
           ))}
         </div>
       </div>
