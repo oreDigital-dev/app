@@ -38,7 +38,7 @@ const NavLink = ({
 }) => {
   return (
     <div
-      className={`px-[20px] py-[12px] lg:flex items-center gap-4  cursor-pointer  ${
+      className={`px-[20px] py-[2px] sm:py-[12px] lg:flex items-center gap-4  cursor-pointer  ${
         isActive
           ? "text-white  fill-white bg-app rounded-md"
           : "text-black-500 fill-black-500"
@@ -138,7 +138,7 @@ export default function DashBoardLayout({
             <div>{children}</div>
           </div>
           <div className="sm:hidden w-[100vw]">
-            <div className="mt-10 flex w-[80%] ">
+            <div className="mt-10 flex w-[100%] overflow-x-scroll scrollbar:hidden ">
               {router.pathname.includes("/d") &&
                 links.map((link, index) => (
                   <NavLink
