@@ -2,17 +2,17 @@ import Button from "@/components/ui/button";
 import Input from "@/components/units/input";
 import Input2 from "@/components/units/input2";
 import { Router, useRouter } from "next/router";
-import { useState } from "react";
+import { useState ,useEffect} from "react";
 import axios from "axios";
 import { baseUrli } from "@/utils/dataAssets";
 import Loader from "@/components/ui/loader";
+import { getProvinces, getDistricts,getAllData } from "@/utils/locationAddress";
 import { toast, ToastContainer } from "react-toastify";
 import {
   setLoggedInSuccessfully,
   setWelcomeMessage,
 } from "@/features/appPages";
 import { useDispatch } from "react-redux";
-
 const GeneralComp = ({ number, title }: { number: number; title: string }) => {
   return (
     <div className="flex flex-col md:justify-center md:contents-center md:items-center">
@@ -81,7 +81,7 @@ const CompanyOne = ({
           state={password}
           placeholder={null}
           setState={setPassword}
-          label="Passowrd"
+          label="Password"
           type="password"
         />
         <Input
@@ -98,7 +98,7 @@ const CompanyOne = ({
 };
 
 const CompanyTwo = ({ onNext }: any) => {
-  const [licence, setLicence] = useState("");
+  const [licence, setLicence] = useState(0);
   const [mineral, setMineral] = useState("");
   const [typeOfOwnership, setTypeOfOwnership] = useState("");
   const [tel, setTel] = useState("");
@@ -149,8 +149,8 @@ const CompanyTwo = ({ onNext }: any) => {
 
 const CompanyThree = ({ onNext }: any) => {
   const [ceoNationalId, setCeoNationalId] = useState("");
-  const [prodCapacity, setProdCapacity] = useState("");
-  const [nEmployees, setNEmployees] = useState("");
+  const [prodCapacity, setProdCapacity] = useState(0);
+  const [nEmployees, setNEmployees] = useState(0);
   const [tel, setTel] = useState("");
 
   const operationDetails = {
@@ -199,7 +199,82 @@ const CompanyThree = ({ onNext }: any) => {
 const CompanyFour = ({ onNext }: any) => {
   const dispatch = useDispatch();
   const [district, setDistrict] = useState("");
-  const [country, setCountry] = useState("");
+
+  const [province, setProvince] = useState("");
+  const [sector, setSector] = useState("");
+  const [postalCode, setPostalCode] = useState("");
+  const router = useRouter();
+  const [loading, setLoading] = useState(false);
+  const [provinceOptions, setProvinceOptions] = useState<string[]>([]);
+  const [districtsOptions, setDistrictsOptions] = useState<string[]>([]);
+
+  useEffect(() => {
+    async function fetchProvinces() {
+      setProvinceOptions(await getProvinces())
+    }
+    getAllData();
+    fetchProvinces();
+    
+  }, [])
+  const getValue = async (event: { value: string; }) => {
+    setDistrictsOptions(await getDistricts(event.value))
+
+  }
+  const locationDetails = {
+    province: province,
+    district: district,
+    sector: sector,
+  };
+  const handleSave = () => {
+    localStorage.setItem("locationDetails", JSON.stringify(locationDetails));
+    onNext();
+  };
+ 
+  return (
+    <div className="w-screen h-screen flex flex-col justify-center content-center items-center">
+      <ToastContainer />
+      <div className="rounded-lg w-full md:w-[50%] lg:w-[30%] bg-white space-y-4 flex flex-col justify-center content-center py-20 px-12">
+        <GeneralComp number={3} title="Tell us about your address " />
+        {/* <Input2
+          label="Country"
+          type="select"
+          state={country}
+          setState={setCountry}
+          placeholder={"Company name"}
+        /> */}
+          <Input2
+          state={province}
+          placeholder="East"
+          setState={setProvince}
+          label="Province"
+          type="text"
+        />
+        <Input2
+          label="District"
+          type="select"
+          state={district}
+          setState={setDistrict}
+          placeholder={"District name"}
+        />
+         <Input2
+          state={sector}
+          placeholder="Nyagatare"
+          setState={setSector}
+          label="Sector"
+          type="text"
+        />
+        <Button onClick={handleSave}>Next</Button>
+
+      </div>
+    </div>
+  );
+};
+
+const CompanyFive = ({ onNext }: any) => {
+  const dispatch = useDispatch();
+
+  const [cell, setCell] = useState("");
+  const [village, setVillage] = useState("");
   const [postalCode, setPostalCode] = useState("");
   const router = useRouter();
   const [loading, setLoading] = useState(false);
@@ -215,23 +290,34 @@ const CompanyFour = ({ onNext }: any) => {
     const operationDetailsDetails2 = JSON.parse(
       localStorage.getItem("operationDetailsDetails2") || "{}"
     );
-
+    const locationDetails = JSON.parse(
+      localStorage.getItem("locationDetails") || "{}"
+    );
     setLoading(true);
+    const locationDetails2 = {
+    cell: cell,
+    village: village,
+  };
     await axios
       .post(`${baseUrli}/companies/create`, {
-        companyName: companyDetails.name,
-        companyCEOName: "oreDigital",
-        companyEmail: companyDetails.email,
-        password: companyDetails.password,
-        headQuartersLocation: "kjdfsdhkfj",
-        telephoneNumber: companyDetails.tel,
+        name: companyDetails.name,
         ownership: operationDetailsDetails2.typeOfOwnership,
-        productionCapacity: operationDetails.prodCapacity,
-        numberOfEmployees: operationDetails.nEmployees,
-        miniLicenseNumber: 34343434,
-        companyCEONationalId: operationDetails.ceoNationalId,
-        mineralTypes: ["GOLD", "ZINC"],
-        mininLicenseNumber: 454,
+        email: companyDetails.email,
+        ownerNID: operationDetails.ceoNationalId,
+        password: companyDetails.password,
+        phoneNumber: companyDetails.tel,
+        productionCapacity: Number(operationDetails.prodCapacity),
+        minerals: operationDetailsDetails2.mineral,
+        licenseNumber:Number(operationDetails.licence),
+        numberOfEmployees: Number(operationDetails.nEmployees),
+        address : {
+          province: locationDetails.province,
+          district: locationDetails.district,
+          sector: locationDetails.sector,
+          cell: locationDetails2.cell,
+          village: locationDetails2.village,
+          
+}
       })
       .then((response) => {
         localStorage.setItem("AuthKey", response.data.Access_token);
@@ -255,24 +341,25 @@ const CompanyFour = ({ onNext }: any) => {
         setLoading(false);
       });
   };
+
   return (
     <div className="w-screen h-screen flex flex-col justify-center content-center items-center">
       <ToastContainer />
       <div className="rounded-lg w-full md:w-[50%] lg:w-[30%] bg-white space-y-4 flex flex-col justify-center content-center py-20 px-12">
-        <GeneralComp number={3} title="Tell us about your address " />
-        <Input2
-          label="Country"
-          type="select"
-          state={country}
-          setState={setCountry}
-          placeholder={"Company name"}
+      <GeneralComp number={4} title="Tell us about your address " />
+          <Input2
+          state={cell}
+          placeholder="Gashenyi"
+          setState={setCell}
+          label="Cell"
+          type="text"
         />
         <Input2
-          label="District"
-          type="select"
-          state={district}
-          setState={setDistrict}
-          placeholder={"District name"}
+          label="Village"
+          type="text"
+          state={village}
+          setState={setVillage}
+          placeholder="Village"
         />
         <Input2
           state={postalCode}
@@ -283,7 +370,7 @@ const CompanyFour = ({ onNext }: any) => {
         />
         <Button onClick={handleNextClick}>
           {" "}
-          {loading ? <Loader /> : "Next"}
+          {loading ? <Loader /> : "Create workspace"}
         </Button>
       </div>
     </div>
@@ -314,6 +401,10 @@ const CompanyDetails = () => {
       )}
       {currentStep === 4 && (
         <CompanyFour onPrev={handlePrev} onNext={handleNextButtonClick} />
+      )}
+      {currentStep === 5 && (
+        <CompanyFive onPrev={handlePrev} onNext={handleNextButtonClick} />
+
       )}
     </div>
   );
