@@ -308,7 +308,7 @@ const CompanyFive = ({ onNext }: any) => {
         phoneNumber: companyDetails.tel,
         productionCapacity: Number(operationDetails.prodCapacity),
         minerals: operationDetailsDetails2.mineral,
-        licenseNumber:Number(operationDetails.licence),
+        licenseNumber:Number(operationDetailsDetails2.licence),
         numberOfEmployees: Number(operationDetails.nEmployees),
         address : {
           province: locationDetails.province,
@@ -323,7 +323,7 @@ const CompanyFive = ({ onNext }: any) => {
         localStorage.setItem("AuthKey", response.data.Access_token);
         setLoading(false);
         dispatch(
-          setWelcomeMessage({ message: "Hi! You've loggedIn successfully" })
+          setWelcomeMessage({ message: "Hi! You've successfully registered your company" })
         );
         dispatch(setLoggedInSuccessfully({ type: true }));
         router.push("/d/dashboard");

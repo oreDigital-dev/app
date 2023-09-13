@@ -20,7 +20,7 @@ import Loader from "@/components/ui/loader";
 const Login = () => {
   const dispatch = useAppDispatch();
   const router = useRouter();
-  const [loading,setLaoding] = useState(false)
+  const [loading,setLoading] = useState(false)
   const [companyName, setCompanyName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -32,7 +32,7 @@ const Login = () => {
     accountType: string
   ) => {
     try {
-      setLaoding(true);
+      setLoading(true);
       const response = await axios.post(`/auth/login`, {
         email:email,
         password:password
@@ -42,7 +42,7 @@ const Login = () => {
       const responseData = await response.data;
       console.log(responseData);
       localStorage.setItem("loggedInUser", JSON.stringify(responseData.user));
-      localStorage.setItem("authKey", responseData.token);
+      localStorage.setItem("authKey", responseData.Access_token);
       dispatch(
         setWelcomeMessage({ message: "Hi! You've loggedIn successfully" })
       );
@@ -56,7 +56,7 @@ const Login = () => {
       }
     }
     finally{
-      setLaoding(false)
+      setLoading(false)
     }
   };
 

@@ -118,6 +118,7 @@ export default function Input2({
           onChange={(e) => setState(e.target.value)}
         />
       )}
+      
     </div>
   );
 }
