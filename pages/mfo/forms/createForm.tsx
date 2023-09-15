@@ -23,8 +23,8 @@ const NewForm = () => {
               Fill New Form
             </p>
           </div>
-          <div className="flex justify-end">
-            <div className="w-1/3 flex justify-between">
+          <div className="flex justify-center md:justify-end">
+            <div className="w-[90%] md:w-[80%] lg:w-1/3 flex justify-between">
                 <button className=" flex items-center justify-center font-semibold text-white bg-[#5160B3] border-2 px-[20px] py-[8px] border-[#5160B3] rounded-md">Submit</button>
                 <button className="flex items-center justify-center font-semibold bg-white border-2 border-[#5160B3] rounded-md px-[20px] py-[10px]">Save as draft</button>
             </div>

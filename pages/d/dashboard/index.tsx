@@ -9,6 +9,7 @@ import {
   CartesianGrid,
   Tooltip,
 } from "recharts";
+import { useRouter } from "next/router";
 import { PieChart, Pie, Cell } from "recharts";
 import CreateMinesite from "@/components/ui/createMinesite";
 import { ToastContainer, toast } from "react-toastify";
@@ -29,6 +30,10 @@ import {
 } from "@/features/appPages";
 
 export default function Dashboard() {
+  const router = useRouter();
+  const handleNavigation = async()=>{
+await router.push("/rmb");
+  }
   const dispatch = useAppDispatch();
   const welcomeMessage = useSelector(
     (store: RootState) => store.appPages.welcomeMessage
@@ -62,8 +67,8 @@ export default function Dashboard() {
             title="Summary"
             desc="All mining sites registered in workspace"
           />
-          <button className="text-app flex items-center  font-semibold hover:text-black-500">
-            <span>Reports</span>
+          <button className="text-app flex items-center  font-semibold hover:text-black-500" onClick={handleNavigation}>
+            <span>RMB</span>
             <ArrowIcon />
           </button>
         </div>

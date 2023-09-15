@@ -4,7 +4,7 @@ import { ThreeDotsIcon } from "../icons";
 export interface RowEntryProps extends MfoRowEntryDetails {}
 const RowEntry = (props: RowEntryProps) => {
   return (
-    <div className="py-[2px] bg-white shadow-md rounded-sm flex justify-evenly items-center">
+    <div className="py-[2px] bg-white shadow-md rounded-sm flex justify-evenly items-center flex-wrap">
       <div className="flex items-center text-gray-500">
         <span className="">
           {props.time.hour.toString()}:{props.time.min.toString()}

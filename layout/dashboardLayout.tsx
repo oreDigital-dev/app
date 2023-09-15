@@ -148,7 +148,7 @@ export default function DashBoardLayout({
             <div>{children}</div>
           </div>
           <div className="sm:hidden w-[100vw]">
-            <div className="mt-10 flex w-[100%] overflow-x-scroll scrollbar:hidden ">
+            <div className="mt-10 flex w-[100%]">
               {router.pathname.includes("/d") &&
                 links.map((link, index) => (
                   <NavLink

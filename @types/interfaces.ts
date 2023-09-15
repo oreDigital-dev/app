@@ -1,3 +1,4 @@
+import { NotificationPanelProps } from "@/components/units/NotificationPanel";
 import { Statuses, TimeZone } from "./enum";
 import { Status } from "./status";
 
@@ -99,3 +100,4 @@ export interface CpyReports {
     id:number;
     companyReports:ReportDetails[]
 }
+export interface NotificationPanel extends NotificationPanelProps{}
