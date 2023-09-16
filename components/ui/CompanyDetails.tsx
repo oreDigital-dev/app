@@ -1,8 +1,8 @@
 import { ExpandedCompanyDetails } from "@/@types/interfaces";
 import { SitesIcon } from "../icons";
-import { useSelector } from "react-redux";
 import { RootState } from "@/stores/store";
 import { useRouter } from "next/router";
+import {useSelector} from "react-redux"
 
 interface CompanyDetailsProps extends ExpandedCompanyDetails {}
 const CompanyDetails2 = (props: CompanyDetailsProps) => {

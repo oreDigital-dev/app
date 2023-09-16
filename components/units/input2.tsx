@@ -1,8 +1,8 @@
-import { countryList, loginTypes, ownerShipDetails } from "@/utils/dataAssets";
+import { loginTypes, ownerShipDetails } from "@/utils/dataAssets";
 import { districts } from "@/utils/dataAssets";
 interface InputProps {
   label: string | null;
-  state: string | number | null;
+  state: string | number | null | Array<string>;
   setState: (state: any) => void;
   placeholder: string | null;
   type: "text" | "password" | "email" | "number" | "select";
@@ -31,7 +31,7 @@ export default function Input2({
           ))}
         </select>
       )}
-      {label === "Country" && (
+     {/* {label === "Country" && (
         <select
           className=" border border-black-300/10 font-regular  outline-none  w-full py-[14px] px-3 rounded-md text-[black]"
           placeholder="How do you want to login"
@@ -44,7 +44,7 @@ export default function Input2({
             </option>
           ))}
         </select>
-      )}
+      )} */}
       {label === "Type of ownership" && (
         <select
           className=" border border-black-300/10 font-regular  outline-none  w-full py-[14px] px-3 rounded-md text-[black]"
@@ -59,7 +59,7 @@ export default function Input2({
           ))}
         </select>
       )}
-      {label === "District" && (
+    {label === "District" && (
         <select
           className=" border border-black-300/10 font-regular  outline-none  w-full py-[14px] px-3 rounded-md text-[black]"
           placeholder="How do you want to login"
@@ -82,6 +82,43 @@ export default function Input2({
           onChange={(e) => setState(e.target.value)}
         />
       )}
+       {label == "Province" && (
+        <input
+          type={type}
+          placeholder={placeholder as string}
+          defaultValue={state as any}
+          className="border border-black-300/10 font-regular  outline-none  w-full py-[14px] px-3 rounded-md"
+          onChange={(e) => setState(e.target.value)}
+        />
+      )}
+       {label == "Sector" && (
+        <input
+          type={type}
+          placeholder={placeholder as string}
+          defaultValue={state as any}
+          className="border border-black-300/10 font-regular  outline-none  w-full py-[14px] px-3 rounded-md"
+          onChange={(e) => setState(e.target.value)}
+        />
+      )}
+       {label == "Cell" && (
+        <input
+          type={type}
+          placeholder={placeholder as string}
+          defaultValue={state as any}
+          className="border border-black-300/10 font-regular  outline-none  w-full py-[14px] px-3 rounded-md"
+          onChange={(e) => setState(e.target.value)}
+        />
+      )}
+       {label == "Village" && (
+        <input
+          type={type}
+          placeholder={placeholder as string}
+          defaultValue={state as any}
+          className="border border-black-300/10 font-regular  outline-none  w-full py-[14px] px-3 rounded-md"
+          onChange={(e) => setState(e.target.value)}
+        />
+      )}
+      
     </div>
   );
 }

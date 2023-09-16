@@ -1,5 +1,5 @@
 import { NotificationPanelProps } from "@/components/units/NotificationPanel";
-import { Statuses, TimeZone } from "./enum";
+import { Provinces, Statuses, TimeZone } from "./enum";
 import { Status } from "./status";
 
 export interface MiningSite {
@@ -101,3 +101,18 @@ export interface CpyReports {
     companyReports:ReportDetails[]
 }
 export interface NotificationPanel extends NotificationPanelProps{}
+export interface EmployeeFields {
+    fullName:string;
+    email:string;
+    password:string;
+    id:string;
+    location:{
+        village:String;
+        cell:String;
+        sector:String;
+        district:string;
+        province:Provinces,
+    };
+    key:String;
+    company:String;
+}

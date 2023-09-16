@@ -2,11 +2,13 @@ import { configureStore } from "@reduxjs/toolkit";
 import { useDispatch } from "react-redux";
 import { appPagesReducer } from "@/features/appPages";
 import { mineSiteReducer } from "@/features/minesitesSlice";
+import { formCategoriesReducer } from "@/features/formCategories";
 
 export const store :any = configureStore({
     reducer:{
         appPages:appPagesReducer,
-        mineSites:mineSiteReducer
+        mineSites:mineSiteReducer,
+        formCategories:formCategoriesReducer
 
     }
 })

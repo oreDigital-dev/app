@@ -22,10 +22,10 @@ const RegisteredCompanies = (props: RegisteredCompaniesProps) => {
       <p className="font-semibold text-sm text-black-500">
         {props.companyName}
       </p>
-      <p className="text-gray-300 text-sm">
+      <p className="text-gray-500 text-sm">
         HQ:<span>{props.hqName}</span>
       </p>
-      <p className="text-gray-300 text-sm">
+      <p className="text-gray-500 text-sm">
         license:<span>{props.licenseType}</span>
       </p>
       <button className="py-2 mt-3 flex items-center  gap-2 px-4 rounded-full bg-app/10  hover:bg-app/30  text-app fill-app"   onClick={handleShowCard}>
