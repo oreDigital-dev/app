@@ -12,6 +12,7 @@ import {
   rmbHolds,
   rmbQuickActions,
 } from "@/utils/dataAssets";
+import { useRouter } from "next/router";
 import { ToastContainer } from "react-toastify";
 import {
   AreaChart,
@@ -24,7 +25,11 @@ import {
 import { PieChart, Pie, Cell } from "recharts";
 
 const Dashboard = () => {
+  const router = useRouter()
   const dispatch = useAppDispatch();
+  const handleNavigation =async()=>{
+    await router.push("/mfo")
+  }
   const handleActionClick = (index: number) => {
     switch (index) {
       case 1:
@@ -38,8 +43,8 @@ const Dashboard = () => {
       <div className=" bg-white  relative p-[20px] rounded-md shadow-sm shadow-neutal-300">
         <div className="flex  z-100  items-start justify-between">
           <SectionHead title="Summary" desc="Your records so far" />
-          <button className="text-app flex items-center  font-semibold hover:text-black-500">
-            <span>Reports</span>
+          <button className="text-app flex items-center  font-semibold hover:text-black-500" onClick={handleNavigation}>
+            <span>MFO</span>
             <ArrowIcon />
           </button>
         </div>

@@ -15,12 +15,13 @@ import {
 import Input2 from "@/components/units/input2";
 import { axios } from "@/services/axios";
 import Loader from "@/components/ui/loader";
+import { warn } from "console";
 
 /* eslint-disable react/no-unescaped-entities */
 const Login = () => {
   const dispatch = useAppDispatch();
   const router = useRouter();
-  const [loading,setLoading] = useState(false)
+  const [loading, setLaoding] = useState(false);
   const [companyName, setCompanyName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -32,31 +33,48 @@ const Login = () => {
     accountType: string
   ) => {
     try {
-      setLoading(true);
-      const response = await axios.post(`/auth/login`, {
-        email:email,
-        password:password
-        // logginType: accountType,
-      });
+      setLaoding(true);
+      await router.push("/d/dashboard");
+      // const response = await axios.post(`/auth/login`, {
+      //   email: email,
+      //   password: password,
+      //   // logginType: accountType,
+      // });
 
-      const responseData = await response.data;
-      console.log(responseData);
-      localStorage.setItem("loggedInUser", JSON.stringify(responseData.user));
-      localStorage.setItem("authKey", responseData.Access_token);
-      dispatch(
-        setWelcomeMessage({ message: "Hi! You've loggedIn successfully" })
-      );
-      dispatch(setLoggedInSuccessfully({ type: true }));
-      router.push("/d/dashboard");
+      // const responseData = response.data;
+      // console.log(`data is ${responseData}`);
+      // localStorage.setItem("loggedInUser", JSON.stringify(responseData.user));
+      // localStorage.setItem("authKey", responseData.token);
+      // dispatch(
+      //   setWelcomeMessage({ message: "Hi! You've loggedIn successfully" })
+      // );
+      // dispatch(setLoggedInSuccessfully({ type: true }));
+      // router.push("/d/dashboard");
     } catch (error: any) {
       if (error) {
-        console.log(error);
+        console.log(`error is ${error}`);
+        toast("There is a network error", {
+          style: {
+            backgroundColor: "white",
+            color: "red",
+          },
+          progressStyle: {
+            background: "red",
+          },
+        });
       } else {
-        toast("Some thing went wrong, please try again");
+        toast("Some thing went wrong, please try again",{
+          style: {
+            backgroundColor: "white",
+            color: "yellow",
+          },
+          progressStyle: {
+            background: "yellow",
+          },
+        });
       }
-    }
-    finally{
-      setLoading(false)
+    } finally {
+      setLaoding(false);
     }
   };
 
@@ -90,13 +108,13 @@ const Login = () => {
           setState={setEmail}
           placeholder={"Email address"}
         />
-        <Input2
+        {/* <Input2
           label="Login as"
           type="select"
           state={accountType}
           setState={setAccountType}
           placeholder={"Company name"}
-        />
+        /> */}
         <Input
           label="Password"
           type="password"
@@ -104,8 +122,15 @@ const Login = () => {
           setState={setPassword}
           placeholder={"Your password"}
         />
-        <Button className={`${loading ? ' w-full py-[14px] px-10 text-center bg-app text-white rounded-md opacity-50':'w-full py-[14px] px-10 text-center bg-app text-white rounded-md'}`} onClick={() => loginRequest(email, password, accountType)}>
-          {loading ?<Loader />:'Login'}
+        <Button
+          className={`${
+            loading
+              ? " w-full py-[14px] px-10 text-center bg-app text-white rounded-md opacity-50"
+              : "w-full py-[14px] px-10 text-center bg-app text-white rounded-md"
+          }`}
+          onClick={() => loginRequest(email, password, accountType)}
+        >
+          {loading ? <Loader /> : "Login"}
         </Button>
       </div>
     </div>

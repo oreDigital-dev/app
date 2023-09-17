@@ -1,19 +1,8 @@
-import {
-  AccountsIcon,
-  DashBoardIcon,
-  EmployeesIcon,
-  LogsIcon,
-  NofiticationsIcon,
-  ReportsIcon,
-  SitesIcon,
-  SupportIcon,
-} from "@/components/icons";
 import Logo from "@/components/ui/logo";
 import CurrentUser from "@/components/units/currentUser";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import NotificationLayout from "./notificationLayout";
-import { AiOutlineCloseCircle } from "react-icons/ai";
 import ProfileLayout from "./profileLayout";
 import {
   DashBoardSection,
@@ -26,6 +15,7 @@ import {
   setNotificationPanelVisibility,
   setProfilePanelVisibility,
 } from "@/features/appPages";
+import { NofiticationsIcon } from "@/components/icons";
 
 const NavLink = ({
   props,
@@ -148,7 +138,7 @@ export default function DashBoardLayout({
             <div>{children}</div>
           </div>
           <div className="sm:hidden w-[100vw]">
-            <div className="mt-10 flex w-[100%] overflow-x-scroll scrollbar:hidden ">
+            <div className="mt-10 flex w-[100%]">
               {router.pathname.includes("/d") &&
                 links.map((link, index) => (
                   <NavLink

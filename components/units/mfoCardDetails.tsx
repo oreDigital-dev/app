@@ -18,7 +18,7 @@ function MfoDetailsCard(props: MfoDetailsProps) {
     await router.push(`/mfo/${href}`);
   };
   return (
-    <div className="flex items-center mb-4 p-3 min-w-[250px] gap-4 border cursor-pointer rounded-lg shadow-sm">
+    <div className="flex items-center mb-4 p-3 min-w-[40%] sm:min-w-[250px] gap-4 border cursor-pointer rounded-lg shadow-sm">
       <div className="w-full">
         <p className="text-gray-400">{props.title}</p>
 

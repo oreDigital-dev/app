@@ -19,12 +19,12 @@ const Dashboard = () => {
     }
   };
   return (
-    <div className="m-[20px] rounded-md">
+    <div className="m-[20px] rounded-md overflow-x-hidden">
       <div className=" bg-white/40  relative p-[20px] rounded-md shadow-sm shadow-neutal-300">
         <div className="flex  z-100  items-start justify-between">
           <SectionHead title="Summary" desc="Your records so far" />
         </div>
-        <div className="flex gap-4 my-[20px] ">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 my-[20px] ">
           {mfoHols.map((item, index) => (
             <MfoDetailsCard {...item} key={index} />
           ))}
@@ -39,7 +39,7 @@ const Dashboard = () => {
             desc="Some fast actions you can do"
           />
         </div>
-        <div className="flex gap-4 my-[20px] overflow-x-scroll scrollable">
+        <div className="grid grid-cols-2 lg:grid-cols-3  gap-4 my-[20px] overflow-x-scroll scrollable">
           {mfoQuickActions.map((quickAction, index) => (
             <button
               onClick={() => handleActionClick(index)}

@@ -7,7 +7,7 @@ const FormExtract = () => {
   const COLORS =  ["#2CA900","#5160B3","#293369","#8A6262"]
   return (
     <div className="m-[20px] rounded-md">
-      <div className="p-[20px]  flex gap-2">
+      <div className="p-[20px] space-y-2 md:Space-y-0 md:flex gap-2">
         <div className="basis-3/4 bg-white/40 py-4 rounded-md shadow-sm shadow-neutal-300">
           <div className="w-full flex  justify-between items-center ">
             <div className="pl-8">
@@ -40,7 +40,7 @@ const FormExtract = () => {
           </div>
         </div>
         {/**view Submitted form  */}
-        <div className="basis-1/4 space-y-2 h-[280px] bg-white/50 rounded-md shadow-sm shadow-neutal-300">
+        <div className="basis-1/4 w-[80%] md:w-[100%] space-y-2 max-h-[280px] md:min-h-[280px] bg-white/50 rounded-md shadow-sm shadow-neutal-300">
           <div className="flex flex-col items-center pr-10">
             <h6 className="text-black-500 font-bold">View submitted forms</h6>
             <p className="text-black-300 font-light text-sm">
