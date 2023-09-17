@@ -4,7 +4,7 @@ import Button from "@/components/ui/button";
 import Input from "@/components/units/createMinesiteInputs";
 import Link from "next/link";
 
-const AdminForm = ({ category }: { category: string }) => {
+const AdminForm = ({ category}: { category: string}) => {
   const router = useRouter();
   const handleProgression = (category: String) => {
     switch (category) {
@@ -21,6 +21,7 @@ const AdminForm = ({ category }: { category: string }) => {
         router.push("/auth")
     }
   };
+  const formHandler = ()=>{}
   const rmbRoles: string[] = [
     "RMB Admin",
     "RMB Employee",
@@ -48,7 +49,7 @@ const AdminForm = ({ category }: { category: string }) => {
           </span>
         </p>
       </div>
-      <div className="space-y-4">
+      <form onSubmit={formHandler} className="space-y-4">
         <Input
           label={"Full names"}
           placeholder={"John Doe"}
@@ -110,7 +111,7 @@ const AdminForm = ({ category }: { category: string }) => {
             ))}
           </select>
         )}
-      </div>
+      </form>
       <div>
         <Button
           className="w-5/12 py-[14px] px-10 text-center bg-app text-white rounded-xl"

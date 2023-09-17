@@ -21,7 +21,7 @@ const AuthPage = () => {
     <AuthLayout>
       <div className="space-y-4">
         {category == "RMB" && subCategory == "Employee" && (
-          <EmployeeForm category={category} subCategory={subCategory} />
+          <EmployeeForm  category={category} subCategory={subCategory} />
         )}
         {category == "RMB" && subCategory == "Admin" && (
           <AdminForm category="RMB" />

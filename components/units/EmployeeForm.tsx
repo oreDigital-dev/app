@@ -6,6 +6,7 @@ import { useRouter } from "next/router";
 export interface EmployeeFormProps {
   category: string;
   subCategory: string;
+  formHandler:(formData:any)=>void|any
 }
 const EmployeeForm = (props: EmployeeFormProps) => {
   const router = useRouter();
@@ -41,7 +42,7 @@ const EmployeeForm = (props: EmployeeFormProps) => {
           </span>
         </p>
       </div>
-      <div className="space-y-4">
+      <form onSubmit={props.formHandler} className="space-y-4">
         <Input
           label={"Full names"}
           placeholder={"John Doe"}
@@ -70,15 +71,7 @@ const EmployeeForm = (props: EmployeeFormProps) => {
           state={""}
           setState={() => {}}
         />
-        {props.category == "RMB" && (
-          <Input
-            label={"Key"}
-            placeholder={"key sample"}
-            type={"text"}
-            state={""}
-            setState={() => {}}
-          />
-        )}
+ 
         {props.category == "Company" && (
           <select
             className=" border border-black-300/10 font-regular  outline-none  w-full py-[14px] px-3 rounded-md text-[black]"
@@ -92,7 +85,7 @@ const EmployeeForm = (props: EmployeeFormProps) => {
             ))}
           </select>
         )}
-      </div>
+      </form>
       <div>
         <Button
           className="w-5/12 py-[14px] px-10 text-center bg-app text-white rounded-xl"
