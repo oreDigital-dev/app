@@ -16,6 +16,7 @@ import Input2 from "@/components/units/input2";
 import { axios } from "@/services/axios";
 import Loader from "@/components/ui/loader";
 import { warn } from "console";
+import { loginPerson } from "@/services/actions/auth.action";
 
 /* eslint-disable react/no-unescaped-entities */
 const Login = () => {
@@ -25,16 +26,34 @@ const Login = () => {
   const [companyName, setCompanyName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [accountType, setAccountType] = useState(loginTypes[0]);
+  const [userType, setUserType] = useState(loginTypes[0]);
 
   const loginRequest = async (
     email: string,
     password: string,
-    accountType: string
+    userType: string
   ) => {
     try {
       setLaoding(true);
-      await router.push("/d/dashboard");
+      const response:any = await loginPerson({email,password,userType})
+      toast("User logged in successfully", {
+        style: {
+          backgroundColor: "white",
+          color: "green",
+        },
+        progressStyle: {
+          background: "green",
+        },
+      });
+      dispatch(
+        setWelcomeMessage({ message: "Hi! You've loggedIn successfully" })
+      );
+      dispatch(setLoggedInSuccessfully({ type: true }));
+      localStorage.setItem("loggedInUser", JSON.stringify(response.data.user));
+      setTimeout(async()=>{
+        await router.push("/d/dashboard");
+
+      },2000)
       // const response = await axios.post(`/auth/login`, {
       //   email: email,
       //   password: password,
@@ -43,12 +62,8 @@ const Login = () => {
 
       // const responseData = response.data;
       // console.log(`data is ${responseData}`);
-      // localStorage.setItem("loggedInUser", JSON.stringify(responseData.user));
       // localStorage.setItem("authKey", responseData.token);
-      // dispatch(
-      //   setWelcomeMessage({ message: "Hi! You've loggedIn successfully" })
-      // );
-      // dispatch(setLoggedInSuccessfully({ type: true }));
+   
       // router.push("/d/dashboard");
     } catch (error: any) {
       if (error) {
@@ -108,13 +123,13 @@ const Login = () => {
           setState={setEmail}
           placeholder={"Email address"}
         />
-        {/* <Input2
+        <Input2
           label="Login as"
           type="select"
-          state={accountType}
-          setState={setAccountType}
-          placeholder={"Company name"}
-        /> */}
+          state={userType}
+          setState={setUserType}
+          placeholder={"User Category"}
+        />
         <Input
           label="Password"
           type="password"
@@ -128,7 +143,7 @@ const Login = () => {
               ? " w-full py-[14px] px-10 text-center bg-app text-white rounded-md opacity-50"
               : "w-full py-[14px] px-10 text-center bg-app text-white rounded-md"
           }`}
-          onClick={() => loginRequest(email, password, accountType)}
+          onClick={() => loginRequest(email, password, userType)}
         >
           {loading ? <Loader /> : "Login"}
         </Button>
