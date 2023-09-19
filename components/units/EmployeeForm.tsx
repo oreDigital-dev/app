@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { EmployeeFields } from "@/@types/interfaces";
 import Button from "@/components/ui/button";
 import Input from "@/components/units/createMinesiteInputs";
@@ -6,10 +7,46 @@ import { useRouter } from "next/router";
 export interface EmployeeFormProps {
   category: string;
   subCategory: string;
-  formHandler:(formData:any)=>void|any
+  formHandler: (formData: any) => void | any;
 }
 const EmployeeForm = (props: EmployeeFormProps) => {
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [national_id, setNational_id] = useState("");
+  const [province, setProvince] = useState("");
+  const [district, setDistrict] = useState("");
+  const [sector, setSector] = useState("");
+  const [cell, setCell] = useState("");
+  const [village, setVillage] = useState("");
+  const [myGender, setMygender] = useState("");
   const router = useRouter();
+  const formData = {
+    
+      firstName: firstName,
+      lastName: lastName,
+      email: email,
+      username: `${firstName.substring(0,1)}.${lastName}`,
+      myGender: myGender,
+      registrationKey: "anykey",
+      national_id: "string",
+      "password": "string",
+      "phoneNumber": "string",
+      "address": {
+        "province": "string",
+        "district": "string",
+        "sector": "string",
+        "cell": "string",
+        "village": "string"
+      },
+      "salary": 0,
+      "employeeRole": "string",
+      "company": "string",
+      "employeeType": "string"
+    
+  }
   const handleProgression = (category: String) => {
     switch (category) {
       case "RMB":
@@ -44,34 +81,70 @@ const EmployeeForm = (props: EmployeeFormProps) => {
       </div>
       <form onSubmit={props.formHandler} className="space-y-4">
         <Input
-          label={"Full names"}
-          placeholder={"John Doe"}
+          label={"First name"}
+          placeholder={"John"}
           type={"text"}
-          state={""}
-          setState={() => {}}
+          state={firstName}
+          setState={setFirstName}
+        />
+        <Input
+          label={"Last name"}
+          placeholder={"Doe"}
+          type={"text"}
+          state={lastName}
+          setState={setLastName}
         />
         <Input
           label={"Email address"}
           placeholder={"JohnDoe@gmail.com"}
           type={"email"}
-          state={""}
-          setState={() => {}}
+          state={email}
+          setState={setEmail}
         />
         <Input
           label={"Password"}
           placeholder={"......."}
           type={"password"}
-          state={""}
-          setState={() => {}}
+          state={password}
+          setState={setPassword}
         />
         <Input
           label={"Id"}
           placeholder={"1 1883 3434 34343"}
           type={"text"}
-          state={""}
-          setState={() => {}}
+          state={national_id}
+          setState={setNational_id}
         />
- 
+        <div className="flex flex-col">
+          <label className="mb-3">Gender</label>
+          <div className="flex gap-12">
+            <div className="flex items-center gap-10">
+              <p>Male</p>
+              <input
+                type="radio"
+                value={"Male"}
+                name="gender"
+                checked={formData.myGender == "Male"}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setMygender(e.target.value)
+                }
+              />
+            </div>
+            <div className="flex items-center gap-10">
+              <p>Female</p>
+              <input
+                checked={formData.myGender == "Female"}
+                type="radio"
+                value={"Female"}
+                name="gender"
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setMygender(e.target.value)
+                }
+              />
+            </div>
+          </div>
+        </div>
+
         {props.category == "Company" && (
           <select
             className=" border border-black-300/10 font-regular  outline-none  w-full py-[14px] px-3 rounded-md text-[black]"
@@ -85,6 +158,41 @@ const EmployeeForm = (props: EmployeeFormProps) => {
             ))}
           </select>
         )}
+        <Input
+          label={"Province"}
+          placeholder={"Kigali"}
+          type={"text"}
+          state={province}
+          setState={setProvince}
+        />
+        <Input
+          label={"District"}
+          placeholder={"Gasabo"}
+          type={"text"}
+          state={district}
+          setState={setDistrict}
+        />
+        <Input
+          label={"Sector"}
+          placeholder={"Kimironko"}
+          type={"text"}
+          state={sector}
+          setState={setSector}
+        />
+        <Input
+          label={"Cell"}
+          placeholder={"Kibagabaga"}
+          type={"text"}
+          state={cell}
+          setState={setCell}
+        />
+        <Input
+          label={"Village"}
+          placeholder={"Kalisimbi"}
+          type={"text"}
+          state={village}
+          setState={setVillage}
+        />
       </form>
       <div>
         <Button

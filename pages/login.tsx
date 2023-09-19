@@ -1,3 +1,4 @@
+import {BsEyeSlashFill,BsEyeFill } from 'react-icons/bs';
 import Button from "@/components/ui/button";
 import Logo from "@/components/ui/logo";
 import Input from "@/components/units/input";
@@ -22,11 +23,20 @@ import { loginPerson } from "@/services/actions/auth.action";
 const Login = () => {
   const dispatch = useAppDispatch();
   const router = useRouter();
+  const[type,setType] = useState("password")
   const [loading, setLaoding] = useState(false);
   const [companyName, setCompanyName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [userType, setUserType] = useState(loginTypes[0]);
+  const handleShowPassword = (type:string)=>{
+if(type == "password"){
+  setType("text")
+}
+else{
+  setType("password")
+}
+  }
 
   const loginRequest = async (
     email: string,
@@ -36,6 +46,7 @@ const Login = () => {
     try {
       setLaoding(true);
       const response:any = await loginPerson({email,password,userType})
+      console.log(response.data.user.company.id)
       toast("User logged in successfully", {
         style: {
           backgroundColor: "white",
@@ -50,6 +61,8 @@ const Login = () => {
       );
       dispatch(setLoggedInSuccessfully({ type: true }));
       localStorage.setItem("loggedInUser", JSON.stringify(response.data.user));
+      localStorage.setItem("refreshToken",JSON.stringify(response.data.refresh_token));
+      localStorage.setItem("companyId",JSON.stringify(response.data.user.company.id))
       setTimeout(async()=>{
         await router.push("/d/dashboard");
 
@@ -130,13 +143,17 @@ const Login = () => {
           setState={setUserType}
           placeholder={"User Category"}
         />
+        <div className="flex items-center w-full justify-between  ">
         <Input
+        className='w-[140%]'
           label="Password"
-          type="password"
+          type={type}
           state={password}
           setState={setPassword}
           placeholder={"Your password"}
         />
+<button  onClick={()=>handleShowPassword(type)}>{type == "password"?< BsEyeSlashFill />:< BsEyeFill />}</button>
+        </div>
         <Button
           className={`${
             loading

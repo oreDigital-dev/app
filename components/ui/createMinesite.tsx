@@ -11,6 +11,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState, store } from "@/stores/store";
 import FormHeader from "../units/formHeader";
 import Loader from "./loader";
+import { createMinesite as MinesiteHandler} from "@/services/actions/minesites.action";
+import { createMineSite } from "@/features/minesitesSlice";
 
 function CreateMinesite() {
   const dispatch = useDispatch();
@@ -18,67 +20,104 @@ function CreateMinesite() {
     (store: RootState) => store.appPages.isCreateMineSiteVisible
   );
   const [mineSiteName, setMineSiteName] = useState("");
-  const [country, setCountry] = useState("");
-  const [district, setDistrict] = useState("");
   const [mineraTypes, setMineralTypes] = useState("");
   const [loading, setLoading] = useState(false);
+  const [province, setProvince] = useState("");
+  const [district, setDistrict] = useState("");
+  const [sector, setSector] = useState("");
+  const [cell, setCell] = useState("");
+  const [village, setVillage] = useState("");
 
   const handleHideForm = () => {
     dispatch(setCreateMineSiteVisibility({ type: "close" }));
   };
-
-  const registerMineSite = async () => {
-    setLoading(true);
-    await axios
-      .post(
-        `${baseUrli}/minesites/create`,
-        {
-          minesiteName: mineSiteName,
-          mineralTypes: [mineraTypes, "ZINC"],
-          address: {
-            country: country,
-            province: ",",
-            district: district,
-            sector: ".",
-            cell: ".",
-            village: ".",
-            PostalCode: "00000",
-          },
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("AuthKey")}`,
-          },
-        }
-      )
-      .then((response) => {
-        console.log(response);
-        toast(response.data.message);
-        dispatch(setCreateMineSiteVisibility({ type: "close" }));
-        setLoading(false);
-      })
-      .catch((error) => {
-        if (error.code != "ERR_NETWORK") {
-          if (error.response.data.status != 500) {
-            toast(error.response.data.message);
-          } else {
-            toast("Some thing went wrong, please try again");
-          }
-        }
-        setLoading(false);
-      });
+  const formData = {
+    name: mineSiteName,
+    minerals: mineraTypes,
+    province: province,
+    district: district,
+    sector: sector,
+    cell: cell,
+    village: village,
   };
+
+  const registerMineSite = () => {
+    dispatch(createMineSite(formData));
+    handleRegisterMinesite();
+  };
+  const handleRegisterMinesite = async () => {
+    const requestPayload = {
+      
+      name: formData.name,
+        minerals: [
+        formData.minerals
+        ],
+        address: {
+          province: formData.province,
+          district: formData.district,
+          sector: formData.sector,
+          cell: formData.cell,
+          village: formData.village
+        },
+        company: JSON.parse(localStorage.getItem("companyId")|| "{}")
+      }
+    
+    try {
+const res = await MinesiteHandler(requestPayload);
+console.log(res)
+    } catch (err){
+      console.log(err)
+    }
+  };
+  // await axios
+  //   .post(
+  //     `${baseUrli}/minesites/create`,
+  //     {
+  //       minesiteName: mineSiteName,
+  //       mineralTypes: [mineraTypes, "ZINC"],
+  //       address: {
+  //         country: country,
+  //         province: ",",
+  //         district: district,
+  //         sector: ".",
+  //         cell: ".",
+  //         village: ".",
+  //         PostalCode: "00000",
+  //       },
+  //     },
+  //     {
+  //       headers: {
+  //         Authorization: `Bearer ${localStorage.getItem("AuthKey")}`,
+  //       },
+  //     }
+  //   )
+  //   .then((response) => {
+  //     console.log(response);
+  //     toast(response.data.message);
+  //     dispatch(setCreateMineSiteVisibility({ type: "close" }));
+  //     setLoading(false);
+  //   })
+  //   .catch((error) => {
+  //     if (error.code != "ERR_NETWORK") {
+  //       if (error.response.data.status != 500) {
+  //         toast(error.response.data.message);
+  //       } else {
+  //         toast("Some thing went wrong, please try again");
+  //       }
+  //     }
+  //     setLoading(false);
+  //   });
 
   return (
     <div>
       {isCreateMineSiteFormVisible && (
-        <div className="w-[35%] form-1 rounded top-0 mx-auto absolute  bg-white  shadow-2xl">
+        <div className="w-[58%] form-1 rounded  mx-auto my-auto  bg-white  shadow-2xl">
           <FormHeader title="OreDigital" hideComponent={handleHideForm} />
           <div className="p-4">
             <h1 className="text-center text-sm font-bold">
               Register new Minesite
             </h1>
-            <div className="flex flex-col space-y-4">
+            <div className="flex flex-col space-y-3">
               <Input
                 label="Minesite Name"
                 type="text"
@@ -93,20 +132,56 @@ function CreateMinesite() {
                 setState={setMineralTypes}
                 placeholder={"Types of Minerals"}
               />
-              <Input2
+              {/* <Input2
                 label="Country"
                 type="text"
                 state={mineSiteName}
                 setState={setCountry}
                 placeholder={"Country"}
+              /> */}
+              <div className="flex gap-2">
+              <Input
+                label={"Province"}
+                placeholder={"Kigali"}
+                type={"text"}
+                state={province}
+                setState={setProvince}
               />
-              <Input2
-                label="District"
-                type="text"
-                state={mineSiteName}
+              <Input
+                label={"District"}
+                placeholder={"Gasabo"}
+                type={"text"}
+                state={district}
                 setState={setDistrict}
-                placeholder={"District"}
               />
+
+              </div>
+              <div className="flex gap-2">
+              <Input
+                label={"Sector"}
+                placeholder={"Kimironko"}
+                type={"text"}
+                state={sector}
+                setState={setSector}
+              />
+              <Input
+                label={"Cell"}
+                placeholder={"Kibagabaga"}
+                type={"text"}
+                state={cell}
+                setState={setCell}
+              />
+              </div>
+              <div className="w-1/2">
+              <Input
+                label={"Village"}
+                placeholder={"Kalisimbi"}
+                type={"text"}
+                state={village}
+                setState={setVillage}
+              />
+
+              </div>
               <Button onClick={() => registerMineSite()}>
                 {loading ? <Loader /> : "Register mine site"}
               </Button>

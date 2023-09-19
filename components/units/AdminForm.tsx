@@ -11,7 +11,7 @@ const AdminForm = ({ category }: { category: string }) => {
 const router = useRouter();
 const dispatch = useDispatch();
 const [firstName,setFirstName] = useState("");
-const [secondName,setSecondName] = useState("");
+const [lastName,setLastName] = useState("");
 const [email,setEmail] = useState("");
 const [password,setPassword] = useState("");
 const [phoneNumber,setPhoneNumber] = useState("");
@@ -26,7 +26,7 @@ const [village,setVillage] = useState("");
 
 const formData = {
   firstName:firstName,
-  secondName:secondName,
+  lastName:lastName,
   email:email,
   password:password,
   phoneNumber:phoneNumber,
@@ -99,8 +99,8 @@ const formData = {
           label={"Second Name"}
           placeholder={"Doe"}
           type={"text"}
-          state={secondName}
-          setState={setSecondName}
+          state={lastName}
+          setState={setLastName}
         />
         <Input
           label={"Email address"}

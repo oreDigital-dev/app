@@ -10,6 +10,7 @@ import { companyAdminRegistration } from "@/services/actions/auth.action";
 import { Cell } from "recharts";
 
 const FinalDetails = () => {
+  const router = useRouter();
   const dispatch = useDispatch();
   const companyAdminInfo = useSelector(
     (state: RootState) => state.companyRegistration.admin
@@ -33,11 +34,18 @@ const FinalDetails = () => {
     sector: sector,
     cell: cell,
     village: village,
-  };
-  const router = useRouter();
-  const handleProgression = () => {
+  }
+
+  const handleProgression = async() => {
     dispatch(stepThreeRegistration(formData));
-    handleRegister();
+    try{
+
+     const res = await handleRegister();
+      router.push("/verification")
+    }
+    catch(err){
+      console.log(err)
+    }
   };
   const handleRegister = async () => {
     try {

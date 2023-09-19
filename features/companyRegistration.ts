@@ -76,6 +76,9 @@ const rmbRegistrationSlice = createSlice({
             state.admin.company.address.sector = payload.payload.sector;
             state.admin.company.address.cell = payload.payload.cell;
             state.admin.company.address.village = payload.payload.village;
+        },
+        stepOneEmployeeRegistration:(state:RootState)=>{
+            
         }
     }
 })
