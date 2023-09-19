@@ -16,7 +16,7 @@ const CategoryButton = ({
   );
   return (
     <button
-      className={` p-1 px-2 w-[25%] rounded-md ${categoryState ==category?' bg-app  border border-app text-white':'bg-white border border-app text-black'}  font-medium text-lg flex items-center justify-center`}
+      className={` p-1 px-2 w-[25%] rounded-md ${categoryState ==category?' bg-app  border border-app text-white':'bg-white border border-app text-app'}  font-medium text-lg flex items-center justify-center`}
       onClick={() => clickHandler(category)}
     >
       {category}
