@@ -98,40 +98,126 @@ const AdminForm = ({ category }: { category: string }) => {
             />
           </div>
           <div className="basis-1/2">
+            <Input
+              label={"Second Name"}
+              placeholder={"Doe"}
+              type={"text"}
+              state={lastName}
+              setState={setLastName}
+            />
+          </div>
+        </div>
+        <div className="flex gap-2">
+          <div className="basis-1/2">
+            <Input
+              label={"Email address"}
+              placeholder={"JohnDoe@gmail.com"}
+              type={"email"}
+              state={email}
+              setState={setEmail}
+            />
+          </div>
+          <div className="basis-1/2">
+            <Input
+              label={"Password"}
+              placeholder={"......."}
+              type={"password"}
+              state={formData.password}
+              setState={setPassword}
+            />
+          </div>
+        </div>
+
+        <div className="flex gap-2">
+          <div className="basis-1/2">
+            <Input
+              label={"National Id"}
+              placeholder={"1 1883 3434 34343"}
+              type={"text"}
+              state={national_id}
+              setState={setNational_id}
+            />
+          </div>
+          <div className="basis-1/2">
+            <label className="mb-3">Gender</label>
+            <div className="flex gap-12">
+              <div className="flex items-center gap-10">
+                <p>Male</p>
+                <input
+                  type="radio"
+                  value={"Male"}
+                  name="gender"
+                  checked={formData.myGender == "Male"}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                    setMygender(e.target.value)
+                  }
+                />
+              </div>
+              <div className="flex items-center gap-10">
+                <p>Female</p>
+                <input
+                  checked={formData.myGender == "Female"}
+                  type="radio"
+                  value={"Female"}
+                  name="gender"
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                    setMygender(e.target.value)
+                  }
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="flex gap-2">
+          <div className="basis-1/2">
+            <Input
+              label={"Province"}
+              placeholder={"Kigali"}
+              type={"text"}
+              state={province}
+              setState={setProvince}
+            />
+          </div>
+          <div className="basis-1/2">
+            <Input
+              label={"District"}
+              placeholder={"Gasabo"}
+              type={"text"}
+              state={district}
+              setState={setDistrict}
+            />
+          </div>
+        </div>
+        <div className="flex gap-2">
+          <div className="basis-1/2">
+            <Input
+              label={"Sector"}
+              placeholder={"Kimironko"}
+              type={"text"}
+              state={sector}
+              setState={setSector}
+            />
+          </div>
+          <div className="basis-1/2">
+            <Input
+              label={"Cell"}
+              placeholder={"Kibagabaga"}
+              type={"text"}
+              state={cell}
+              setState={setCell}
+            />
+          </div>
+        </div>
+        <div className="flex gap-2">
+          <div className="basis-1/2">
           <Input
-            label={"Second Name"}
-            placeholder={"Doe"}
+            label={"Village"}
+            placeholder={"Kalisimbi"}
             type={"text"}
-            state={lastName}
-            setState={setLastName}
+            state={village}
+            setState={setVillage}
           />
-
           </div>
-        </div>
-        <div className="flex gap-2">
-          <div className="basis-1/2">
-          <Input
-            label={"Email address"}
-            placeholder={"JohnDoe@gmail.com"}
-            type={"email"}
-            state={email}
-            setState={setEmail}
-          />
-
-          </div>
-          <div className="basis-1/2">
-          <Input
-            label={"Password"}
-            placeholder={"......."}
-            type={"password"}
-            state={formData.password}
-            setState={setPassword}
-          />
-
-          </div>
-        </div>
-     
-        <div className="flex gap-2">
           <div className="basis-1/2">
         <Input
           label={"Phone Number"}
@@ -140,65 +226,8 @@ const AdminForm = ({ category }: { category: string }) => {
           state={phoneNumber}
           setState={setPhoneNumber}
         />
+
           </div>
-          <div className="basis-1/2">
-        <Input
-          label={"National Id"}
-          placeholder={"1 1883 3434 34343"}
-          type={"text"}
-          state={national_id}
-          setState={setNational_id}
-        />
-          </div>
-        </div>
-        <div className="flex gap-2">
-          <div className="basis-1/2">
-          <Input
-            label={"Province"}
-            placeholder={"Kigali"}
-            type={"text"}
-            state={province}
-            setState={setProvince}
-          />
-          </div>
-          <div className="basis-1/2">
-          <Input
-            label={"District"}
-            placeholder={"Gasabo"}
-            type={"text"}
-            state={district}
-            setState={setDistrict}
-          />
-          </div>
-        </div>
-        <div className="flex gap-2">
-          <div className="basis-1/2">
-          <Input
-            label={"Sector"}
-            placeholder={"Kimironko"}
-            type={"text"}
-            state={sector}
-            setState={setSector}
-          />
-          </div>
-          <div className="basis-1/2">
-          <Input
-            label={"Cell"}
-            placeholder={"Kibagabaga"}
-            type={"text"}
-            state={cell}
-            setState={setCell}
-          />
-          </div>
-        </div>
-        <div className="w-1/2">
-          <Input
-            label={"Village"}
-            placeholder={"Kalisimbi"}
-            type={"text"}
-            state={village}
-            setState={setVillage}
-          />
         </div>
       </div>
       <div>

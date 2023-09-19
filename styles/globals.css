@@ -127,11 +127,12 @@
   background-attachment: fixed;
   height: 110vh;
 }
+
 .authBack2 {
   background-image: url("/backGround.jpg");
   background-repeat: no-repeat;
   background-attachment: fixed;
-  height: 140vh;
+  height: 100vh;
 } 
 body{
   backGround:black;

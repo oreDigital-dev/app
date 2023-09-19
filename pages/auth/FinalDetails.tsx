@@ -34,17 +34,15 @@ const FinalDetails = () => {
     sector: sector,
     cell: cell,
     village: village,
-  }
+  };
 
-  const handleProgression = async() => {
+  const handleProgression = async () => {
     dispatch(stepThreeRegistration(formData));
-    try{
-
-     const res = await handleRegister();
-      router.push("/verification")
-    }
-    catch(err){
-      console.log(err)
+    try {
+      const res = await handleRegister();
+      router.push("/verification");
+    } catch (err) {
+      console.log(err);
     }
   };
   const handleRegister = async () => {
@@ -97,88 +95,109 @@ const FinalDetails = () => {
   };
   return (
     <div className="relative flex flex-col authBack2 bg-cover bg-transparent ">
-      <div className=" rounded-xl p-6 z-40 bg-white justify-center w-[35%] mx-auto h-[95%] space-y-4">
+      <div className=" rounded-xl p-6 z-40 bg-white justify-center w-[35%] mx-auto my-auto space-y-8">
         <div className="flex justify-center ">
           <div className="flex items-center gap-4">
             {/* Step number round */}
-            <div className="h-6 w-6 rounded-full bg-app flex items-center justify-center">
-              <p className="font-bold text-2xl text-white">3</p>
+            <div className="h-8 w-8 rounded-full bg-app flex items-center justify-center">
+              <p className="font-bold text-xl text-white">3</p>
             </div>
-            <p className="font-bold text-2xl text-black">Company details</p>
+            <p className="font-bold text-xl text-black">Company details</p>
           </div>
         </div>
-        <div className=" w-full flex justify-center">
-          <p>
-            Don&apos;t have a workspace?{" "}
-            <span className="text-app">
-              <Link href={"/"}>Request One</Link>
-            </span>
-          </p>
-        </div>
-        <div className="space-y-4">
+
+        <div className="space-y-2">
+          <div className="flex gap-2">
+            <div className="basis-1/2">
+              <Input
+                label={"Mining license number"}
+                placeholder={"Sail-miners333"}
+                type={"text"}
+                state={licenseNumber}
+                setState={setLicenseNumber}
+              />
+            </div>
+            <div className="basis-1/2">
+              <Input
+                label={"Type of minerals"}
+                placeholder={"Wolfram"}
+                type={"text"}
+                state={minerals}
+                setState={setMinerals}
+              />
+            </div>
+          </div>
+          <div className="flex gap-2">
+            <div className="basis-1/2">
+              <Input
+                label={"Production Capacity"}
+                placeholder={"250 kg"}
+                type={"number"}
+                state={productionCapacity}
+                setState={setProductionCapacity}
+              />
+            </div>
+            <div className="basis-1/2">
+              <Input
+                label={"Type of ownership"}
+                placeholder={"Sole proprietorship"}
+                type={"text"}
+                state={ownership}
+                setState={setOwnership}
+              />
+            </div>
+          </div>
+
+          <div className="flex gap-2">
+            <div className="basis-1/2">
+              <Input
+                label={"Province"}
+                placeholder={"Kigali"}
+                type={"text"}
+                state={province}
+                setState={setProvince}
+              />
+            </div>
+            <div className="basis-1/2">
+              <Input
+                label={"District"}
+                placeholder={"Gasabo"}
+                type={"text"}
+                state={district}
+                setState={setDistrict}
+              />
+            </div>
+          </div>
+          <div className="flex gap-2">
+            <div className="basis-1/2">
+              <Input
+                label={"Sector"}
+                placeholder={"Kimironko"}
+                type={"text"}
+                state={sector}
+                setState={setSector}
+              />
+            </div>
+            <div className="basis-1/2">
+              <Input
+                label={"Cell"}
+                placeholder={"Kibagabaga"}
+                type={"text"}
+                state={cell}
+                setState={setCell}
+              />
+            </div>
+          </div>
+          <div className="w-1/2">
           <Input
-            label={"Mining license number"}
-            placeholder={"Sail-miners333"}
+            label={"Village"}
+            placeholder={"Kalisimbi"}
             type={"text"}
-            state={licenseNumber}
-            setState={setLicenseNumber}
+            state={village}
+            setState={setVillage}
           />
-          <Input
-            label={"Type of minerals"}
-            placeholder={"Wolfram"}
-            type={"text"}
-            state={minerals}
-            setState={setMinerals}
-          />
-          <Input
-            label={"Production Capacity"}
-            placeholder={"250 kg"}
-            type={"number"}
-            state={productionCapacity}
-            setState={setProductionCapacity}
-          />
-          <Input
-            label={"Type of ownership"}
-            placeholder={"Sole proprietorship"}
-            type={"text"}
-            state={ownership}
-            setState={setOwnership}
-          />
-                  <Input
-          label={"Province"}
-          placeholder={"Kigali"}
-          type={"text"}
-          state={province}
-          setState={setProvince}
-        />
-        <Input
-          label={"District"}
-          placeholder={"Gasabo"}
-          type={"text"}
-          state={district}
-          setState={setDistrict}
-        />
-        <Input
-          label={"Sector"}
-          placeholder={"Kimironko"}
-          type={"text"}
-          state={sector}
-          setState={setSector}
-        />
-        <Input
-          label={"Cell"}
-          placeholder={"Kibagabaga"}
-          type={"text"}
-          state={cell}
-          setState={setCell}
-        />
-        <Input
-          label={"Village"}
-          placeholder={"Kalisimbi"}
-          type={"text"}
-          state={village}
-          setState={setVillage}
-        />
+
+          </div>
         </div>
         <div>
           <Button
@@ -189,7 +208,7 @@ const FinalDetails = () => {
           </Button>
         </div>
       </div>
-      <div className="w-full h-[140vh] bg-black-900/80 absolute z-20" />
+      <div className="w-full h-[100vh] bg-black-900/80 absolute z-20" />
     </div>
   );
 };

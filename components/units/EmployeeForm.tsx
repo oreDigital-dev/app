@@ -40,7 +40,7 @@ const EmployeeForm = (props: EmployeeFormProps) => {
       cell: "string",
       village: "string",
     },
-    salary: 0,
+  salary: 0,
     employeeRole: "string",
     company: "string",
     employeeType: "string",
@@ -122,7 +122,7 @@ const EmployeeForm = (props: EmployeeFormProps) => {
           <div className="flex gap-2">
           <div className="basis-1/2">
         <Input
-          label={"Id"}
+          label={"National Id"}
           placeholder={"1 1883 3434 34343"}
           type={"text"}
           state={national_id}
@@ -210,6 +210,7 @@ const EmployeeForm = (props: EmployeeFormProps) => {
         />
 
        </div>
+
 
 
       </form>
