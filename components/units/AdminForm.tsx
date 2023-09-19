@@ -3,25 +3,63 @@ import { EmployeeFields } from "@/@types/interfaces";
 import Button from "@/components/ui/button";
 import Input from "@/components/units/createMinesiteInputs";
 import Link from "next/link";
+import { useDispatch } from "react-redux";
+import { steponeRegistration } from "@/features/companyRegistration";
+import { useState } from "react";
 
-const AdminForm = ({ category}: { category: string}) => {
-  const router = useRouter();
+const AdminForm = ({ category }: { category: string }) => {
+const router = useRouter();
+const dispatch = useDispatch();
+const [firstName,setFirstName] = useState("");
+const [lastName,setLastName] = useState("");
+const [email,setEmail] = useState("");
+const [password,setPassword] = useState("");
+const [phoneNumber,setPhoneNumber] = useState("");
+const[national_id,setNational_id] = useState("");
+const [myGender,setMygender] = useState("");
+const [province,setProvince] = useState("");
+const [district,setDistrict] = useState("");
+const [sector,setSector] = useState("");
+const [cell,setCell] = useState("");
+const [village,setVillage] = useState("");
+
+
+const formData = {
+  firstName:firstName,
+  lastName:lastName,
+  email:email,
+  password:password,
+  phoneNumber:phoneNumber,
+  myGender:myGender,
+  national_id:national_id,
+  province:province,
+  district:district,
+  sector:sector,
+  cell:cell,
+  village:village
+}
+
   const handleProgression = (category: String) => {
     switch (category) {
       case "RMB":
         router.push("/verification");
         break;
-      case "Company":
+        case "Company":
+          console.log(formData)
+        dispatch(steponeRegistration(formData));
         router.push("/auth/companyDetails");
         break;
       case "Rescue Team":
         router.push("/auth/ProfessionDetails");
         break;
       default:
-        router.push("/auth")
+        router.push("/auth");
     }
   };
-  const formHandler = ()=>{}
+  const handleGender = (e: React.ChangeEvent<HTMLInputElement>) => {
+    formData.myGender = e.target.value;
+  };
+
   const rmbRoles: string[] = [
     "RMB Admin",
     "RMB Employee",
@@ -31,7 +69,7 @@ const AdminForm = ({ category}: { category: string}) => {
   ];
   const rescueTeamRoles: String[] = ["Red Cross", "RNP", "RDF"];
   return (
-    <div className=" w-[90%] mx-auto h-[50%] space-y-2">
+    <div className=" w-[90%] mx-auto h-[50%] space-y-1">
       <div className="flex justify-center ">
         <div className="flex items-center gap-4">
           {/* Step number round */}
@@ -49,69 +87,110 @@ const AdminForm = ({ category}: { category: string}) => {
           </span>
         </p>
       </div>
-      <form onSubmit={formHandler} className="space-y-4">
+      <div className="space-y-2">
         <Input
-          label={"Full names"}
-          placeholder={"John Doe"}
+          label={"Firt Name"}
+          placeholder={"John"}
           type={"text"}
-          state={""}
-          setState={() => {}}
+          setState={setFirstName}
+          state={firstName}
+        />
+        <Input
+          label={"Second Name"}
+          placeholder={"Doe"}
+          type={"text"}
+          state={lastName}
+          setState={setLastName}
         />
         <Input
           label={"Email address"}
           placeholder={"JohnDoe@gmail.com"}
           type={"email"}
-          state={""}
-          setState={() => {}}
+          state={email}
+          setState={setEmail}
         />
         <Input
           label={"Password"}
           placeholder={"......."}
           type={"password"}
-          state={""}
-          setState={() => {}}
+          state={formData.password}
+          setState={setPassword}
         />
+        <Input
+          label={"Phone Number"}
+          placeholder={"+250798486619"}
+          type={"number"}
+          state={phoneNumber}
+          setState={setPhoneNumber}
+        />
+        <div className="flex flex-col">
+          <label className="mb-3">Gender</label>
+          <div className="flex gap-12">
+            <div className="flex items-center gap-10">
+              <p>Male</p>
+              <input
+                type="radio"
+                value={"Male"}
+                name="gender"
+                checked={formData.myGender == "Male"}
+                onChange={(e:React.ChangeEvent<HTMLInputElement>)=>setMygender(e.target.value)}
+              />
+            </div>
+            <div className="flex items-center gap-10">
+              <p>Female</p>
+              <input
+                checked={formData.myGender == "Female"}
+                type="radio"
+                value={"Female"}
+                name="gender"
+                onChange={(e:React.ChangeEvent<HTMLInputElement>)=>setMygender(e.target.value)}
+              />
+            </div>
+          </div>
+        </div>
         <Input
           label={"Id"}
           placeholder={"1 1883 3434 34343"}
           type={"text"}
-          state={""}
-          setState={() => {}}
+          state={national_id}
+          setState={setNational_id}
         />
         <Input
-          label={"Key"}
-          placeholder={"key sample"}
+          label={"Province"}
+          placeholder={"Kigali"}
           type={"text"}
-          state={""}
-          setState={() => {}}
+          state={province}
+          setState={setProvince}
         />
-        {category == "RMB" && (
-          <select
-            className=" border border-black-300/10 font-regular  outline-none  w-full py-[14px] px-3 rounded-md text-[black]"
-            placeholder="Types of minerals available"
-          >
-            <option>Role</option>
-            {rmbRoles.map((role, index) => (
-              <option key={index} value={role as string}>
-                {role}
-              </option>
-            ))}
-          </select>
-        )}
-        {category == "Rescue Team" && (
-          <select
-            className=" border border-black-300/10 font-regular  outline-none  w-full py-[14px] px-3 rounded-md text-[black]"
-            placeholder="Types of minerals available"
-          >
-            <option>Role</option>
-            {rescueTeamRoles.map((role, index) => (
-              <option key={index} value={role as string}>
-                {role}
-              </option>
-            ))}
-          </select>
-        )}
-      </form>
+        <Input
+          label={"District"}
+          placeholder={"Gasabo"}
+          type={"text"}
+          state={district}
+          setState={setDistrict}
+        />
+        <Input
+          label={"Sector"}
+          placeholder={"Kimironko"}
+          type={"text"}
+          state={sector}
+          setState={setSector}
+        />
+        <Input
+          label={"Cell"}
+          placeholder={"Kibagabaga"}
+          type={"text"}
+          state={cell}
+          setState={setCell}
+        />
+        <Input
+          label={"Village"}
+          placeholder={"Kalisimbi"}
+          type={"text"}
+          state={village}
+          setState={setVillage}
+        />
+      </div>
       <div>
         <Button
           className="w-5/12 py-[14px] px-10 text-center bg-app text-white rounded-xl"

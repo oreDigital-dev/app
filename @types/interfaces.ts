@@ -116,3 +116,8 @@ export interface EmployeeFields {
     key:String;
     company:String;
 }
+
+//company form data interfaces
+export interface SteponeFormdata {
+    
+}

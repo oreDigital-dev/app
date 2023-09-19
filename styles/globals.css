@@ -125,14 +125,14 @@
   background-image: url("/backGround.jpg");
   background-repeat: no-repeat;
   background-attachment: fixed;
-  height: 115vh;
+  height: 180vh;
 }
 .authBack2 {
   background-image: url("/backGround.jpg");
   background-repeat: no-repeat;
   background-attachment: fixed;
-  height: 100vh;
-}
+  height: 140vh;
+} 
 body{
   backGround:black;
 }

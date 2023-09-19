@@ -23,7 +23,7 @@ export default function MiningSite(props: MiningSiteProps) {
     >
       <Image
         src={minesiteImage}
-        alt={props.minesiteName}
+        alt={props?.minesiteName??'image'}
         width={100}
         height={100}
         className="w-auto"

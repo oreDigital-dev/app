@@ -10,9 +10,9 @@ import Sites from "../sites";
 import NotificationLayout from "@/layout/notificationLayout";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState, store } from "@/stores/store";
-import axios from "axios";
 import { baseUrli } from "@/utils/dataAssets";
 import { initializeMinesites } from "@/features/minesitesSlice";
+import { axios } from "@/services/axios";
 
 export default function Logs() {
   const dispatch = useDispatch();
@@ -33,13 +33,14 @@ export default function Logs() {
   useEffect(() => {
     const getMineSites = async () => {
       await axios
-        .get(`${baseUrli}/minesites/forlogged-in-company`, {
+        .get(`/incidents/all`, {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("authKey")}`,
+            Authorization: `Bearer ${localStorage.getItem("refreshToken")}`,
           },
         })
         .then((response) => {
-          dispatch(initializeMinesites({ minesites: response.data.mineSites }));
+          console.log(response.data)
+          dispatch(initializeMinesites({ minesites: response.data }));
         })
         .catch((error: any) => {
           console.log(error);
@@ -86,9 +87,9 @@ export default function Logs() {
           <SectionHead
             title="Logs"
             desc={`What's happening at ${
-              selectedMineSite == null
+              selectedMineSite == undefined
                 ? "All minesites "
-                : selectedMineSite.minesiteName + " Minesite"
+                : selectedMineSite?.minesiteName + " Minesite"
             }`}
           />
           <button

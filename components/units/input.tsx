@@ -1,9 +1,12 @@
+import {BsEyeSlashFill,BsEyeFill} from 'react-icons/bs';
+
 interface InputProps {
+  className?:string;
   label: string | null;
   state: string | number | null;
   setState: (state: any) => void;
   placeholder: string | null;
-  type: "text" | "password" | "email" | "number" | "select";
+  type: "text" | "password" | "email" | "number" | "select"|string;
 }
 export default function Input3({
   label,
@@ -11,6 +14,7 @@ export default function Input3({
   setState,
   placeholder,
   type,
+  className
 }: InputProps) {
   const options: String[] = [
     "DIAMOND",
@@ -51,9 +55,11 @@ export default function Input3({
             type={type}
             placeholder={placeholder as string}
             defaultValue={state as any}
-            className="border border-black-300/10 font-regular  outline-none  w-full py-[14px] px-3 rounded-md"
+            className={`border border-black-300/10 font-regular  outline-none  w-full py-[14px] px-3 rounded-md ${className}`}
             onChange={(e) => setState(e.target.value)}
           />
+
+          
           )
           }     
     </div>

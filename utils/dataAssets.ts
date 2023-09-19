@@ -40,7 +40,7 @@ export const districts: String[] = [
 
 export const ownerShipDetails = ["PRIVATE", "PUBLIC"]
 
-export const loginTypes = ["RMB_MEMBER", "USER", "POLICE", "RED_CROSS", "COMPANY_WORKER", "SYSTEM_ADMIN"]
+export const loginTypes = ["RMB","COMPANY"]
 export const notifications:NotificationPanel[] = [
   {
     title:"Muhabura site sent an incident report ",
