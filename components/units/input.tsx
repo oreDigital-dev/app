@@ -28,7 +28,7 @@ export default function Input3({
 
   return (
     <div>
-      {label && <label className="mb-3">{label}</label>}
+      {label && <label className="mb-3 font-semibold">{label}</label>}
       {
         type =="select" && label == "Mineral types" ?(
           <select

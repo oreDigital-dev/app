@@ -23,7 +23,7 @@ export default function Input2({
           placeholder="How do you want to login"
           onChange={(e) => setState(e.target.value)}
         >
-          <option>COMPANY</option>
+          <option value={""}>SELECT ROLE</option>
           {loginTypes.map((option, index) => (
             <option key={index} value={option as string}>
               {option}

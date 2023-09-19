@@ -1,4 +1,4 @@
-import {BsEyeSlashFill,BsEyeFill } from 'react-icons/bs';
+import { BsEyeSlashFill, BsEyeFill } from "react-icons/bs";
 import Button from "@/components/ui/button";
 import Logo from "@/components/ui/logo";
 import Input from "@/components/units/input";
@@ -21,87 +21,101 @@ import { loginPerson } from "@/services/actions/auth.action";
 
 /* eslint-disable react/no-unescaped-entities */
 const Login = () => {
+  const [showError, setShowError] = useState(false);
   const dispatch = useAppDispatch();
   const router = useRouter();
-  const[type,setType] = useState("password")
+  const [type, setType] = useState("password");
   const [loading, setLaoding] = useState(false);
-  const [companyName, setCompanyName] = useState("");
   const [email, setEmail] = useState("");
+  const [error, setError] = useState({
+    email: "",
+    password: "",
+    userType: "",
+  });
   const [password, setPassword] = useState("");
   const [userType, setUserType] = useState(loginTypes[0]);
-  const handleShowPassword = (type:string)=>{
-if(type == "password"){
-  setType("text")
-}
-else{
-  setType("password")
-}
-  }
-
+  const handleShowPassword = (type: string) => {
+    if (type == "password") {
+      setType("text");
+    } else {
+      setType("password");
+    }
+  };
+  const validateForm = (email: string, password: string, userTpe: string) => {
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    error.email = "";
+    error.password = "";
+    error.userType = "";
+    if (!email.trim()) {
+      setError({ ...error, email: "Email is required" });
+    } else if (!emailPattern.test(email)) {
+      setError({ ...error, email: "Please provide a valid email" });
+    }
+    if (!userTpe.trim()) {
+      setError({ ...error, userTpe: "Usertype is required" });
+    }
+    if (!password.trim()) {
+      setError({ ...error, password: "Password is required" });
+    }
+  };
+  const isFormValid = () => {
+    return !Object.values(error).some((error) => error !== "");
+  };
   const loginRequest = async (
     email: string,
     password: string,
     userType: string
   ) => {
     try {
-      setLaoding(true);
-      const response:any = await loginPerson({email,password,userType})
-      console.log(response.data.user.company.id)
-      toast("User logged in successfully", {
+      setShowError(false);
+      validateForm(email, password, userType);
+      if (isFormValid()) {
+        setLaoding(true);
+        const response: any = await loginPerson({ email, password, userType });
+        console.log(response)
+        toast(`${response.message}`, {
+          style: {
+            backgroundColor: "white",
+            color: "green",
+          },
+          progressStyle: {
+            background: "green",
+          },
+        });
+        dispatch(
+          setWelcomeMessage({ message: "Hi! You've loggedIn successfully" })
+        );
+        dispatch(setLoggedInSuccessfully({ type: true }));
+        localStorage.setItem(
+          "loggedInUser",
+          JSON.stringify(response.data.user)
+        );
+        localStorage.setItem(
+          "refreshToken",
+          JSON.stringify(response.data.refresh_token)
+        );
+        localStorage.setItem(
+          "companyId",
+          JSON.stringify(response.data.user.company.id)
+        );
+        setTimeout(async () => {
+          await router.push("/d/dashboard");
+        }, 2000);
+      } else {
+        setShowError(true);
+      }
+    } catch (error: any){
+      toast(`${error?.response?.data?.message ?? 'Check your credentials'}`, {
         style: {
           backgroundColor: "white",
-          color: "green",
+          color: "red",
         },
         progressStyle: {
-          background: "green",
+          background: "red",
         },
       });
-      dispatch(
-        setWelcomeMessage({ message: "Hi! You've loggedIn successfully" })
-      );
-      dispatch(setLoggedInSuccessfully({ type: true }));
-      localStorage.setItem("loggedInUser", JSON.stringify(response.data.user));
-      localStorage.setItem("refreshToken",JSON.stringify(response.data.refresh_token));
-      localStorage.setItem("companyId",JSON.stringify(response.data.user.company.id))
-      setTimeout(async()=>{
-        await router.push("/d/dashboard");
-
-      },2000)
-      // const response = await axios.post(`/auth/login`, {
-      //   email: email,
-      //   password: password,
-      //   // logginType: accountType,
-      // });
-
-      // const responseData = response.data;
-      // console.log(`data is ${responseData}`);
-      // localStorage.setItem("authKey", responseData.token);
-   
-      // router.push("/d/dashboard");
-    } catch (error: any) {
-      if (error) {
-        console.log(`error is ${error}`);
-        toast("There is a network error", {
-          style: {
-            backgroundColor: "white",
-            color: "red",
-          },
-          progressStyle: {
-            background: "red",
-          },
-        });
-      } else {
-        toast("Some thing went wrong, please try again",{
-          style: {
-            backgroundColor: "white",
-            color: "yellow",
-          },
-          progressStyle: {
-            background: "yellow",
-          },
-        });
-      }
-    } finally {
+    }   
+       finally {
       setLaoding(false);
     }
   };
@@ -129,6 +143,11 @@ else{
             Request yours
           </Link>
         </p>
+        {showError && (
+          <p className="text-center text-red-500 text-lg">
+            Please fill all fields
+          </p>
+        )}
         <Input
           label="Email address"
           type="email"
@@ -136,6 +155,9 @@ else{
           setState={setEmail}
           placeholder={"Email address"}
         />
+        {error.email !== "" && (
+          <p className="text-red-500 text-lg">{error.email}</p>
+        )}
         <Input2
           label="Login as"
           type="select"
@@ -143,17 +165,28 @@ else{
           setState={setUserType}
           placeholder={"User Category"}
         />
-        <div className="flex items-center w-full justify-between  ">
-        <Input
-        className='w-[140%]'
-          label="Password"
-          type={type}
-          state={password}
-          setState={setPassword}
-          placeholder={"Your password"}
-        />
-<button  onClick={()=>handleShowPassword(type)}>{type == "password"?< BsEyeSlashFill />:< BsEyeFill />}</button>
+        {error.userType !== "" && (
+          <p className="text-red-500 text-lg">{error.userType}</p>
+        )}
+        <div className="flex items-center w-full bg-white ">
+          <div className="w-[98%]">
+          <Input
+            className="relative bg-none"
+            label="Password"
+            type={type}
+            state={password}
+            setState={setPassword}
+            placeholder={"Your password"}
+          />
+
+          </div>
+          <button onClick={() => handleShowPassword(type)}>
+            {type == "password" ? <BsEyeSlashFill /> : <BsEyeFill />}
+          </button>
         </div>
+          {error.password !== "" && (
+            <p className="text-red-500 text-lg">{error.password}</p>
+          )}
         <Button
           className={`${
             loading

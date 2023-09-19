@@ -22,7 +22,7 @@ const AuthLayout = ({ children }: { children: React.ReactNode }) => {
   };
   return (
     <div className="relative flex flex-col authBack bg-cover bg-transparent">
-      <div className="z-40 bg-white mx-auto flex flex-col mt-2 border rounded-lg w-[40%] py-8 px-4 space-y-6 h-auto">
+      <div className="z-40 bg-white mx-auto flex flex-col  border rounded-lg w-[40%] py-2 px-4 space-y-4 h-auto">
         <div className="flex justify-center">
         <Logo withText />
         </div>
@@ -49,7 +49,7 @@ const AuthLayout = ({ children }: { children: React.ReactNode }) => {
         </div>
         {children}
       </div>
-      <div className="w-full h-[180vh] bg-black-900/80 absolute z-20" />
+      <div className="w-full h-[110vh] bg-black-900/80 absolute z-20" />
     </div>
   );
 };

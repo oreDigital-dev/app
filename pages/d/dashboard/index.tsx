@@ -55,6 +55,9 @@ await router.push("/rmb");
     if (isLoggedInSuccessFully) {
       toast(welcomeMessage.toString());
     }
+    else{
+      router.push("/login")
+    }
     setTimeout(() => {
       dispatch(setLoggedInSuccessfully({ type: false }));
     }, 2000);

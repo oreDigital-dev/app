@@ -7,7 +7,7 @@ import { useRouter } from "next/router";
 export interface EmployeeFormProps {
   category: string;
   subCategory: string;
-  formHandler: (formData: any) => void | any;
+  formHandler?: (formData: any) => void | any;
 }
 const EmployeeForm = (props: EmployeeFormProps) => {
   const [firstName, setFirstName] = useState("");
@@ -24,29 +24,27 @@ const EmployeeForm = (props: EmployeeFormProps) => {
   const [myGender, setMygender] = useState("");
   const router = useRouter();
   const formData = {
-    
-      firstName: firstName,
-      lastName: lastName,
-      email: email,
-      username: `${firstName.substring(0,1)}.${lastName}`,
-      myGender: myGender,
-      registrationKey: "anykey",
-      national_id: "string",
-      "password": "string",
-      "phoneNumber": "string",
-      "address": {
-        "province": "string",
-        "district": "string",
-        "sector": "string",
-        "cell": "string",
-        "village": "string"
-      },
-      "salary": 0,
-      "employeeRole": "string",
-      "company": "string",
-      "employeeType": "string"
-    
-  }
+    firstName: firstName,
+    lastName: lastName,
+    email: email,
+    username: `${firstName.substring(0, 1)}.${lastName}`,
+    myGender: myGender,
+    registrationKey: "anykey",
+    national_id: "string",
+    password: "string",
+    phoneNumber: "string",
+    address: {
+      province: "string",
+      district: "string",
+      sector: "string",
+      cell: "string",
+      village: "string",
+    },
+    salary: 0,
+    employeeRole: "string",
+    company: "string",
+    employeeType: "string",
+  };
   const handleProgression = (category: String) => {
     switch (category) {
       case "RMB":
@@ -79,28 +77,38 @@ const EmployeeForm = (props: EmployeeFormProps) => {
           </span>
         </p>
       </div>
-      <form onSubmit={props.formHandler} className="space-y-4">
-        <Input
-          label={"First name"}
-          placeholder={"John"}
-          type={"text"}
-          state={firstName}
-          setState={setFirstName}
-        />
-        <Input
-          label={"Last name"}
-          placeholder={"Doe"}
-          type={"text"}
-          state={lastName}
-          setState={setLastName}
-        />
-        <Input
-          label={"Email address"}
-          placeholder={"JohnDoe@gmail.com"}
-          type={"email"}
-          state={email}
-          setState={setEmail}
-        />
+      <form onSubmit={props.formHandler} className="space-y-2">
+        <div className="flex gap-2">
+          <div className="basis-1/2">
+            <Input
+              label={"First name"}
+              placeholder={"John"}
+              type={"text"}
+              state={firstName}
+              setState={setFirstName}
+            />
+          </div>
+          <div className="basis-1/2">
+            <Input
+              label={"Last name"}
+              placeholder={"Doe"}
+              type={"text"}
+              state={lastName}
+              setState={setLastName}
+            />
+          </div>
+        </div>
+        <div className="flex gap-2">
+          <div className="basis-1/2">
+            <Input
+              label={"Email address"}
+              placeholder={"JohnDoe@gmail.com"}
+              type={"email"}
+              state={email}
+              setState={setEmail}
+            />
+          </div>
+          <div className="basis-1/2">
         <Input
           label={"Password"}
           placeholder={"......."}
@@ -108,6 +116,11 @@ const EmployeeForm = (props: EmployeeFormProps) => {
           state={password}
           setState={setPassword}
         />
+      
+          </div>
+          </div>
+          <div className="flex gap-2">
+          <div className="basis-1/2">
         <Input
           label={"Id"}
           placeholder={"1 1883 3434 34343"}
@@ -115,7 +128,8 @@ const EmployeeForm = (props: EmployeeFormProps) => {
           state={national_id}
           setState={setNational_id}
         />
-        <div className="flex flex-col">
+          </div>
+          <div className="flex flex-col">
           <label className="mb-3">Gender</label>
           <div className="flex gap-12">
             <div className="flex items-center gap-10">
@@ -144,20 +158,9 @@ const EmployeeForm = (props: EmployeeFormProps) => {
             </div>
           </div>
         </div>
-
-        {props.category == "Company" && (
-          <select
-            className=" border border-black-300/10 font-regular  outline-none  w-full py-[14px] px-3 rounded-md text-[black]"
-            placeholder="Types of minerals available"
-          >
-            <option>Company</option>
-            {companies.map((company, index) => (
-              <option key={index} value={company as string}>
-                {company}
-              </option>
-            ))}
-          </select>
-        )}
+        </div>
+       <div className="flex gap-2">
+        <div className="basis-1/2">
         <Input
           label={"Province"}
           placeholder={"Kigali"}
@@ -165,6 +168,8 @@ const EmployeeForm = (props: EmployeeFormProps) => {
           state={province}
           setState={setProvince}
         />
+        </div>
+        <div className="basis-1/2">
         <Input
           label={"District"}
           placeholder={"Gasabo"}
@@ -172,6 +177,10 @@ const EmployeeForm = (props: EmployeeFormProps) => {
           state={district}
           setState={setDistrict}
         />
+        </div>
+       </div>
+       <div className="flex gap-2">
+       <div className="basis-1/2">
         <Input
           label={"Sector"}
           placeholder={"Kimironko"}
@@ -179,6 +188,9 @@ const EmployeeForm = (props: EmployeeFormProps) => {
           state={sector}
           setState={setSector}
         />
+       </div>
+       <div className="basis-1/2">
+
         <Input
           label={"Cell"}
           placeholder={"Kibagabaga"}
@@ -186,6 +198,9 @@ const EmployeeForm = (props: EmployeeFormProps) => {
           state={cell}
           setState={setCell}
         />
+       </div>
+       </div>
+       <div className="w-1/2">
         <Input
           label={"Village"}
           placeholder={"Kalisimbi"}
@@ -193,6 +208,10 @@ const EmployeeForm = (props: EmployeeFormProps) => {
           state={village}
           setState={setVillage}
         />
+
+       </div>
+
+
       </form>
       <div>
         <Button

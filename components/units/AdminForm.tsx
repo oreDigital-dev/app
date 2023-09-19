@@ -8,44 +8,43 @@ import { steponeRegistration } from "@/features/companyRegistration";
 import { useState } from "react";
 
 const AdminForm = ({ category }: { category: string }) => {
-const router = useRouter();
-const dispatch = useDispatch();
-const [firstName,setFirstName] = useState("");
-const [lastName,setLastName] = useState("");
-const [email,setEmail] = useState("");
-const [password,setPassword] = useState("");
-const [phoneNumber,setPhoneNumber] = useState("");
-const[national_id,setNational_id] = useState("");
-const [myGender,setMygender] = useState("");
-const [province,setProvince] = useState("");
-const [district,setDistrict] = useState("");
-const [sector,setSector] = useState("");
-const [cell,setCell] = useState("");
-const [village,setVillage] = useState("");
+  const router = useRouter();
+  const dispatch = useDispatch();
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [national_id, setNational_id] = useState("");
+  const [myGender, setMygender] = useState("");
+  const [province, setProvince] = useState("");
+  const [district, setDistrict] = useState("");
+  const [sector, setSector] = useState("");
+  const [cell, setCell] = useState("");
+  const [village, setVillage] = useState("");
 
-
-const formData = {
-  firstName:firstName,
-  lastName:lastName,
-  email:email,
-  password:password,
-  phoneNumber:phoneNumber,
-  myGender:myGender,
-  national_id:national_id,
-  province:province,
-  district:district,
-  sector:sector,
-  cell:cell,
-  village:village
-}
+  const formData = {
+    firstName: firstName,
+    lastName: lastName,
+    email: email,
+    password: password,
+    phoneNumber: phoneNumber,
+    myGender: myGender,
+    national_id: national_id,
+    province: province,
+    district: district,
+    sector: sector,
+    cell: cell,
+    village: village,
+  };
 
   const handleProgression = (category: String) => {
     switch (category) {
       case "RMB":
         router.push("/verification");
         break;
-        case "Company":
-          console.log(formData)
+      case "Company":
+        console.log(formData);
         dispatch(steponeRegistration(formData));
         router.push("/auth/companyDetails");
         break;
@@ -69,17 +68,17 @@ const formData = {
   ];
   const rescueTeamRoles: String[] = ["Red Cross", "RNP", "RDF"];
   return (
-    <div className=" w-[90%] mx-auto h-[50%] space-y-1">
+    <div className=" w-[90%] mx-auto space-y-2">
       <div className="flex justify-center ">
         <div className="flex items-center gap-4">
           {/* Step number round */}
-          <div className="h-6 w-6 rounded-full bg-app flex items-center justify-center">
-            <p className="font-bold text-2xl text-white">1</p>
+          <div className="h-8 w-8 rounded-full bg-app flex items-center justify-center">
+            <p className="font-bold text-xl text-white">1</p>
           </div>
-          <p className="font-bold text-2xl text-black">Person details</p>
+          <p className="font-bold text-xl text-black">Person details</p>
         </div>
       </div>
-      <div className=" w-full flex justify-center">
+      <div className=" w-full flex justify-center font-semibold text-md">
         <p>
           Don&apos;t have a workspace?{" "}
           <span className="text-app">
@@ -88,34 +87,52 @@ const formData = {
         </p>
       </div>
       <div className="space-y-2">
-        <Input
-          label={"Firt Name"}
-          placeholder={"John"}
-          type={"text"}
-          setState={setFirstName}
-          state={firstName}
-        />
-        <Input
-          label={"Second Name"}
-          placeholder={"Doe"}
-          type={"text"}
-          state={lastName}
-          setState={setLastName}
-        />
-        <Input
-          label={"Email address"}
-          placeholder={"JohnDoe@gmail.com"}
-          type={"email"}
-          state={email}
-          setState={setEmail}
-        />
-        <Input
-          label={"Password"}
-          placeholder={"......."}
-          type={"password"}
-          state={formData.password}
-          setState={setPassword}
-        />
+        <div className="flex gap-2">
+          <div className="basis-1/2">
+            <Input
+              label={"Firt Name"}
+              placeholder={"John"}
+              type={"text"}
+              setState={setFirstName}
+              state={firstName}
+            />
+          </div>
+          <div className="basis-1/2">
+          <Input
+            label={"Second Name"}
+            placeholder={"Doe"}
+            type={"text"}
+            state={lastName}
+            setState={setLastName}
+          />
+
+          </div>
+        </div>
+        <div className="flex gap-2">
+          <div className="basis-1/2">
+          <Input
+            label={"Email address"}
+            placeholder={"JohnDoe@gmail.com"}
+            type={"email"}
+            state={email}
+            setState={setEmail}
+          />
+
+          </div>
+          <div className="basis-1/2">
+          <Input
+            label={"Password"}
+            placeholder={"......."}
+            type={"password"}
+            state={formData.password}
+            setState={setPassword}
+          />
+
+          </div>
+        </div>
+     
+        <div className="flex gap-2">
+          <div className="basis-1/2">
         <Input
           label={"Phone Number"}
           placeholder={"+250798486619"}
@@ -123,73 +140,66 @@ const formData = {
           state={phoneNumber}
           setState={setPhoneNumber}
         />
-        <div className="flex flex-col">
-          <label className="mb-3">Gender</label>
-          <div className="flex gap-12">
-            <div className="flex items-center gap-10">
-              <p>Male</p>
-              <input
-                type="radio"
-                value={"Male"}
-                name="gender"
-                checked={formData.myGender == "Male"}
-                onChange={(e:React.ChangeEvent<HTMLInputElement>)=>setMygender(e.target.value)}
-              />
-            </div>
-            <div className="flex items-center gap-10">
-              <p>Female</p>
-              <input
-                checked={formData.myGender == "Female"}
-                type="radio"
-                value={"Female"}
-                name="gender"
-                onChange={(e:React.ChangeEvent<HTMLInputElement>)=>setMygender(e.target.value)}
-              />
-            </div>
           </div>
-        </div>
+          <div className="basis-1/2">
         <Input
-          label={"Id"}
+          label={"National Id"}
           placeholder={"1 1883 3434 34343"}
           type={"text"}
           state={national_id}
           setState={setNational_id}
         />
-        <Input
-          label={"Province"}
-          placeholder={"Kigali"}
-          type={"text"}
-          state={province}
-          setState={setProvince}
-        />
-        <Input
-          label={"District"}
-          placeholder={"Gasabo"}
-          type={"text"}
-          state={district}
-          setState={setDistrict}
-        />
-        <Input
-          label={"Sector"}
-          placeholder={"Kimironko"}
-          type={"text"}
-          state={sector}
-          setState={setSector}
-        />
-        <Input
-          label={"Cell"}
-          placeholder={"Kibagabaga"}
-          type={"text"}
-          state={cell}
-          setState={setCell}
-        />
-        <Input
-          label={"Village"}
-          placeholder={"Kalisimbi"}
-          type={"text"}
-          state={village}
-          setState={setVillage}
-        />
+          </div>
+        </div>
+        <div className="flex gap-2">
+          <div className="basis-1/2">
+          <Input
+            label={"Province"}
+            placeholder={"Kigali"}
+            type={"text"}
+            state={province}
+            setState={setProvince}
+          />
+          </div>
+          <div className="basis-1/2">
+          <Input
+            label={"District"}
+            placeholder={"Gasabo"}
+            type={"text"}
+            state={district}
+            setState={setDistrict}
+          />
+          </div>
+        </div>
+        <div className="flex gap-2">
+          <div className="basis-1/2">
+          <Input
+            label={"Sector"}
+            placeholder={"Kimironko"}
+            type={"text"}
+            state={sector}
+            setState={setSector}
+          />
+          </div>
+          <div className="basis-1/2">
+          <Input
+            label={"Cell"}
+            placeholder={"Kibagabaga"}
+            type={"text"}
+            state={cell}
+            setState={setCell}
+          />
+          </div>
+        </div>
+        <div className="w-1/2">
+          <Input
+            label={"Village"}
+            placeholder={"Kalisimbi"}
+            type={"text"}
+            state={village}
+            setState={setVillage}
+          />
+        </div>
       </div>
       <div>
         <Button

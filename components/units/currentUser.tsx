@@ -16,7 +16,7 @@ export default function CurrentUser({ email }: { email: any }) {
       <div className="text-sm">
         <p className="text-black-300">Logged in as</p>
         <p className="font-bold text-black-500 ">
-          {loggedInUser.email.toString()}
+          {loggedInUser?.email?.toString()}
         </p>
       </div>
     </div>
