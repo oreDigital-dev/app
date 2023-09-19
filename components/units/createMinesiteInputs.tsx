@@ -41,7 +41,7 @@ export default function Input({
           type={type}
           placeholder={placeholder as string}
           defaultValue={state as any}
-          className="border border-black-300/10 font-regular  outline-none  w-full py-[14px] px-3 rounded-md"
+          className="border-2 border-black-300/10 font-regular  outline-none  w-full py-[14px] px-3 rounded-md"
           onChange={(e) => setState(e.target.value)}
         />
       )}

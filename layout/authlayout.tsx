@@ -49,7 +49,7 @@ const AuthLayout = ({ children }: { children: React.ReactNode }) => {
         </div>
         {children}
       </div>
-      <div className="w-full h-[115vh] bg-black-900/80 absolute z-20" />
+      <div className="w-full h-[180vh] bg-black-900/80 absolute z-20" />
     </div>
   );
 };

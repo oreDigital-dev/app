@@ -13,7 +13,7 @@ function MapSite() {
   // const center = { lat: 47.444, lng:  -122.176 }; // Replace with your desired coordinates
 
   return (
-    <div className="m-[20px]  rounded-md ">
+    <div className="m-[20px]  rounded-md relative ">
       <div className=" bg-white p-[20px] rounded-md shadow-sm shadow-neutal-300">
         <div className="flex items-start justify-between">
           <SectionHead

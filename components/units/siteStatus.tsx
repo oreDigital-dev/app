@@ -37,8 +37,8 @@ export default function SiteStatus(props: any) {
                     {" "}
                     <div className="h-6 w-6 bg-gray-200 rounded-md"></div>
                   </th>
-                  <td className="py-1 px-4">{site.minesiteName + " site"}</td>
-                  <td className="py-1 px-4">Muhanga, Gihanga</td>
+                  <td className="py-1 px-4">{site?.name + " site"}</td>
+                  <td className="py-1 px-4">{site?.address?.sector}, {site?.address?.district}</td>
                   <td className="py-1 px-4">33.56 E</td>
                   <td className="py-1 px-4">56.05</td>
                   <td className="py-1 px-4">South-Zuba</td>
