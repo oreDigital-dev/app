@@ -1,8 +1,14 @@
 import React from "react";
 import StatusView from "../ui/status";
 import Sites from "@/pages/d/sites";
+import {useRouter} from "next/router";
 
 export default function SiteStatus(props: any) {
+  const router = useRouter();
+  const getDetails = () => {
+    router.push("/d/sites/detailsSite");
+    // dispatch(setSelectedMineSite({ mineSite: props }));
+  };
   return (
     <div id="statuses">
       <table className="w-full my-2 rounded-md  text-sm overflow-hidden ">
@@ -46,7 +52,7 @@ export default function SiteStatus(props: any) {
                     <StatusView status={"HEALTHY"} />
                   </td>
                   <td>
-                    <button className="py-2  flex items-center  gap-2 px-4 rounded-full bg-app/10  hover:bg-app/30  text-app fill-app">
+                    <button className="py-2  flex items-center  gap-2 px-4 rounded-full bg-app/10  hover:bg-app/30  text-app fill-app" onClick={getDetails}>
                       <span>Details</span>
                     </button>
                   </td>

@@ -103,7 +103,7 @@ export default function Sites() {
             </button>
           </div>
         </div>
-        <div className="flex gap-4 my-[20px] overflow-x-scroll scrollable">
+        <div className="flex gap-4 my-[20px] ">
           {mineSites == null ? (
             <div>
               <p>You don't have minesites</p>

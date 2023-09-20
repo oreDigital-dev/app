@@ -10,12 +10,16 @@ import {
   mfoLinks,
   rmbLinks,
 } from "@/utils/dataAssets";
-import { useAppDispatch } from "@/stores/store";
+import { RootState, useAppDispatch } from "@/stores/store";
 import {
   setNotificationPanelVisibility,
   setProfilePanelVisibility,
 } from "@/features/appPages";
 import { NofiticationsIcon } from "@/components/icons";
+import { useSelector } from "react-redux";
+import { getAllNotifications } from "@/services/actions/notifications.action";
+import { axios } from "@/services/axios";
+import { getNotification } from "@/features/notifications";
 
 const NavLink = ({
   props,
@@ -46,17 +50,29 @@ export default function DashBoardLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const router = useRouter();
-  const dispatch = useAppDispatch();
   const [activeLink, setActiveLink] = useState(links[0].title);
   const [visibility, setVisibility] = useState(false);
   const [hiddeNotifications, setHideNotifications] = useState(false);
+  const dispatch = useAppDispatch();
+  const router = useRouter();
 
   useEffect(() => {
-    if (router.pathname.includes("/d") || router.pathname.includes("/rmb")  || router.pathname.includes("/mfo"))  {
+    if (
+      router.pathname.includes("/d") ||
+      router.pathname.includes("/rmb") ||
+      router.pathname.includes("/mfo")
+    ) {
       setVisibility(true);
+    } else if (router.pathname.includes("/login")) {
+      setVisibility(false);
     }
   }, [router.pathname]);
+  useEffect(() => {
+    const token = localStorage.getItem("refreshToken");
+    if (token == null) {
+      router.push("/login");
+    }
+  }, []);
 
   const setActiveLinkHandler = async (href: string) => {
     if (router.pathname.includes("/d")) {
@@ -67,16 +83,19 @@ export default function DashBoardLayout({
       await router.push(
         ("/rmb/" + rmbLinks.find((link) => link.title === href)?.url) as string
       );
-    }
-    else{
+    } else {
       await router.push(
         ("/mfo/" + mfoLinks.find((link) => link.title === href)?.url) as string
       );
     }
     setActiveLink(href);
   };
-  const dispatchActions = () => {
-    dispatch(setProfilePanelVisibility({ type: "close" }));
+
+
+
+  const dispatchActions = async () => {
+    // dispatch(setProfilePanelVisibility({ type: "close" }));
+
     dispatch(setNotificationPanelVisibility({ type: "open" }));
   };
   return (
@@ -88,33 +107,33 @@ export default function DashBoardLayout({
               <Logo withText />
             </div>
             <div className="mt-10 px-[20px] ">
-              {router.pathname.includes("/d")
-                && links.map((link, index) => (
-                    <NavLink
-                      isActive={activeLink === link.title}
-                      props={link}
-                      key={index}
-                      setActiveSection={setActiveLinkHandler}
-                    />
-                  ))}
-                  {router.pathname.includes("/mfo") && 
-                 mfoLinks.map((link, index) => (
-                    <NavLink
-                      isActive={activeLink === link.title}
-                      props={link}
-                      key={index}
-                      setActiveSection={setActiveLinkHandler}
-                    />
-                  ))}
-                  {router.pathname.includes("/rmb") && 
-                 rmbLinks.map((link, index) => (
-                    <NavLink
-                      isActive={activeLink === link.title}
-                      props={link}
-                      key={index}
-                      setActiveSection={setActiveLinkHandler}
-                    />
-                  ))}
+              {router.pathname.includes("/d") &&
+                links.map((link, index) => (
+                  <NavLink
+                    isActive={activeLink === link.title}
+                    props={link}
+                    key={index}
+                    setActiveSection={setActiveLinkHandler}
+                  />
+                ))}
+              {router.pathname.includes("/mfo") &&
+                mfoLinks.map((link, index) => (
+                  <NavLink
+                    isActive={activeLink === link.title}
+                    props={link}
+                    key={index}
+                    setActiveSection={setActiveLinkHandler}
+                  />
+                ))}
+              {router.pathname.includes("/rmb") &&
+                rmbLinks.map((link, index) => (
+                  <NavLink
+                    isActive={activeLink === link.title}
+                    props={link}
+                    key={index}
+                    setActiveSection={setActiveLinkHandler}
+                  />
+                ))}
             </div>
           </div>
           <div className="w-[100vw] sm:w-[80vw]">
@@ -148,7 +167,7 @@ export default function DashBoardLayout({
                     setActiveSection={setActiveLinkHandler}
                   />
                 ))}
-                   {router.pathname.includes("/mfo") &&
+              {router.pathname.includes("/mfo") &&
                 mfoLinks.map((link, index) => (
                   <NavLink
                     isActive={activeLink === link.title}
@@ -166,7 +185,6 @@ export default function DashBoardLayout({
                     setActiveSection={setActiveLinkHandler}
                   />
                 ))}
-           
             </div>
           </div>
         </div>

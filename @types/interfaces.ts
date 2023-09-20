@@ -9,6 +9,9 @@ export interface MiningSite {
     img: string;
     status: Status;
     address: {
+        province:string;
+        cell:string;
+        village:string;
         sector: String,
         district: String
     }

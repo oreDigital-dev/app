@@ -4,13 +4,15 @@ import { appPagesReducer } from "@/features/appPages";
 import { mineSiteReducer } from "@/features/minesitesSlice";
 import { formCategoriesReducer } from "@/features/formCategories";
 import { stepOneReducer } from "@/features/companyRegistration";
+import { notificationReducer } from "@/features/notifications";
 
 export const store :any = configureStore({
     reducer:{
         appPages:appPagesReducer,
         mineSites:mineSiteReducer,
         formCategories:formCategoriesReducer,
-        companyRegistration:stepOneReducer
+        companyRegistration:stepOneReducer,
+        notifications:notificationReducer
 
     }
 })

@@ -2,8 +2,9 @@ import { Status } from "@/@types/status";
 import StatusView from "../ui/status";
 import { useEffect, useState } from "react";
 import { baseUrli } from "@/utils/dataAssets";
-import axios from "axios";
+
 import { group } from "console";
+import { axios } from "@/services/axios";
 
 export default function LogsPanel({ siteId }: { siteId: string }) {
   const [siteIncidents, setSiteIncidents] = useState<{ [key: string]: any[] }>(
@@ -13,12 +14,14 @@ export default function LogsPanel({ siteId }: { siteId: string }) {
   let i = 0;
   const getIncidents = async () => {
     try {
-      const res = await axios.get(`${baseUrli}/incidents/ofloggedIn-company`, {
+      const res = await axios.get(`/incidents/ofloggedIn-company`, {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("authKey")}`,
+          Authorization: `Bearer ${localStorage.getItem("refreshToken")}`,
         },
       });
-      const incidents = res.data["incidents"];
+    
+      const incidents = res.data.data;
+      console.log(`incidents are ${incidents}`)
       const groupedIncidents: { [key: string]: any[] } = {};
 
       incidents.forEach((incident: any) => {

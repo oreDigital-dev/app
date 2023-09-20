@@ -10,6 +10,8 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useAppDispatch } from "@/stores/store";
 import {
+  setAdminLoggedIn,
+  setCompanyAdminLoggedIn,
   setLoggedInSuccessfully,
   setWelcomeMessage,
 } from "@/features/appPages";
@@ -72,7 +74,7 @@ const Login = () => {
       if (isFormValid()) {
         setLaoding(true);
         const response: any = await loginPerson({ email, password, userType });
-        console.log(response)
+        console.log(response);
         toast(`${response.message}`, {
           style: {
             backgroundColor: "white",
@@ -86,6 +88,7 @@ const Login = () => {
           setWelcomeMessage({ message: "Hi! You've loggedIn successfully" })
         );
         dispatch(setLoggedInSuccessfully({ type: true }));
+     
         localStorage.setItem(
           "loggedInUser",
           JSON.stringify(response.data.user)
@@ -94,18 +97,21 @@ const Login = () => {
           "refreshToken",
           JSON.stringify(response.data.refresh_token)
         );
-        localStorage.setItem(
-          "companyId",
-          JSON.stringify(response.data.user.company.id)
-        );
+        if (response.data.user.company) {
+          localStorage.setItem(
+            "companyId",
+            JSON.stringify(response.data.user.company.id)
+          );
+        }
         setTimeout(async () => {
           await router.push("/d/dashboard");
         }, 2000);
       } else {
         setShowError(true);
       }
-    } catch (error: any){
-      toast(`${error?.response?.data?.message ?? 'Check your credentials'}`, {
+    } catch (error: any) {
+      console.log(error);
+      toast(`${error?.response?.data?.message ?? "Check your credentials"}`, {
         style: {
           backgroundColor: "white",
           color: "red",
@@ -114,8 +120,7 @@ const Login = () => {
           background: "red",
         },
       });
-    }   
-       finally {
+    } finally {
       setLaoding(false);
     }
   };
@@ -139,7 +144,7 @@ const Login = () => {
         <p className=" text-2xl font-semibold">Welcome Back!</p>
         <p className="text-black-300">
           Don't have a workspace?{" "}
-          <Link href={"/create-workspace"} className="text-app">
+          <Link href={"/auth"} className="text-app">
             Request yours
           </Link>
         </p>
@@ -170,23 +175,22 @@ const Login = () => {
         )}
         <div className="flex items-center w-full bg-white ">
           <div className="w-[98%]">
-          <Input
-            className="relative bg-none"
-            label="Password"
-            type={type}
-            state={password}
-            setState={setPassword}
-            placeholder={"Your password"}
-          />
-
+            <Input
+              className="relative bg-none"
+              label="Password"
+              type={type}
+              state={password}
+              setState={setPassword}
+              placeholder={"Your password"}
+            />
           </div>
           <button onClick={() => handleShowPassword(type)}>
             {type == "password" ? <BsEyeSlashFill /> : <BsEyeFill />}
           </button>
         </div>
-          {error.password !== "" && (
-            <p className="text-red-500 text-lg">{error.password}</p>
-          )}
+        {error.password !== "" && (
+          <p className="text-red-500 text-lg">{error.password}</p>
+        )}
         <Button
           className={`${
             loading

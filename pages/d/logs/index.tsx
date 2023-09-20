@@ -19,6 +19,7 @@ export default function Logs() {
   const selectedMineSite = useSelector(
     (store: RootState) => store.mineSites.selectedMineSite
   );
+
   const showPanelInFullScreen = () => {
     const panel_div = document.getElementById("logs-panel");
     if (panel_div) {
@@ -29,18 +30,21 @@ export default function Logs() {
   const mineSites = useSelector(
     (store: RootState) => store.mineSites.minesites
   );
+  console.log(`minesites are ${ mineSites}`)
 
   useEffect(() => {
     const getMineSites = async () => {
       await axios
         .get(`/incidents/all`, {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("refreshToken")}`,
+            Authorization: `Bearer ${JSON.parse(localStorage.getItem("refreshToken")|| "{}")}`,
           },
         })
         .then((response) => {
+          console.log(`minesites are coming ${response.data.data}`)
           console.log(response.data)
-          dispatch(initializeMinesites({ minesites: response.data }));
+          
+          dispatch(initializeMinesites({ minesites:response.data.data}));
         })
         .catch((error: any) => {
           console.log(error);

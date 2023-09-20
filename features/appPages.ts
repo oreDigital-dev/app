@@ -12,7 +12,10 @@ const initialState : any = {
    welcomeMessage:"",
    isUpdateMineSiteVisible:false,
    currentCardTitle:"",
-   currentIndex:0
+   currentIndex:0,
+   systemAdminToken:"",
+   companyAdminToken:""
+
 }
 
 const appPagesSlice = createSlice({
@@ -75,10 +78,16 @@ const appPagesSlice = createSlice({
                 throw new Error("Please provide the valid action type")
             }
         },
+        setAdminLoggedIn:(state:RootState,action:PayloadAction<string>)=>{
+            state.systemAdminToken = action.payload;
+        },
+        setCompanyAdminLoggedIn:(state:RootState,action:PayloadAction<string>)=>{
+            state.companyAdminToken = action.payload;
+        }
          
         
     }
 })
 
-export const {setLoggedInSuccessfully, setUpdateMineSiteVisibility, setCreateMineSiteVisibility, setWelcomeMessage, setNotificationPanelVisibility, setProfilePanelVisibility,setCompanyDetailsVisibility,setCurrentCardTitle,setCurrentIndex} = appPagesSlice.actions;
+export const {setLoggedInSuccessfully, setUpdateMineSiteVisibility, setCreateMineSiteVisibility, setWelcomeMessage, setNotificationPanelVisibility, setProfilePanelVisibility,setCompanyDetailsVisibility,setCurrentCardTitle,setCurrentIndex,setAdminLoggedIn,setCompanyAdminLoggedIn} = appPagesSlice.actions;
 export const appPagesReducer = appPagesSlice.reducer

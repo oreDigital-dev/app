@@ -1,5 +1,6 @@
 import { axios } from "../axios"
 
+
 export const createMinesite = (mineSiteInfo: any): Promise<any> => {
     return new Promise((resolve, reject) => {
         axios.post("/minesites/create", mineSiteInfo,{
