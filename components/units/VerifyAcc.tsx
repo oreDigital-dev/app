@@ -4,9 +4,29 @@ import ReactInputVerificationCode from "react-input-verification-code";
 import Button from "../ui/button";
 import Link from "next/link";
 import Logo from "../ui/logo";
+import { axios } from "@/services/axios";
+import { toast } from "react-toastify";
 const VerifyAcc = () => {
   const [value, setValue] = useState("");
+const handleVerification = async(payload:{email:string,verificationCode:number})=>{
+  try{
+    const res = await axios.post("auth/verify_account",payload);
+toast(`${res.data.message}`,{
+  style: {
+    backgroundColor: "white",
+    color: "green",
+  },
+  progressStyle: {
+    background: "green",
+  },
+})
 
+  }
+  catch(err){
+    console.log(err)
+  }
+
+}
   return (
     <div className=" w-[100%] space-y-8 ">
       <div className="flex justify-center">
@@ -29,11 +49,15 @@ const VerifyAcc = () => {
           autoFocus
           placeholder=""
           onChange={console.log}
+          onCompleted={(data)=>{
+            setValue(data);
+            console.log(typeof value,"00000000000")
+          }}
         />
       </div>
       <div className="flex justify-center">
-        <Button className="w-4/12 py-[14px] px-10 text-center bg-app text-white rounded-[500px]">
-          Next
+        <Button className="w-4/12 py-[14px] px-10 text-center bg-app text-white rounded-[500px]" onClick={()=>handleVerification({email:localStorage.getItem("email")!,verificationCode:Number(value)})}>
+          Verify
         </Button>
       </div>
       <Link

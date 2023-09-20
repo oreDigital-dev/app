@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { stepThreeRegistration } from "@/features/companyRegistration";
 import { companyAdminRegistration } from "@/services/actions/auth.action";
 import { Cell } from "recharts";
+import { axios } from "@/services/axios";
 
 const FinalDetails = () => {
   const router = useRouter();
@@ -73,10 +74,10 @@ const FinalDetails = () => {
           ownership: formData.ownership,
           email: companyAdminInfo.company.email,
           phoneNumber: companyAdminInfo.company.phoneNumber,
-          productionCapacity: formData.productionCapacity,
+          productionCapacity: Number(formData.productionCapacity),
           minerals: [formData.minerals],
-          licenseNumber: formData.licenseNumber,
-          numberOfEmployees: companyAdminInfo.company.numberOfEmployees,
+          licenseNumber: Number(formData.licenseNumber),
+          numberOfEmployees: Number(companyAdminInfo.company.numberOfEmployees),
           address: {
             province: formData.province,
             district: formData.district,
@@ -87,8 +88,8 @@ const FinalDetails = () => {
           companyName: companyAdminInfo.company.companyName,
         },
       };
-      const res = await companyAdminRegistration(requestBody);
-      console.log(res);
+      const resp = await axios.post("/companies/create",requestBody);
+
     } catch (err) {
       console.log(err);
     }

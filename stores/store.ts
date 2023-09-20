@@ -5,6 +5,7 @@ import { mineSiteReducer } from "@/features/minesitesSlice";
 import { formCategoriesReducer } from "@/features/formCategories";
 import { stepOneReducer } from "@/features/companyRegistration";
 import { notificationReducer } from "@/features/notifications";
+import { rmbRegistrationReducer } from "@/features/rmbRegistration";
 
 export const store :any = configureStore({
     reducer:{
@@ -12,7 +13,8 @@ export const store :any = configureStore({
         mineSites:mineSiteReducer,
         formCategories:formCategoriesReducer,
         companyRegistration:stepOneReducer,
-        notifications:notificationReducer
+        notifications:notificationReducer,
+        rmbRegistration:rmbRegistrationReducer
 
     }
 })

@@ -6,6 +6,8 @@ import Link from "next/link";
 import { useDispatch } from "react-redux";
 import { steponeRegistration } from "@/features/companyRegistration";
 import { useState } from "react";
+import { rmbStepOneRegistration } from "@/features/rmbRegistration";
+import { axios } from "@/services/axios";
 
 const AdminForm = ({ category }: { category: string }) => {
   const router = useRouter();
@@ -37,11 +39,37 @@ const AdminForm = ({ category }: { category: string }) => {
     cell: cell,
     village: village,
   };
+  const rmbFormdata = {
+    firstName: firstName,
+    lastName: lastName,
+    email: email,
+    username: `${firstName.substring(0, 1)}.${lastName}`,
+    myGender: myGender,
+    registrationKey: "admin@oreDigital",
+    national_id: national_id,
+    password: password,
+    phoneNumber: phoneNumber,
+    address: {
+      province: province,
+      district: district,
+      sector: sector,
+      cell: cell,
+      village: village,
+    },
+    employeeType: "Admin",
+  };
 
-  const handleProgression = (category: String) => {
+  const handleProgression = async (category: String) => {
     switch (category) {
       case "RMB":
-        router.push("/verification");
+        // dispatch(rmbStepOneRegistration())
+        try {
+          const res = await axios.post("/rmb/create/rmb-employee",rmbFormdata);
+          localStorage.setItem("email",JSON.stringify(res.data.data.email))
+          router.push("/verification");
+        } catch (err) {
+          console.log(err);
+        }
         break;
       case "Company":
         console.log(formData);
@@ -210,23 +238,22 @@ const AdminForm = ({ category }: { category: string }) => {
         </div>
         <div className="flex gap-2">
           <div className="basis-1/2">
-          <Input
-            label={"Village"}
-            placeholder={"Kalisimbi"}
-            type={"text"}
-            state={village}
-            setState={setVillage}
-          />
+            <Input
+              label={"Village"}
+              placeholder={"Kalisimbi"}
+              type={"text"}
+              state={village}
+              setState={setVillage}
+            />
           </div>
           <div className="basis-1/2">
-        <Input
-          label={"Phone Number"}
-          placeholder={"+250798486619"}
-          type={"number"}
-          state={phoneNumber}
-          setState={setPhoneNumber}
-        />
-
+            <Input
+              label={"Phone Number"}
+              placeholder={"+250798486619"}
+              type={"number"}
+              state={phoneNumber}
+              setState={setPhoneNumber}
+            />
           </div>
         </div>
       </div>
