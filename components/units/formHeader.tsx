@@ -11,7 +11,6 @@ function FormHeader(props: { title: String; hideComponent: () => void }) {
         className="text-2xl hover:cursor-pointer"
         onClick={() => props.hideComponent()}
       />
-      {/* <button className="flex items-center gap-4 text-[#5160B3]"><span><FiCheck /></span>Mark all as read</button> */}
     </div>
   );
 }

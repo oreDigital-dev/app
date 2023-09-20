@@ -42,19 +42,18 @@ function NotificationLayout(props: any) {
 
   const [notifications, setNotifications]: any[] = useState([
     {
-      notificationOwner: "Muhire Ighor",
-      notificationMessage: "There has been an unusual temperature rise",
-      notificationStatus: "read",
+ 
+      message: "There has been an unusual temperature rise",
+      status: 1,
     },
     {
-      notificationOwner: "Hirwa Ghislain",
-      notificationMessage: "There has been an unusual pressure rise",
-      notificationStatus: "unread",
+
+      message: "There has been an unusual pressure rise",
+      status: 0,
     },
     {
-      notificationOwner: "Umugwaneza Alice",
-      notificationMessage: "There has been an unusual pressure rise",
-      notificationStatus: "archieved",
+      message: "There has been an unusual pressure rise",
+      status: 1,
     },
   ]);
   const dispatch = useAppDispatch();

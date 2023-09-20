@@ -3,6 +3,7 @@ import NotificationCard, {
   NotificationCardProps,
 } from "../ui/NotificationCard";
 import { useDispatch } from 'react-redux';
+import { FiCheck } from 'react-icons/fi';
 import { setNotificationPanelVisibility } from '@/features/appPages';
 export interface NotificationBoxProps {
   notifications: NotificationCardProps[];
@@ -19,9 +20,13 @@ const NotificationBox = (props: NotificationBoxProps) => {
         <p className="font-semibold text-lg">Notifications</p>
         <button onClick={()=>handleClosePanel()}><GiCancel /></button>
       </div>
-      {props.notifications.map((notification, index) => {
+      {props.notifications.slice(0,4).map((notification, index) => {
         return <NotificationCard key={index} {...notification} />;
       })}
+     {props.notifications.length >3 && (
+      <button className="flex items-center gap-4 text-[#5160B3]"><span><FiCheck /></span>Mark all as read</button> 
+      
+     )}
     </div>
   );
 };
