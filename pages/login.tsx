@@ -75,7 +75,7 @@ const Login = () => {
         setLaoding(true);
         const response: any = await loginPerson({ email, password, userType });
         console.log(response);
-        toast(`${response.data.message}`, {
+        toast(`User logged in successfully`, {
           style: {
             backgroundColor: "white",
             color: "green",
