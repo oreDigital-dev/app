@@ -30,21 +30,18 @@ export default function Logs() {
   const mineSites = useSelector(
     (store: RootState) => store.mineSites.minesites
   );
-  console.log(`minesites are ${ mineSites}`)
-
   useEffect(() => {
     const getMineSites = async () => {
       await axios
         .get(`/incidents/all`, {
           headers: {
-            Authorization: `Bearer ${JSON.parse(localStorage.getItem("refreshToken")|| "{}")}`,
+            Authorization: `Bearer ${JSON.parse(
+              localStorage.getItem("refreshToken")!
+            )}`,
           },
         })
         .then((response) => {
-          console.log(`minesites are coming ${response.data.data}`)
-          console.log(response.data)
-          
-          dispatch(initializeMinesites({ minesites:response.data.data}));
+          dispatch(initializeMinesites({ minesites: response.data.data }));
         })
         .catch((error: any) => {
           console.log(error);

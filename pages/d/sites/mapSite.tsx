@@ -17,7 +17,7 @@ function MapSite() {
       <div className=" bg-white p-[20px] rounded-md shadow-sm shadow-neutal-300">
         <div className="flex items-start justify-between">
           <SectionHead
-            title="Zuba miners plots distribution"
+            title="Nyamagunga site plots distribution"
             desc="Geographical representation of mine sites"
           />
           {/* <div style={{ width: '100%', height: '100%' }}>

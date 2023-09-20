@@ -1,5 +1,11 @@
 import React from "react";
-import { AddIcon, CrossIcon, DeleteIcon, PlusIcon, RecycleIcon } from "@/components/icons";
+import {
+  AddIcon,
+  CrossIcon,
+  DeleteIcon,
+  PlusIcon,
+  RecycleIcon,
+} from "@/components/icons";
 import SectionHead from "@/components/ui/sectionHead";
 import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
@@ -27,7 +33,7 @@ function DetailsSite() {
             <div className="ml-4 mt-2">
               <SectionHead
                 title={selectedMineSite.minesiteName}
-                desc="Muhabura, Gihanga"
+                desc="Nyamagunga, Nyabihu"
               />
             </div>
           </div>
@@ -50,7 +56,7 @@ function DetailsSite() {
           </button>
         </div>
         <div className="mt-6">
-          <p className="text-gray-400 text-sm">Muhabura, Gihanga</p>
+          <p className="text-gray-400 text-sm">Nyamagunga,Nyabihu</p>
           <p className="text-gray-400 text-sm">Lat: 33.99 E Long: 44.56</p>
         </div>
         <div className="flex items-start justify-between mt-6 border-b-2 border-b-gray-200 pb-4">
@@ -64,7 +70,7 @@ function DetailsSite() {
               className="py-2 flex items-center gap-2 px-4 rounded-full bg-gray-200 ml-4"
             >
               <span>{mineral}</span>
-              <CrossIcon />          
+              <CrossIcon />
             </button>
           ))}
           <button className="py-2 flex items-center gap-2 px-4 rounded-full bg-white border-2 border-gray-300 ml-4">

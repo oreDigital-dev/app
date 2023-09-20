@@ -11,11 +11,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState, store } from "@/stores/store";
 import FormHeader from "../units/formHeader";
 import Loader from "./loader";
-import { createMinesite as MinesiteHandler} from "@/services/actions/minesites.action";
+import { createMinesite as MinesiteHandler } from "@/services/actions/minesites.action";
 import { createMineSite } from "@/features/minesitesSlice";
+import { useRouter } from "next/router";
 
 function CreateMinesite() {
   const dispatch = useDispatch();
+  const router = useRouter();
   const isCreateMineSiteFormVisible = useSelector(
     (store: RootState) => store.appPages.isCreateMineSiteVisible
   );
@@ -47,26 +49,28 @@ function CreateMinesite() {
   };
   const handleRegisterMinesite = async () => {
     const requestPayload = {
-      
       name: formData.name,
-        minerals: [
-        formData.minerals
-        ],
-        address: {
-          province: formData.province,
-          district: formData.district,
-          sector: formData.sector,
-          cell: formData.cell,
-          village: formData.village
-        },
-        company: JSON.parse(localStorage.getItem("companyId")|| "{}")
-      }
-    
+      minerals: [formData.minerals],
+      address: {
+        province: formData.province,
+        district: formData.district,
+        sector: formData.sector,
+        cell: formData.cell,
+        village: formData.village,
+      },
+      company: JSON.parse(localStorage.getItem("companyId") || "{}"),
+    };
+
     try {
-const res = await MinesiteHandler(requestPayload);
-console.log(res)
-    } catch (err){
-      console.log(err)
+      setLoading(true);
+      const res = await MinesiteHandler(requestPayload);
+      dispatch(setCreateMineSiteVisibility({ type: "close" }));
+      toast("The mine site created successfully");
+      console.log(res);
+    } catch (err) {
+      console.log(err);
+    } finally {
+      setLoading(false);
     }
   };
   // await axios
@@ -140,49 +144,54 @@ console.log(res)
                 placeholder={"Country"}
               /> */}
               <div className="flex gap-2">
-              <Input
-                label={"Province"}
-                placeholder={"Kigali"}
-                type={"text"}
-                state={province}
-                setState={setProvince}
-              />
-              <Input
-                label={"District"}
-                placeholder={"Gasabo"}
-                type={"text"}
-                state={district}
-                setState={setDistrict}
-              />
-
+                <Input
+                  label={"Province"}
+                  placeholder={"Kigali"}
+                  type={"text"}
+                  state={province}
+                  setState={setProvince}
+                />
+                <Input
+                  label={"District"}
+                  placeholder={"Gasabo"}
+                  type={"text"}
+                  state={district}
+                  setState={setDistrict}
+                />
               </div>
               <div className="flex gap-2">
-              <Input
-                label={"Sector"}
-                placeholder={"Kimironko"}
-                type={"text"}
-                state={sector}
-                setState={setSector}
-              />
-              <Input
-                label={"Cell"}
-                placeholder={"Kibagabaga"}
-                type={"text"}
-                state={cell}
-                setState={setCell}
-              />
+                <Input
+                  label={"Sector"}
+                  placeholder={"Kimironko"}
+                  type={"text"}
+                  state={sector}
+                  setState={setSector}
+                />
+                <Input
+                  label={"Cell"}
+                  placeholder={"Kibagabaga"}
+                  type={"text"}
+                  state={cell}
+                  setState={setCell}
+                />
               </div>
               <div className="w-1/2">
-              <Input
-                label={"Village"}
-                placeholder={"Kalisimbi"}
-                type={"text"}
-                state={village}
-                setState={setVillage}
-              />
-
+                <Input
+                  label={"Village"}
+                  placeholder={"Kalisimbi"}
+                  type={"text"}
+                  state={village}
+                  setState={setVillage}
+                />
               </div>
-              <Button onClick={() => registerMineSite()}>
+              <Button
+                className={`${
+                  loading
+                    ? " w-full py-[14px] px-10 text-center bg-app text-white rounded-md opacity-50"
+                    : "w-full py-[14px] px-10 text-center bg-app text-white rounded-md"
+                }`}
+                onClick={() => registerMineSite()}
+              >
                 {loading ? <Loader /> : "Register mine site"}
               </Button>
             </div>

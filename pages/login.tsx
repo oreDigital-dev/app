@@ -54,7 +54,7 @@ const Login = () => {
       setError({ ...error, email: "Please provide a valid email" });
     }
     if (!userTpe.trim()) {
-      setError({ ...error, userTpe: "Usertype is required" });
+      setError({ ...error, userType: "Usertype is required" });
     }
     if (!password.trim()) {
       setError({ ...error, password: "Password is required" });
@@ -88,7 +88,7 @@ const Login = () => {
           setWelcomeMessage({ message: "Hi! You've loggedIn successfully" })
         );
         dispatch(setLoggedInSuccessfully({ type: true }));
-     
+
         localStorage.setItem(
           "loggedInUser",
           JSON.stringify(response.data.user)

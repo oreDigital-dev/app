@@ -1,9 +1,5 @@
-import { Status } from "@/@types/status";
 import StatusView from "../ui/status";
 import { useEffect, useState } from "react";
-import { baseUrli } from "@/utils/dataAssets";
-
-import { group } from "console";
 import { axios } from "@/services/axios";
 
 export default function LogsPanel({ siteId }: { siteId: string }) {
@@ -14,14 +10,15 @@ export default function LogsPanel({ siteId }: { siteId: string }) {
   let i = 0;
   const getIncidents = async () => {
     try {
-      const res = await axios.get(`/incidents/ofloggedIn-company`, {
+      const res = await axios.get(`/incidents/all`, {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("refreshToken")}`,
+          Authorization: `Bearer ${JSON.parse(
+            localStorage.getItem("refreshToken")!
+          )}`,
         },
       });
-    
+
       const incidents = res.data.data;
-      console.log(`incidents are ${incidents}`)
       const groupedIncidents: { [key: string]: any[] } = {};
 
       incidents.forEach((incident: any) => {
@@ -39,7 +36,6 @@ export default function LogsPanel({ siteId }: { siteId: string }) {
   };
   useEffect(() => {
     getIncidents();
-    console.log(siteIncidents);
   }, []);
 
   if (Object.keys(siteIncidents).length == 0)
@@ -66,45 +62,56 @@ export default function LogsPanel({ siteId }: { siteId: string }) {
           {siteIncidents &&
             Object.keys(siteIncidents).map((createdAt, index) => {
               const incidentsForDate = siteIncidents[createdAt];
-
-              const temperature1 = incidentsForDate[0].mesurement;
+              const temperature1 = incidentsForDate[0].measurement;
               const atmosphericPressure =
                 incidentsForDate[1] == undefined
                   ? "empty"
-                  : incidentsForDate[1].mesurement;
+                  : incidentsForDate[1].measurement;
               const temperature2 =
                 incidentsForDate[2] == undefined
                   ? "empty"
-                  : incidentsForDate[2].mesurement;
-              console.log(incidentsForDate[1]);
+                  : incidentsForDate[2].measurement;
               return (
                 <tr
                   key={index}
                   className="text-white  border text-left font-sans rounded-tl-md rounded-tr-md w-full h-10 logs-panel-td"
                 >
-                  <td className="py-1 px-4">{createdAt}</td>
-                  {incidentsForDate.map((incident, index) => {
-                    return (
-                      <td key={index} className="py-1 px-4">
-                        {incident.incidentType}
-                      </td>
-                    );
-                  })}
-                  {incidentsForDate.map((incident, index) => {
-                    return (
-                      <td key={index} className="py-1 px-4">
-                        {incident.mesurement} °C
-                      </td>
-                    );
-                  })}
-                  {incidentsForDate.map((incident, index) => {
-                    return (
-                      <td key={index} className="py-1 px-4">
-                        <StatusView status={incident.status} />
-                      </td>
-                    );
-                  })}
-                  {/* <StatusView status={"HEALTHY"} /> */}
+                  <td>
+                    {incidentsForDate.map((incident, index) => {
+                      return (
+                        <p key={index} className="py-1 px-4">
+                          {incident.createdAt}
+                        </p>
+                      );
+                    })}
+                  </td>
+                  <td>
+                    {incidentsForDate.map((incident, index) => {
+                      return (
+                        <p key={index} className="py-1 px-4">
+                          {incident.type}
+                        </p>
+                      );
+                    })}
+                  </td>
+                  <td className="">
+                    {incidentsForDate.map((incident, index) => {
+                      return (
+                        <p key={index} className="py-1 px-4">
+                          {incident.measurement} °C
+                        </p>
+                      );
+                    })}
+                  </td>
+                  <td className="">
+                    {incidentsForDate.map((incident, index) => {
+                      return (
+                        <p key={index} className="">
+                          <StatusView status={incident.status} />
+                        </p>
+                      );
+                    })}
+                  </td>
                 </tr>
               );
             })}

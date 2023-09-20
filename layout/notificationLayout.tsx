@@ -5,7 +5,6 @@ import {
   notificationLinks,
 } from "@/utils/dataAssets";
 import { AiOutlineCloseCircle } from "react-icons/ai";
-import axios from "axios";
 import { error } from "console";
 import { useSelector } from "react-redux";
 import { RootState, useAppDispatch } from "@/stores/store";
@@ -14,29 +13,33 @@ import { setNotificationPanelVisibility } from "@/features/appPages";
 import NotificationBox from "@/components/units/NotificationBox";
 import { getAllNotifications } from "@/services/actions/notifications.action";
 import { getNotification } from "@/features/notifications";
+import { axios } from "@/services/axios";
 
 function NotificationLayout(props: any) {
+  const [userNotifications, setUserNotifications] = useState([]);
   useEffect(() => {
     const getNotifications = async () => {
       try {
         await axios
           .get("/notifications/all", {
-            headers: { Authorization: `Bearer ${JSON.parse(localStorage.getItem("refreshToken")||"{}")}` },
+            headers: {
+              Authorization: `Bearer ${JSON.parse(
+                localStorage.getItem("refreshToken")!
+              )}`,
+            },
           })
           .then((res) => {
-            console.log(res.data.data)
-            setNotifications(res.data.data);
-            console.log("va");
-            console.log(notifications)
-            dispatch(getNotification(res.data.data))
+            console.log(res.data.data);
+            setUserNotifications(res.data.data);
+            dispatch(getNotification(res.data.data));
           });
       } catch (err) {
-        console.log(`error from layout ${err}`);
         console.log(err);
       }
     };
     getNotifications();
   }, []);
+
   const [notifications, setNotifications]: any[] = useState([
     {
       notificationOwner: "Muhire Ighor",
@@ -63,14 +66,9 @@ function NotificationLayout(props: any) {
   //   state.notifications.notifications;
   // })
 
-console.log(notifications)
-  
   const [selectedNotification, setSelectedNotification] = useState(
     notificationLinks[0]
   );
-
-
-
   const handleClick = (link: any) => {
     setSelectedNotification(link);
   };
@@ -80,12 +78,16 @@ console.log(notifications)
         <div
           id="notification"
           className="bg-white z-100 border w-[35%]   absolute right-0 z-100  rounded-2xl "
-          >
+        >
           <div className="space-y-5 p-4 self-end flex flex-col border border-t-0 border-x-0 shadow-lg">
-            <NotificationBox notifications={userNotifications.length == 0? notifications:userNotifications} />
-          
+            <NotificationBox
+              notifications={
+                userNotifications.length == 0
+                  ? notifications
+                  : userNotifications
+              }
+            />
           </div>
-          
         </div>
       )}
     </div>

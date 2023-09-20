@@ -33,15 +33,15 @@ const CompaniesView = () => {
               <PlusIcon />
               <span>View plots on map</span>
             </button>
-            <button className="py-3 flex items-center px-4 gap-2 justify-center rounded-full bg-app/10  hover:bg-app/30  text-app fill-app">
+            {/* <button className="py-3 flex items-center px-4 gap-2 justify-center rounded-full bg-app/10  hover:bg-app/30  text-app fill-app">
               <span>Add Company</span>
               <PlusIcon />
-            </button>
+            </button> */}
           </div>
         </div>
         <div className="relative">
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-12 px-4">
-            {companyDetails.map((company:any, index:any) => {
+            {companyDetails.map((company: any, index: any) => {
               return <RegisteredCompanies {...company} key={index} />;
             })}
           </div>
