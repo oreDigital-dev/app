@@ -98,7 +98,10 @@ export default function LogsPanel({ siteId }: { siteId: string }) {
                     {incidentsForDate.map((incident, index) => {
                       return (
                         <p key={index} className="py-1 px-4">
-                          {incident.measurement} °C
+                       {incident.type == 'TEMPERATURE' && `${incident.measurement} °C`} 
+                       {incident.type == 'HUMIDITY' && `${incident.measurement} °g/m^3`} 
+                       {incident.type == 'HEATINDEX' && `${incident.measurement} °F`} 
+                          {/* {incident.type == 'HUMIDITY' && '°F'}  */}
                         </p>
                       );
                     })}

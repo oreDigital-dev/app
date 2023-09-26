@@ -1,4 +1,6 @@
 interface InputProps {
+  max?:number;
+  min?:number;
   label: string | null;
   state: string | number | null;
   setState: (state: any) => void;
@@ -11,6 +13,8 @@ export default function Input({
   setState,
   placeholder,
   type,
+  max,
+  min
 }: InputProps) {
   const options: String[] = [
     "COMPANY",

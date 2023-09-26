@@ -6,7 +6,6 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
 import { stepThreeRegistration } from "@/features/companyRegistration";
-import { companyAdminRegistration } from "@/services/actions/auth.action";
 import { Cell } from "recharts";
 import { axios } from "@/services/axios";
 
@@ -111,6 +110,7 @@ const FinalDetails = () => {
           <div className="flex gap-2">
             <div className="basis-1/2">
               <Input
+              
                 label={"Mining license number"}
                 placeholder={"Sail-miners333"}
                 type={"text"}
@@ -131,6 +131,7 @@ const FinalDetails = () => {
           <div className="flex gap-2">
             <div className="basis-1/2">
               <Input
+              min={0}
                 label={"Production Capacity"}
                 placeholder={"250 kg"}
                 type={"number"}

@@ -71,6 +71,7 @@ const CompanyDetails = () => {
                 label={"Employee number"}
                 placeholder={"250"}
                 type={"number"}
+                min={0}
                 state={numberOfEmployees}
                 setState={setNumberOfEmployees}
               />
@@ -113,7 +114,7 @@ const CompanyDetails = () => {
             className="w-5/12 py-[14px] px-10 text-center bg-app text-white rounded-xl"
             onClick={() => handleProgression(subCategory)}
           >
-            Next
+            {subCategory == 'Employee'?'Register':'Next'}
           </Button>
         </div>
       </div>
