@@ -1,15 +1,15 @@
 import { useRouter } from "next/router";
-import { EmployeeFields } from "@/@types/interfaces";
 import Button from "@/components/ui/button";
 import Input from "@/components/units/createMinesiteInputs";
-import Link from "next/link";
 import { useDispatch } from "react-redux";
 import { steponeRegistration } from "@/features/companyRegistration";
 import { useState } from "react";
-import { rmbStepOneRegistration } from "@/features/rmbRegistration";
 import { axios } from "@/services/axios";
+import Loader from "../ui/loader";
 
 const AdminForm = ({ category }: { category: string }) => {
+  const [error, setError] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   const dispatch = useDispatch();
   const [firstName, setFirstName] = useState("");
@@ -59,42 +59,53 @@ const AdminForm = ({ category }: { category: string }) => {
     employeeType: "Admin",
   };
 
-  const handleProgression = async (category: String) => {
-    switch (category) {
-      case "RMB":
-        // dispatch(rmbStepOneRegistration())
-        try {
-          const res = await axios.post("/rmb/create/rmb-employee",rmbFormdata);
-          localStorage.setItem("email",JSON.stringify(res.data.data.email))
-          router.push("/verification");
-        } catch (err) {
-          console.log(err);
-        }
-        break;
-      case "Company":
-        console.log(formData);
-        dispatch(steponeRegistration(formData));
-        router.push("/auth/companyDetails");
-        break;
-      case "Rescue Team":
-        router.push("/auth/ProfessionDetails");
-        break;
-      default:
-        router.push("/auth");
+  const handleRmbAdminRegistration = async (formData: any) => {
+    try {
+      setIsLoading(true);
+      setError(false);
+      if (
+        rmbFormdata.address.village ||
+        rmbFormdata.address.cell == "" ||
+        rmbFormdata.address.sector ||
+        rmbFormdata.address.district == "" ||
+        rmbFormdata.address.province == "" ||
+        rmbFormdata.email == "" ||
+        rmbFormdata.employeeType == "" ||
+        rmbFormdata.firstName == "" ||
+        rmbFormdata.lastName == "" ||
+        rmbFormdata.myGender == "" ||
+        rmbFormdata.national_id == "" ||
+        rmbFormdata.password == "" ||
+        rmbFormdata.phoneNumber == "" ||
+        rmbFormdata.registrationKey == ""
+      ) {
+        setError(true);
+        return;
+      }
+      const res = await axios.post("/rmb/create/rmb-employee", formData);
+      localStorage.setItem("email", JSON.stringify(res.data.data.email));
+      router.push("/verification");
+    } catch (err) {
+      console.error(err);
     }
   };
-  const handleGender = (e: React.ChangeEvent<HTMLInputElement>) => {
-    formData.myGender = e.target.value;
-  };
+  const handleCompanyAdminRegistration = (formData:any)=>{
+    dispatch(steponeRegistration(formData));
+    router.push("/auth/companyDetails");
+  }
+  const handleRescueTeamRegistration = ()=>{
+    router.push("/auth/ProfessionDetails");
+  }
 
-  const rmbRoles: string[] = [
-    "RMB Admin",
-    "RMB Employee",
-    "Company admin",
-    "Company employee",
-    "Rescue team",
-  ];
-  const rescueTeamRoles: String[] = ["Red Cross", "RNP", "RDF"];
+
+  // const rmbRoles: string[] = [
+  //   "RMB Admin",
+  //   "RMB Employee",
+  //   "Company admin",
+  //   "Company employee",
+  //   "Rescue team",
+  // ];
+  // const rescueTeamRoles: String[] = ["Red Cross", "RNP", "RDF"];
   return (
     <div className=" w-[90%] mx-auto space-y-2">
       <div className="flex justify-center ">
@@ -106,15 +117,12 @@ const AdminForm = ({ category }: { category: string }) => {
           <p className="font-bold text-xl text-black">Person details</p>
         </div>
       </div>
-      <div className=" w-full flex justify-center font-semibold text-md">
-        <p>
-          Don&apos;t have a workspace?{" "}
-          <span className="text-app">
-            <Link href={"/"}>Request One</Link>
-          </span>
-        </p>
-      </div>
       <div className="space-y-2">
+        {error && (
+          <p className="text-lg text-red-500 text-center">
+            Please Fill all fields
+          </p>
+        )}
         <div className="flex gap-2">
           <div className="basis-1/2">
             <Input
@@ -258,12 +266,39 @@ const AdminForm = ({ category }: { category: string }) => {
         </div>
       </div>
       <div>
-        <Button
-          className="w-5/12 py-[14px] px-10 text-center bg-app text-white rounded-xl"
-          onClick={() => handleProgression(category)}
-        >
-          Next
-        </Button>
+        {category == "RMB" && (
+          <Button
+            className={`w-5/12 py-[14px] px-10 text-center bg-app text-white rounded-xl ${
+              isLoading && "opacity-50"
+            }`}
+            onClick={() => handleRmbAdminRegistration(rmbFormdata)}
+          >
+            {isLoading ? <Loader /> : `Register`}
+          </Button>
+        )}
+        {category == "Company" && (
+          <Button
+            className={`w-5/12 py-[14px] px-10 text-center bg-app text-white rounded-xl ${
+              isLoading && "opacity-50"
+            }`}
+            onClick={() => handleCompanyAdminRegistration(formData)}
+          >
+            Next
+          </Button>
+        )}
+        {
+          category == "Rescue Team" && (
+            <Button
+            className={`w-5/12 py-[14px] px-10 text-center bg-app text-white rounded-xl ${
+              isLoading && "opacity-50"
+            }`}
+            onClick={() => handleRescueTeamRegistration()}
+          >
+            Next
+          </Button> 
+          )
+        }
+        
       </div>
     </div>
   );
