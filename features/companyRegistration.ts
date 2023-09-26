@@ -38,7 +38,26 @@ const initialState = {
             }
         }
     },
-    employee: {}
+    employee: {
+        firstName: "",
+        lastName: "",
+        email: "",
+        username: "",
+        myGender: "",
+        registrationKey: "",
+        national_id: "",
+        password: "",
+        phoneNumber: "",
+        address: {
+          province: "",
+          district: "",
+          sector: "",
+          cell:   "",
+          village: "",
+        },
+        company: "",
+        employeeType: "",
+    }
 }
 const rmbRegistrationSlice = createSlice({
     name: "companyRegistrationRegistration",
@@ -77,10 +96,26 @@ const rmbRegistrationSlice = createSlice({
             state.admin.company.address.cell = payload.payload.cell;
             state.admin.company.address.village = payload.payload.village;
         },
-        stepOneEmployeeRegistration:(state:RootState)=>{
-            
-        }
+        stepOneEmployeeRegistration:(state:RootState,payload:PayloadAction<{firstName: string, lastName: string, email: string, username:string, password: string, phoneNumber: string, myGender: string,registrationKey:string,national_id:string,address:{province:String,district:string,sector:string,cell:string,village:string}}>)=>{
+            state.employee.firstName = payload.payload.firstName;
+            state.employee.lastName = payload.payload.lastName;
+            state.employee.email = payload.payload.email;
+            state.employee.username = payload.payload.username;
+            state.employee.password = payload.payload.password;
+            state.employee.phoneNumber = payload.payload.phoneNumber;
+            state.employee.myGender = payload.payload.myGender;
+            state.employee.registrationKey = payload.payload.registrationKey;
+            state.employee.national_id = payload.payload.national_id;
+            state.employee.address.province = payload.payload.address.province;
+            state.employee.address.district = payload.payload.address.district;
+            state.employee.address.sector = payload.payload.address.sector;
+            state.employee.address.cell = payload.payload.address.cell;
+            state.employee.address.village = payload.payload.address.village;
+        },
+        stepTwoEmployeeRegistration:(state:RootState,payload:PayloadAction<{company: string, employeeType: string }>)=>{
+            state.employee.company = payload.payload.company;
+            state.employee.employeeType = payload.payload.employeeType;
     }
-})
-export const { steponeRegistration,stepTwoRegistration,stepThreeRegistration } = rmbRegistrationSlice.actions;
+}})
+export const { steponeRegistration,stepTwoRegistration,stepThreeRegistration,stepOneEmployeeRegistration,stepTwoEmployeeRegistration } = rmbRegistrationSlice.actions;
 export const stepOneReducer = rmbRegistrationSlice.reducer;

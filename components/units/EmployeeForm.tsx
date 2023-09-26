@@ -4,11 +4,14 @@ import Button from "@/components/ui/button";
 import Input from "@/components/units/createMinesiteInputs";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { stepOneEmployeeRegistration } from "@/features/companyRegistration";
+import { useDispatch } from "react-redux";
 export interface EmployeeFormProps {
   category: string;
   subCategory: string;
   formHandler?: (formData: any) => void | any;
 }
+
 const EmployeeForm = (props: EmployeeFormProps) => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -23,6 +26,7 @@ const EmployeeForm = (props: EmployeeFormProps) => {
   const [village, setVillage] = useState("");
   const [myGender, setMygender] = useState("");
   const router = useRouter();
+  const dispatch = useDispatch();
   const formData = {
     firstName: firstName,
     lastName: lastName,
@@ -30,26 +34,23 @@ const EmployeeForm = (props: EmployeeFormProps) => {
     username: `${firstName.substring(0, 1)}.${lastName}`,
     myGender: myGender,
     registrationKey: "anykey",
-    national_id: "string",
-    password: "string",
-    phoneNumber: "string",
+    national_id: national_id,
+    password: password,
+    phoneNumber: phoneNumber,
     address: {
-      province: "string",
-      district: "string",
-      sector: "string",
-      cell: "string",
-      village: "string",
+      province: province,
+      district: district,
+      sector: sector,
+      cell: cell,
+      village: village,
     },
-  salary: 0,
-    employeeRole: "string",
-    company: "string",
-    employeeType: "string",
   };
   const handleProgression = (category: String) => {
     switch (category) {
       case "RMB":
         return router.push("/verification");
       case "Company":
+        dispatch(stepOneEmployeeRegistration(formData));
         return router.push("/auth/companyDetails");
       case "Rescue Team":
         return router.push("/auth/ProfessionDetails");
@@ -109,110 +110,115 @@ const EmployeeForm = (props: EmployeeFormProps) => {
             />
           </div>
           <div className="basis-1/2">
-        <Input
-          label={"Password"}
-          placeholder={"......."}
-          type={"password"}
-          state={password}
-          setState={setPassword}
-        />
-      
+            <Input
+              label={"Password"}
+              placeholder={"......."}
+              type={"password"}
+              state={password}
+              setState={setPassword}
+            />
           </div>
-          </div>
-          <div className="flex gap-2">
+        </div>
+        <div className="flex gap-2">
           <div className="basis-1/2">
-        <Input
-          label={"National Id"}
-          placeholder={"1 1883 3434 34343"}
-          type={"text"}
-          state={national_id}
-          setState={setNational_id}
-        />
+            <Input
+              label={"National Id"}
+              placeholder={"1 1883 3434 34343"}
+              type={"text"}
+              state={national_id}
+              setState={setNational_id}
+            />
           </div>
           <div className="flex flex-col">
-          <label className="mb-3">Gender</label>
-          <div className="flex gap-12">
-            <div className="flex items-center gap-10">
-              <p>Male</p>
-              <input
-                type="radio"
-                value={"Male"}
-                name="gender"
-                checked={formData.myGender == "Male"}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                  setMygender(e.target.value)
-                }
-              />
-            </div>
-            <div className="flex items-center gap-10">
-              <p>Female</p>
-              <input
-                checked={formData.myGender == "Female"}
-                type="radio"
-                value={"Female"}
-                name="gender"
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                  setMygender(e.target.value)
-                }
-              />
+            <label className="mb-3">Gender</label>
+            <div className="flex gap-12">
+              <div className="flex items-center gap-10">
+                <p>Male</p>
+                <input
+                  type="radio"
+                  value={"Male"}
+                  name="gender"
+                  checked={formData.myGender == "Male"}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                    setMygender(e.target.value)
+                  }
+                />
+              </div>
+              <div className="flex items-center gap-10">
+                <p>Female</p>
+                <input
+                  checked={formData.myGender == "Female"}
+                  type="radio"
+                  value={"Female"}
+                  name="gender"
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                    setMygender(e.target.value)
+                  }
+                />
+              </div>
             </div>
           </div>
         </div>
+        <div className="flex gap-2">
+          <div className="basis-1/2">
+            <Input
+              label={"Phone Number"}
+              placeholder={"+250798486619"}
+              type={"number"}
+              state={phoneNumber}
+              setState={setPhoneNumber}
+            />
+          </div>
+          <div className="basis-1/2">
+            <Input
+              label={"Province"}
+              placeholder={"Kigali"}
+              type={"text"}
+              state={province}
+              setState={setProvince}
+            />
+          </div>
         </div>
-       <div className="flex gap-2">
-        <div className="basis-1/2">
-        <Input
-          label={"Province"}
-          placeholder={"Kigali"}
-          type={"text"}
-          state={province}
-          setState={setProvince}
-        />
+        <div className="flex gap-2">
+          <div className="basis-1/2">
+            <Input
+              label={"District"}
+              placeholder={"Gasabo"}
+              type={"text"}
+              state={district}
+              setState={setDistrict}
+            />
+          </div>
+          <div className="basis-1/2">
+            <Input
+              label={"Sector"}
+              placeholder={"Kimironko"}
+              type={"text"}
+              state={sector}
+              setState={setSector}
+            />
+          </div>
         </div>
-        <div className="basis-1/2">
-        <Input
-          label={"District"}
-          placeholder={"Gasabo"}
-          type={"text"}
-          state={district}
-          setState={setDistrict}
-        />
+        <div className="flex gap-2">
+          <div className="basis-1/2">
+            <Input
+              label={"Cell"}
+              placeholder={"Kibagabaga"}
+              type={"text"}
+              state={cell}
+              setState={setCell}
+            />
+          </div>
+          <div className="w-1/2">
+            <Input
+              label={"Village"}
+              placeholder={"Kalisimbi"}
+              type={"text"}
+              state={village}
+              setState={setVillage}
+            />
+          </div>
         </div>
-       </div>
-       <div className="flex gap-2">
-       <div className="basis-1/2">
-        <Input
-          label={"Sector"}
-          placeholder={"Kimironko"}
-          type={"text"}
-          state={sector}
-          setState={setSector}
-        />
-       </div>
-       <div className="basis-1/2">
-
-        <Input
-          label={"Cell"}
-          placeholder={"Kibagabaga"}
-          type={"text"}
-          state={cell}
-          setState={setCell}
-        />
-       </div>
-       </div>
-       <div className="w-1/2">
-        <Input
-          label={"Village"}
-          placeholder={"Kalisimbi"}
-          type={"text"}
-          state={village}
-          setState={setVillage}
-        />
-
-       </div>
-
-
-
       </form>
       <div>
         <Button

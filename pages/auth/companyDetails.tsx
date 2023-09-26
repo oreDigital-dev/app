@@ -4,37 +4,82 @@ import Input from "@/components/units/createMinesiteInputs";
 import { RootState } from "@/stores/store";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { axios } from "@/services/axios";
+import { stepOneEmployeeRegistration, stepTwoEmployeeRegistration } from "@/features/companyRegistration";
 import { useDispatch, useSelector } from "react-redux";
 import { stepTwoRegistration } from "@/features/companyRegistration";
-
 const CompanyDetails = () => {
   const dispatch = useDispatch();
+  const companyEmployeeInfo = useSelector((state:RootState)=> state.companyRegistration.employee);
   const [email, setEmail] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [numberOfEmployees, setNumberOfEmployees] = useState(0);
   const [companyName, setCompanyName] = useState("");
+  const [company, setCompany] = useState("");
+  const [employeeType, setEmployeeType] = useState("");
   const formData = {
     email: email,
     phoneNumber: phoneNumber,
     numberOfEmployees: numberOfEmployees,
     companyName: companyName,
   };
-
-  const category = useSelector(
-    (state: RootState) => state.formCategories.category
-  );
+ const employeeFormData = {
+  company: company,
+  employeeType: employeeType,
+ }
   const subCategory = useSelector(
     (state: RootState) => state.formCategories.subCategory
   );
   const router = useRouter();
-  const handleProgression = (subCategory: String) => {
+  const handleProgression = async(subCategory: String) => {
     switch (subCategory) {
-      case "Employee":
-        router.push("/verification");
+      case "Employee":        
+        dispatch(stepTwoEmployeeRegistration(employeeFormData))
+        try{
+          const res = await handleRegister();
+          router.push("/verification");
+         } catch(error) {
+          console.log(error);
+          
+         }
+        
         break;
       case "Admin":
         dispatch(stepTwoRegistration(formData));
         router.push("/auth/FinalDetails");
+    }
+  };
+  const handleRegister = async () => {
+    try {
+      const requestBody = {
+        companyEmployee: {
+          firstName: companyEmployeeInfo.firstName,
+          lastName: companyEmployeeInfo.lastName,
+          email: companyEmployeeInfo.email,
+          username: `${companyEmployeeInfo.firstName.substr(0, 1)}.${
+            companyEmployeeInfo.secondName
+          }`,
+          myGender: companyEmployeeInfo.myGender,
+          registrationKey: companyEmployeeInfo.registrationKey,
+          national_id: companyEmployeeInfo.national_id,
+          password: companyEmployeeInfo.password,
+          phoneNumber: companyEmployeeInfo.phoneNumber,
+          address: {
+            province: companyEmployeeInfo.address.province,
+            district: companyEmployeeInfo.address.district,
+            sector: companyEmployeeInfo.address.sector,
+            cell: companyEmployeeInfo.address.cell,
+            village: companyEmployeeInfo.address.village,
+          },
+          employeeType: employeeFormData.employeeType,
+          company: employeeFormData.company,
+        }
+      };
+      const resp = await axios.post("/employees/create",requestBody);
+       console.log(requestBody);
+       
+    } catch (err) {
+      console.log(err);
     }
   };
   return (
@@ -51,7 +96,7 @@ const CompanyDetails = () => {
         </div>
     
         <div className="space-y-4">
-          {subCategory == "Admin" ? (
+          {subCategory == "Admin" && (
             <>
               <Input
                 label={"Company name"}
@@ -83,29 +128,30 @@ const CompanyDetails = () => {
                 setState={setPhoneNumber}
               />
             </>
-          ) : (
+          )}
+          {(subCategory == "Employee") && (
             <>
               <Input
                 label={"Company name"}
                 placeholder={"Sail-miners333"}
                 type={"text"}
-                state={""}
-                setState={() => {}}
+                state={company}
+                setState={setCompany}
               />
               <Input
-                label={"Type of minerals"}
-                placeholder={"Wolfram"}
-                type={"email"}
-                state={""}
-                setState={() => {}}
+                label={"Employee Type"}
+                placeholder={"Miner"}
+                type={"text"}
+                state={employeeType}
+                setState={setEmployeeType}
               />
-              <Input
+              {/* <Input
                 label={"Location"}
                 placeholder={"+250798486619"}
                 type={"password"}
                 state={""}
                 setState={() => {}}
-              />
+              /> */}
             </>
           )}
         </div>
