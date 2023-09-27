@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { stepOneEmployeeRegistration } from "@/features/companyRegistration";
 import { useDispatch } from "react-redux";
+import { axios } from "@/services/axios";
 export interface EmployeeFormProps {
   category: string;
   subCategory: string;
@@ -44,11 +45,19 @@ const EmployeeForm = (props: EmployeeFormProps) => {
       cell: cell,
       village: village,
     },
+    employeeType: "Employee"
   };
-  const handleProgression = (category: String) => {
+  const handleProgression = async(category: String) => {
     switch (category) {
       case "RMB":
-        return router.push("/verification");
+        try {
+          const res = await axios.post("/rmb/create/rmb-employee", formData);
+          localStorage.setItem("email", JSON.stringify(res.data.data.email));
+          router.push("/verification");
+        } catch (err) {
+          console.log(err);
+        }
+        break;
       case "Company":
         dispatch(stepOneEmployeeRegistration(formData));
         return router.push("/auth/companyDetails");
@@ -164,7 +173,7 @@ const EmployeeForm = (props: EmployeeFormProps) => {
             <Input
               label={"Phone Number"}
               placeholder={"+250798486619"}
-              type={"number"}
+              type={"text"}
               state={phoneNumber}
               setState={setPhoneNumber}
             />
