@@ -91,8 +91,6 @@ export default function DashBoardLayout({
     setActiveLink(href);
   };
 
-
-
   const dispatchActions = async () => {
     // dispatch(setProfilePanelVisibility({ type: "close" }));
 
@@ -101,8 +99,9 @@ export default function DashBoardLayout({
   return (
     <>
       {visibility == true ? (
-        <div className="sm:flex gap-0 bg-bg max-w-screen-2xl mx-auto">
-          <div className="hidden sm:block w-[20vw]  sticky top-0   bg-white h-screen ">
+        <div className="sm:flex gap-0 bg-bg">
+          {/* max-w-screen-2xl */}
+          <div className="hidden sm:block w-[20vw] sticky  top-0   bg-white h-screen ">
             <div className="px-[40px] h-[60px] flex items-center border-b-2 border-bg">
               <Logo withText />
             </div>
