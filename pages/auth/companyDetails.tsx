@@ -5,12 +5,17 @@ import { RootState } from "@/stores/store";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { axios } from "@/services/axios";
-import { stepOneEmployeeRegistration, stepTwoEmployeeRegistration } from "@/features/companyRegistration";
+import {
+  stepOneEmployeeRegistration,
+  stepTwoEmployeeRegistration,
+} from "@/features/companyRegistration";
 import { useDispatch, useSelector } from "react-redux";
 import { stepTwoRegistration } from "@/features/companyRegistration";
 const CompanyDetails = () => {
   const dispatch = useDispatch();
-  const companyEmployeeInfo = useSelector((state:RootState)=> state.companyRegistration.employee);
+  const companyEmployeeInfo = useSelector(
+    (state: RootState) => state.companyRegistration.employee
+  );
   const [email, setEmail] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [numberOfEmployees, setNumberOfEmployees] = useState(0);
@@ -23,26 +28,25 @@ const CompanyDetails = () => {
     numberOfEmployees: numberOfEmployees,
     companyName: companyName,
   };
- const employeeFormData = {
-  company: company,
-  employeeType: employeeType,
- }
+  const employeeFormData = {
+    company: company,
+    employeeType: employeeType,
+  };
   const subCategory = useSelector(
     (state: RootState) => state.formCategories.subCategory
   );
   const router = useRouter();
-  const handleProgression = async(subCategory: String) => {
+  const handleProgression = async (subCategory: String) => {
     switch (subCategory) {
-      case "Employee":        
-        dispatch(stepTwoEmployeeRegistration(employeeFormData))
-        try{
+      case "Employee":
+        dispatch(stepTwoEmployeeRegistration(employeeFormData));
+        try {
           const res = await handleRegister();
           router.push("/verification");
-         } catch(error) {
+        } catch (error) {
           console.log(error);
-          
-         }
-        
+        }
+
         break;
       case "Admin":
         dispatch(stepTwoRegistration(formData));
@@ -73,17 +77,16 @@ const CompanyDetails = () => {
           },
           employeeType: employeeFormData.employeeType,
           company: employeeFormData.company,
-        }
+        },
       };
-      const resp = await axios.post("/employees/create",requestBody);
-       console.log(requestBody);
-       
+      const resp = await axios.post("/employees/create", requestBody);
+      console.log(requestBody);
     } catch (err) {
       console.log(err);
     }
   };
   return (
-    <div className="relative flex flex-col authBack2 bg-cover bg-transparent ">
+    <div className="relative xl:w-[100vw] flex flex-col authBack2 bg-cover bg-transparent ">
       <div className=" rounded-xl p-6 z-40 bg-white justify-center w-[35%] mx-auto  my-auto space-y-8">
         <div className="flex justify-center ">
           <div className="flex items-center gap-4">
@@ -94,7 +97,7 @@ const CompanyDetails = () => {
             <p className="font-bold text-xl text-black">Company details</p>
           </div>
         </div>
-    
+
         <div className="space-y-4">
           {subCategory == "Admin" && (
             <>
@@ -129,7 +132,7 @@ const CompanyDetails = () => {
               />
             </>
           )}
-          {(subCategory == "Employee") && (
+          {subCategory == "Employee" && (
             <>
               <Input
                 label={"Company name"}
@@ -160,7 +163,7 @@ const CompanyDetails = () => {
             className="w-5/12 py-[14px] px-10 text-center bg-app text-white rounded-xl"
             onClick={() => handleProgression(subCategory)}
           >
-            {subCategory == 'Employee'?'Register':'Next'}
+            {subCategory == "Employee" ? "Register" : "Next"}
           </Button>
         </div>
       </div>
