@@ -74,7 +74,7 @@ const Login = () => {
       if (isFormValid()) {
         setLaoding(true);
         const response: any = await loginPerson({ email, password, userType });
-        console.log(response);
+        localStorage.setItem("loggedInProfile", response.data.user);
         toast(`User logged in successfully`, {
           style: {
             backgroundColor: "white",
