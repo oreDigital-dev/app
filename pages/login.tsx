@@ -139,6 +139,7 @@ const Login = () => {
           We aim at making your company develop by maximizing security for both
           employees and the products.
         </p>
+        <a className="text-app text-lg" href="/Help1.pdf" download>Need Help?</a>
       </div>
       <div className="rounded-lg lg:w-1/3 md:w-1/3 sm:w-3/4 xs:w-3/4 bg-white h-fit m-auto space-y-4 flex flex-col content-center p-10">
         <p className=" text-2xl font-semibold">Welcome Back!</p>

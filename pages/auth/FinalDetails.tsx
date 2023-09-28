@@ -39,8 +39,11 @@ const FinalDetails = () => {
   const handleProgression = async () => {
     dispatch(stepThreeRegistration(formData));
     try {
-      const res = await handleRegister();
-      router.push("/verification");
+      const res:any = await handleRegister();
+      if(res.data){
+        router.push("/verification");
+
+      }
     } catch (err) {
       console.log(err);
     }
@@ -53,7 +56,7 @@ const FinalDetails = () => {
           lastName: companyAdminInfo.companyAdmin.lastName,
           email: companyAdminInfo.companyAdmin.email,
           username: `${companyAdminInfo.companyAdmin.firstName.substr(0, 1)}.${
-            companyAdminInfo.companyAdmin.secondName
+            companyAdminInfo.companyAdmin.lastName
           }`,
           myGender: companyAdminInfo.companyAdmin.myGender,
           registrationKey: companyAdminInfo.companyAdmin.registrationKey,
@@ -70,13 +73,9 @@ const FinalDetails = () => {
           employeeType: companyAdminInfo.companyAdmin.employeeType,
         },
         company: {
-          ownership: formData.ownership,
+          name: companyAdminInfo.company.companyName,
           email: companyAdminInfo.company.email,
           phoneNumber: companyAdminInfo.company.phoneNumber,
-          productionCapacity: Number(formData.productionCapacity),
-          minerals: [formData.minerals],
-          licenseNumber: Number(formData.licenseNumber),
-          numberOfEmployees: Number(companyAdminInfo.company.numberOfEmployees),
           address: {
             province: formData.province,
             district: formData.district,
@@ -84,13 +83,17 @@ const FinalDetails = () => {
             cell: formData.cell,
             village: formData.village,
           },
-          companyName: companyAdminInfo.company.companyName,
+          ownership: formData.ownership,
+          productionCapacity: Number(formData.productionCapacity),
+          minerals: [formData.minerals],
+          licenseNumber: Number(formData.licenseNumber),
+          numberOfEmployees: Number(companyAdminInfo.company.numberOfEmployees),
         },
       };
       const resp = await axios.post("/companies/create",requestBody);
 
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   };
   return (
