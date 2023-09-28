@@ -9,19 +9,14 @@ import {
   DashBoardSection,
   links,
   mfoLinks,
+  rescueTeams,
   rmbLinks,
 } from "@/utils/dataAssets";
 import { RootState, useAppDispatch } from "@/stores/store";
-import {
-  setNotificationPanelVisibility,
-  setProfilePanelVisibility,
-} from "@/features/appPages";
+import { setNotificationPanelVisibility, setRoles } from "@/features/appPages";
 import { NofiticationsIcon } from "@/components/icons";
 import { useSelector } from "react-redux";
-import { getAllNotifications } from "@/services/actions/notifications.action";
-import { axios } from "@/services/axios";
-import { getNotification } from "@/features/notifications";
-
+import path from "path";
 const NavLink = ({
   props,
   setActiveSection,
@@ -55,6 +50,7 @@ export default function DashBoardLayout({
   const [activeLink, setActiveLink] = useState(links[0].title);
   const [visibility, setVisibility] = useState(false);
   const [hiddeNotifications, setHideNotifications] = useState(false);
+  const [user, setUser] = useState<any>();
   const dispatch = useAppDispatch();
   const router = useRouter()
   // const socket = io("http://194.163.167.131:8060");
@@ -63,6 +59,14 @@ export default function DashBoardLayout({
   // })
 
   useEffect(() => {
+    const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser")!);
+    setUser(loggedInUser);
+    let roles: String[] = [""];
+    loggedInUser.roles.forEach((role: any) => {
+      roles.push(role.roleName);
+    });
+    dispatch(setRoles(roles));
+
     if (
       router.pathname.includes("/d") ||
       router.pathname.includes("/rmb") ||
@@ -73,7 +77,15 @@ export default function DashBoardLayout({
       setVisibility(false);
     }
   }, [router.pathname]);
+
   useEffect(() => {
+    const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser")!);
+    setUser(loggedInUser);
+    let roles: String[] = [""];
+    loggedInUser.roles.forEach((role: any) => {
+      roles.push(role.roleName);
+    });
+    dispatch(setRoles(roles));
     const token = localStorage.getItem("refreshToken");
     if (token == null) {
       router.push("/login");
@@ -81,23 +93,45 @@ export default function DashBoardLayout({
   }, []);
 
   const setActiveLinkHandler = async (href: string) => {
+    const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser")!);
+    setUser(loggedInUser);
+    let roles: String[] = [""];
+    user.roles.forEach((role: any) => {
+      roles.push(role.roleName);
+    });
+    dispatch(setRoles(roles));
+
     if (router.pathname.includes("/d")) {
-      await router.push(
-        ("/d/" + links.find((link) => link.title === href)?.url) as string
-      );
-    } else if (router.pathname.includes("/rmb")) {
       await router.push(
         ("/rmb/" + rmbLinks.find((link) => link.title === href)?.url) as string
       );
-    } else {
+    } else if (
+      router.pathname.includes("/rmb") &&
+      roles.includes("SYSTEM_ADMING")
+    ) {
+      await router.push(
+        ("/rmb/" + rmbLinks.find((link) => link.title === href)?.url) as string
+      );
+    } else if (router.pathname.includes("mfo") && roles.includes("MFO")) {
       await router.push(
         ("/mfo/" + mfoLinks.find((link) => link.title === href)?.url) as string
       );
+    } else if (
+      router.pathname.includes("rescue_teams") &&
+      roles.includes("RESCUE_TEAM_ADMIN")
+    ) {
+      await router.push(
+        ("/rescue_team/" +
+          mfoLinks.find((link) => link.title === href)?.url) as string
+      );
+    } else {
+      console.log("Invalid href");
     }
     setActiveLink(href);
   };
-
-
+  const roles: String[] = useSelector(
+    (store: RootState) => store.appPages.roles
+  );
 
   const dispatchActions = async () => {
     // dispatch(setProfilePanelVisibility({ type: "close" }));
@@ -107,13 +141,24 @@ export default function DashBoardLayout({
   return (
     <>
       {visibility == true ? (
-        <div className="sm:flex gap-0 bg-bg max-w-screen-2xl mx-auto">
-          <div className="hidden sm:block w-[20vw]  sticky top-0   bg-white h-screen ">
+        <div className="sm:flex gap-0 bg-bg">
+          {/* max-w-screen-2xl */}
+          <div className="hidden sm:block w-[20vw] sticky  top-0   bg-white h-screen ">
             <div className="px-[40px] h-[60px] flex items-center border-b-2 border-bg">
               <Logo withText />
             </div>
             <div className="mt-10 px-[20px] ">
-              {router.pathname.includes("/d") &&
+              {roles.includes("COMPANY_ADMIN") &&
+                links.map((link, index) => (
+                  <NavLink
+                    isActive={activeLink === link.title}
+                    props={link}
+                    key={index}
+                    setActiveSection={setActiveLinkHandler}
+                  />
+                ))}
+
+              {roles.includes("COMPANY_EMPLOYEE") &&
                 links.map((link, index) => (
                   <NavLink
                     isActive={activeLink === link.title}
@@ -133,6 +178,37 @@ export default function DashBoardLayout({
                 ))}
               {router.pathname.includes("/rmb") &&
                 rmbLinks.map((link, index) => (
+                  <NavLink
+                    isActive={activeLink === link.title}
+                    props={link}
+                    key={index}
+                    setActiveSection={setActiveLinkHandler}
+                  />
+                ))}
+
+              {roles.includes("RMB_EMPLOYEE") &&
+                mfoLinks.map((link, index) => (
+                  <NavLink
+                    isActive={activeLink === link.title}
+                    props={link}
+                    key={index}
+                    setActiveSection={setActiveLinkHandler}
+                  />
+                ))}
+              {roles.includes("COMPANY_EMPLOYEE") &&
+                !roles.includes("COMPANY_ADMIN")}
+              {!roles.includes("RESCUE_TEAM_ADMIN") &&
+                roles.includes("RESCUE_TEAM_EMPLOYEE") &&
+                rescueTeams.map((link, index) => (
+                  <NavLink
+                    isActive={activeLink === link.title}
+                    props={link}
+                    key={index}
+                    setActiveSection={setActiveLinkHandler}
+                  />
+                ))}
+              {roles.includes("RESCUE_TEAM_ADMIN") &&
+                rescueTeams.map((link, index) => (
                   <NavLink
                     isActive={activeLink === link.title}
                     props={link}

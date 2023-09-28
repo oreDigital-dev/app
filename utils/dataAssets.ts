@@ -65,7 +65,7 @@ export const districts: String[] = [
 
 export const ownerShipDetails = ["PRIVATE", "PUBLIC"];
 
-export const loginTypes = ["RMB", "COMPANY"];
+export const loginTypes = ["RMB", "COMPANY", "RESCUE_TEAM"];
 export const notifications: NotificationPanel[] = [
   {
     title: "Muhabura site sent an incident report ",
@@ -534,6 +534,29 @@ export const rmbLinks: DashBoardSection[] = [
   {
     title: "Companies",
     url: "companies",
+    icon: SitesIcon,
+  },
+  {
+    title: "Reports",
+    url: "reports",
+    icon: ReportsIcon,
+  },
+];
+
+export const rescueTeams: DashBoardSection[] = [
+  {
+    title: "Dashboard",
+    url: "/",
+    icon: DashBoardIcon,
+  },
+  {
+    title: "Companies",
+    url: "companies",
+    icon: SitesIcon,
+  },
+  {
+    title: "Mine sites",
+    url: "minesites",
     icon: SitesIcon,
   },
   {

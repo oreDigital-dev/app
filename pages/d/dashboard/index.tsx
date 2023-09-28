@@ -1,3 +1,4 @@
+"use client";
 import SectionHead from "@/components/ui/sectionHead";
 import { ArrowIcon } from "@/components/icons";
 import CompanyRecordDetails from "@/components/units/companyRecordDetails";
@@ -14,7 +15,7 @@ import { PieChart, Pie, Cell } from "recharts";
 import CreateMinesite from "@/components/ui/createMinesite";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import {
   COLORS,
   companyHolds,
@@ -31,10 +32,12 @@ import {
 
 export default function Dashboard() {
   const router = useRouter();
-  const handleNavigation = async()=>{
-await router.push("/rmb");
-  }
+
+  const handleNavigation = async () => {
+    await router.push("/rmb");
+  };
   const dispatch = useAppDispatch();
+  const [role, setRole] = useState("");
   const welcomeMessage = useSelector(
     (store: RootState) => store.appPages.welcomeMessage
   );
@@ -51,25 +54,46 @@ await router.push("/rmb");
         console.log("hello");
     }
   };
+
   useEffect(() => {
+    const loggedInUser = JSON.parse(
+      localStorage.getItem("loggedInUser") || "{}"
+    );
+    const roles: String[] = [];
+    loggedInUser.roles.forEach((role: any) => {
+      roles.push(role.roleName);
+    });
+    if (roles.includes("SYSTEM_ADMIN")) {
+      setRole("RMB");
+    } else if (roles.includes("COMPANY_EMPLOYEE")) {
+      setRole("COMPANY");
+    } else if (roles.includes("RESCUE_TEAM_ADMIN")) {
+      setRole("RESCUE_TEAM");
+    } else {
+      setRole("");
+    }
     if (isLoggedInSuccessFully) {
       toast(welcomeMessage.toString());
     }
-   
+
     setTimeout(() => {
       dispatch(setLoggedInSuccessfully({ type: false }));
     }, 2000);
   }, []);
+
   return (
-    <div className="m-[20px] rounded-md ">
+    <div className="m-[20px]   rounded-md ">
       <div className=" bg-white  relative p-[20px] rounded-md shadow-sm shadow-neutal-300">
         <div className="flex  z-100  items-start justify-between">
           <SectionHead
             title="Summary"
             desc="All mining sites registered in workspace"
           />
-          <button className="text-app flex items-center  font-semibold hover:text-black-500" onClick={handleNavigation}>
-            <span>RMB</span>
+          <button
+            className="text-app flex items-center  font-semibold hover:text-black-500"
+            onClick={handleNavigation}
+          >
+            <span>{role}</span>
             <ArrowIcon />
           </button>
         </div>
@@ -91,19 +115,19 @@ await router.push("/rmb");
         <div className="flex gap-4 my-[20px] overflow-x-scroll scrollable">
           {quickActions.map((quickAction, index) => (
             <button
-            onClick={() => handleActionClick(index)}
-            key={index}
-            style={{
-              color: quickAction.textColor,
-              backgroundColor: quickAction.bgColor,
-              padding: "10px 20px",
-              margin: "5px",
-              border: "none",
-            }}
-            className="rounded-md"
-          >
-            {quickAction.text}
-          </button>
+              onClick={() => handleActionClick(index)}
+              key={index}
+              style={{
+                color: quickAction.textColor,
+                backgroundColor: quickAction.bgColor,
+                padding: "10px 20px",
+                margin: "5px",
+                border: "none",
+              }}
+              className="rounded-md"
+            >
+              {quickAction.text}
+            </button>
           ))}
         </div>
       </div>

@@ -74,7 +74,7 @@ const Login = () => {
       if (isFormValid()) {
         setLaoding(true);
         const response: any = await loginPerson({ email, password, userType });
-        console.log(response);
+        localStorage.setItem("loggedInProfile", response.data.user);
         toast(`User logged in successfully`, {
           style: {
             backgroundColor: "white",
@@ -126,7 +126,7 @@ const Login = () => {
   };
 
   return (
-    <div className="lg:flex md:flex sm:block justify-evenly items-center h-screen lg:w-full md:w-full bg-bg">
+    <div className="lg:flex md:flex sm:block justify-evenly items-center h-screen lg:w-full md:w-full xl:w-[100vw] bg-bg">
       <div className="space-y-10 m-auto lg:w-1/3 md:w-1/2 sm:w-3/4 xs:w-3/4">
         <div className="flex items-center gap-4 sm:pt-8">
           <Logo withText />
