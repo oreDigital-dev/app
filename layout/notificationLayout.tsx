@@ -16,17 +16,25 @@ import { getNotification } from "@/features/notifications";
 import { axios } from "@/services/axios";
 
 function NotificationLayout(props: any) {
+  const USER_TYPES = ["COMPANY","RMB","RESCUE_TEAM"];
+  const [userType,setUserType] = useState("");
   const [userNotifications, setUserNotifications] = useState([]);
+  
+
   useEffect(() => {
     const getNotifications = async () => {
+      
       try {
         await axios
-          .get("/notifications/all", {
+          .get("/notifications/all/loggedIn-user", {
             headers: {
               Authorization: `Bearer ${JSON.parse(
                 localStorage.getItem("refreshToken")!
               )}`,
             },
+            params:{
+              userType:JSON.parse(localStorage.getItem("loggedInUser")!).roles[0].roleName ? USER_TYPES[0]:USER_TYPES[1]
+            }
           })
           .then((res) => {
             console.log(res.data.data);
@@ -80,10 +88,7 @@ function NotificationLayout(props: any) {
         >
           <div className="space-y-5 p-4 self-end flex flex-col border border-t-0 border-x-0 shadow-lg">
             <NotificationBox
-              notifications={
-                userNotifications.length == 0
-                  ? notifications
-                  : userNotifications
+              notifications={ userNotifications
               }
             />
           </div>
