@@ -1,4 +1,4 @@
-import { loginTypes, ownerShipDetails } from "@/utils/dataAssets";
+import { loginTypes, ownerShipDetails,rescueTeamsCategories } from "@/utils/dataAssets";
 import { districts } from "@/utils/dataAssets";
 interface InputProps {
   label: string | null;
@@ -25,6 +25,20 @@ export default function Input2({
         >
           <option value={""}>SELECT ROLE</option>
           {loginTypes.map((option, index) => (
+            <option key={index} value={option as string}>
+              {option}
+            </option>
+          ))}
+        </select>
+      )}
+      {label == "Rescue Team Category" && (
+        <select
+          className=" border border-black-300/10 font-regular  outline-none  w-full py-[14px] px-3 rounded-md text-[black]"
+          placeholder="Select The Rescue Team"
+          onChange={(e) => setState(e.target.value)}
+        >
+          <option value={""}>SELECT ROLE</option>
+          {rescueTeamsCategories.map((option, index) => (
             <option key={index} value={option as string}>
               {option}
             </option>

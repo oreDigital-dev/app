@@ -6,6 +6,7 @@ import { formCategoriesReducer } from "@/features/formCategories";
 import { stepOneReducer } from "@/features/companyRegistration";
 import { notificationReducer } from "@/features/notifications";
 import { rmbRegistrationReducer } from "@/features/rmbRegistration";
+import { rescueTeamReducer } from "@/features/rescueteamRegistration";
 
 export const store :any = configureStore({
     reducer:{
@@ -14,7 +15,8 @@ export const store :any = configureStore({
         formCategories:formCategoriesReducer,
         companyRegistration:stepOneReducer,
         notifications:notificationReducer,
-        rmbRegistration:rmbRegistrationReducer
+        rmbRegistration:rmbRegistrationReducer,
+        rescueTeamRegistration:rescueTeamReducer
 
     }
 })

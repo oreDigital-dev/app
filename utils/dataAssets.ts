@@ -66,6 +66,7 @@ export const districts: String[] = [
 export const ownerShipDetails = ["PRIVATE", "PUBLIC"];
 
 export const loginTypes = ["RMB", "COMPANY", "RESCUE_TEAM"];
+export const rescueTeamsCategories = ["RNP","Red Cross"];
 export const notifications: NotificationPanel[] = [
   {
     title: "Muhabura site sent an incident report ",
