@@ -104,48 +104,6 @@ export default function index() {
         totalPages={Number(employees?.totalPages) ?? 0}
         // otherParams={{ moduleId: "1" }}
       />
-      
-        {/* <table className="w-full my-6 rounded-md  text-sm overflow-hidden ">
-        <thead className="text-left font-sans font-bold rounded-tl-md rounded-tr-md w-full">
-          <tr className='border-b-[1px] border-[#C4C4C425] pb-4'>
-            <th className="py-3 px-4">Profile</th>
-            <th className="py-3 px-4">Member name</th>
-            <th className="py-3 px-4">Phone Number</th>
-            <th className="py-3 px-4">Role</th>
-            <th className="py-3 px-4">Status</th>
-            <th className="py-3 px-4">Operation</th>
-            <th className="py-3  px-4">Details</th>
-          </tr>
-        </thead>
-
-        <tbody>
-            {tableData.map((tableDetail) => (
-         <tr className='border-b-[1px] border-[#C4C4C425]'>
-                  <td className="py-3 px-4">
-                    <Image src={myProfile} alt='The profile' />
-                  </td>
-                  <td className="py-3 px-4 text-[#6D6D6D]">
-                    {tableDetail.name}
-                  </td>
-                  <td className="py-3 px-4 text-[#6D6D6D]">{tableDetail.phone}</td>
-                  <td className="py-3 px-4 text-[#6D6D6D]">{tableDetail.role}</td>
-                  
-                  <td className="py-3 px-4 text-[#6D6D6D] ">{tableDetail.status == 'Active' ? <button className='text-[#00B86066] bg-[#00B86039] border-2 border-[#00B86066] py-2 text-center px-12 rounded-full'>{tableDetail.status}</button>:<button className='text-[#FF494978] bg-[#FF494978] border-2 border-[#FF494978] py-2 text-center px-12 rounded-full'>{tableDetail.status}</button>}</td>
-                  <td className="py-3 px-4 text-[#6D6D6D]">
-                    <div className='flex text-[#5160B3] justify-between'>
-                        <FaBook />
-                        <FaPencilAlt onClick={()=>setUpdateMember(true)} />
-                        <FaTrashAlt  onClick={()=> setDeleteMember(true)}/>
-                    </div>
-                  </td>
-                  <td className="py-3 px-4 text-[#6D6D6D]">{tableDetail.details}</td>
-                  
-            
-                </tr>
-            
-            ))}
-        </tbody>
-      </table> */}
       </div>
       {addNewMember &&
         <div className='absolute h-screen w-full left-0 top-0 right-0 bg-[#00000025] flex justify-center items-center'>
