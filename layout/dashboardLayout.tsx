@@ -167,7 +167,38 @@ export default function DashBoardLayout({
                     setActiveSection={setActiveLinkHandler}
                   />
                 ))}
-              {router.pathname.includes("/mfo") &&
+
+              {roles.includes("COMPANY_EMPLOYEE") &&
+                links.map((link, index) => (
+                  <NavLink
+                    isActive={activeLink === link.title}
+                    props={link}
+                    key={index}
+                    setActiveSection={setActiveLinkHandler}
+                  />
+                ))}
+              {roles.includes("SYSTEM_ADMIN") &&
+                rmbLinks.map((link, index) => (
+                  <NavLink
+                    isActive={activeLink === link.title}
+                    props={link}
+                    key={index}
+                    setActiveSection={setActiveLinkHandler}
+                  />
+                ))}
+
+              {!roles.includes("SYSTEM_ADMIN") &&
+                roles.includes("RMB_EMPLOYEE") &&
+                rmbLinks.map((link, index) => (
+                  <NavLink
+                    isActive={activeLink === link.title}
+                    props={link}
+                    key={index}
+                    setActiveSection={setActiveLinkHandler}
+                  />
+                ))}
+
+              {roles.includes("RMB_EMPLOYEE") &&
                 mfoLinks.map((link, index) => (
                   <NavLink
                     isActive={activeLink === link.title}
@@ -176,8 +207,20 @@ export default function DashBoardLayout({
                     setActiveSection={setActiveLinkHandler}
                   />
                 ))}
-              {router.pathname.includes("/rmb") &&
-                rmbLinks.map((link, index) => (
+              {roles.includes("COMPANY_EMPLOYEE") &&
+                !roles.includes("COMPANY_ADMIN")}
+              {!roles.includes("RESCUE_TEAM_ADMIN") &&
+                roles.includes("RESCUE_TEAM_EMPLOYEE") &&
+                rescueTeams.map((link, index) => (
+                  <NavLink
+                    isActive={activeLink === link.title}
+                    props={link}
+                    key={index}
+                    setActiveSection={setActiveLinkHandler}
+                  />
+                ))}
+              {roles.includes("RESCUE_TEAM_ADMIN") &&
+                rescueTeams.map((link, index) => (
                   <NavLink
                     isActive={activeLink === link.title}
                     props={link}
