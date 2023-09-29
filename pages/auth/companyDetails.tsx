@@ -5,25 +5,17 @@ import { RootState } from "@/stores/store";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { axios } from "@/services/axios";
-<<<<<<< HEAD
 import {
   stepOneEmployeeRegistration,
   stepTwoEmployeeRegistration,
 } from "@/features/companyRegistration";
-=======
-import { stepOneEmployeeRegistration, stepTwoEmployeeRegistration } from "@/features/companyRegistration";
->>>>>>> ff93e57 (updates(): intergrated employee on company)
 import { useDispatch, useSelector } from "react-redux";
 import { stepTwoRegistration } from "@/features/companyRegistration";
 const CompanyDetails = () => {
   const dispatch = useDispatch();
-<<<<<<< HEAD
   const companyEmployeeInfo = useSelector(
     (state: RootState) => state.companyRegistration.employee
   );
-=======
-  const companyEmployeeInfo = useSelector((state:RootState)=> state.companyRegistration.employee);
->>>>>>> ff93e57 (updates(): intergrated employee on company)
   const [email, setEmail] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [numberOfEmployees, setNumberOfEmployees] = useState(0);
@@ -36,22 +28,14 @@ const CompanyDetails = () => {
     numberOfEmployees: numberOfEmployees,
     companyName: companyName,
   };
-<<<<<<< HEAD
   const employeeFormData = {
     company: company,
     employeeType: employeeType,
   };
-=======
- const employeeFormData = {
-  company: company,
-  employeeType: employeeType,
- }
->>>>>>> ff93e57 (updates(): intergrated employee on company)
   const subCategory = useSelector(
     (state: RootState) => state.formCategories.subCategory
   );
   const router = useRouter();
-<<<<<<< HEAD
   const handleProgression = async (subCategory: String) => {
     switch (subCategory) {
       case "Employee":
@@ -63,20 +47,6 @@ const CompanyDetails = () => {
           console.log(error);
         }
 
-=======
-  const handleProgression = async(subCategory: String) => {
-    switch (subCategory) {
-      case "Employee":        
-        dispatch(stepTwoEmployeeRegistration(employeeFormData))
-        try{
-          const res = await handleRegister();
-          router.push("/verification");
-         } catch(error) {
-          console.log(error);
-          
-         }
-        
->>>>>>> ff93e57 (updates(): intergrated employee on company)
         break;
       case "Admin":
         dispatch(stepTwoRegistration(formData));
@@ -107,18 +77,10 @@ const CompanyDetails = () => {
           },
           employeeType: employeeFormData.employeeType,
           company: employeeFormData.company,
-<<<<<<< HEAD
         },
       };
       const resp = await axios.post("/employees/create", requestBody);
       console.log(requestBody);
-=======
-        }
-      };
-      const resp = await axios.post("/employees/create",requestBody);
-       console.log(requestBody);
-       
->>>>>>> ff93e57 (updates(): intergrated employee on company)
     } catch (err) {
       console.log(err);
     }
@@ -170,11 +132,7 @@ const CompanyDetails = () => {
               />
             </>
           )}
-<<<<<<< HEAD
           {subCategory == "Employee" && (
-=======
-          {(subCategory == "Employee") && (
->>>>>>> ff93e57 (updates(): intergrated employee on company)
             <>
               <Input
                 label={"Company name"}
