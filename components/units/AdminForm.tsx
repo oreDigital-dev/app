@@ -6,7 +6,9 @@ import { steponeRegistration } from "@/features/companyRegistration";
 import { useState } from "react";
 import { axios } from "@/services/axios";
 import Loader from "../ui/loader";
-
+import Input2 from "./input2";
+import { rescueTeamsCategories } from "@/utils/dataAssets";
+import { stepOneRegistration } from "@/features/rescueteamRegistration";
 const AdminForm = ({ category }: { category: string }) => {
   const [error, setError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -39,6 +41,20 @@ const AdminForm = ({ category }: { category: string }) => {
     cell: cell,
     village: village,
   };
+  const rescueTeamData = {
+    firstName: firstName,
+    lastName: lastName,
+    email: email,
+    password: password,
+    phoneNumber: phoneNumber,
+    myGender: myGender,
+    national_id: national_id,
+    province: province,
+    district: district,
+    sector: sector,
+    cell: cell,
+    village: village,
+  }
   const rmbFormdata = {
     firstName: firstName,
     lastName: lastName,
@@ -94,6 +110,7 @@ const AdminForm = ({ category }: { category: string }) => {
     router.push("/auth/companyDetails");
   }
   const handleRescueTeamRegistration = ()=>{
+    dispatch(stepOneRegistration(rescueTeamData))
     router.push("/auth/ProfessionDetails");
   }
 
@@ -263,6 +280,7 @@ const AdminForm = ({ category }: { category: string }) => {
               setState={setPhoneNumber}
             />
           </div>
+
         </div>
       </div>
       <div>
