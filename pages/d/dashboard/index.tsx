@@ -32,7 +32,6 @@ import {
 
 export default function Dashboard() {
   const router = useRouter();
-
   const handleNavigation = async () => {
     await router.push("/rmb");
   };
