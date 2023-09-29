@@ -33,7 +33,7 @@ function NotificationLayout(props: any) {
               )}`,
             },
             params:{
-              userType:JSON.parse(localStorage.getItem("loggedInUser")!).roles[0].roleName ? USER_TYPES[0]:USER_TYPES[1]
+              userType:JSON.parse(localStorage.getItem("loggedInUser")!).roles[0].roleName ?  USER_TYPES[0]:JSON.parse(localStorage.getItem("loggedInUser")!).roles?USER_TYPES[1]:USER_TYPES[2]
             }
           })
           .then((res) => {

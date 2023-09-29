@@ -77,13 +77,13 @@ RescueTeamAdmin: {
     dispatch(stepTwoRegistration(formData));
     try{
       const response = await axios.post("/rescue_team/create",requestPayload);
-      return response.data;
+      console.log(response.data)
+      router.push("/verification");
 
     }
 catch(err){
   console.error(err)
 }
-    router.push("/verification");
   };
   return (
     <div className="relative xl:w-[100vw] flex flex-col authBack2 bg-cover bg-transparent ">
