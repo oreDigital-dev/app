@@ -40,7 +40,7 @@ const Navbar = () => {
     <div>
       <nav className=" md:px-24 msm:px-4 py-2 md:flex items-center justify-between  msm:shadow-lg msm:shadow-slate-200 md:shadow-none absolute msm:h-fit w-full z-30 bg-black-900/40  ">
         <div className="flex items-center justify-between  py-4">
-          <div className="hidden md:block">
+          <div className=" md:block">
             <OreDigitalText />
           </div>
         </div>

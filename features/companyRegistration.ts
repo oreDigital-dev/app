@@ -117,5 +117,6 @@ const companyRegistrationSlice = createSlice({
             state.employee.employeeType = payload.payload.employeeType;
     }
 }})
+
 export const { steponeRegistration,stepTwoRegistration,stepThreeRegistration,stepOneEmployeeRegistration,stepTwoEmployeeRegistration } = companyRegistrationSlice.actions;
 export const stepOneReducer = companyRegistrationSlice.reducer;

@@ -103,7 +103,7 @@ export default function DashBoardLayout({
 
     if (router.pathname.includes("/d")) {
       await router.push(
-        ("/rmb/" + rmbLinks.find((link) => link.title === href)?.url) as string
+        ("/d/" + links.find((link) => link.title === href)?.url) as string
       );
     } else if (
       router.pathname.includes("/rmb") &&
@@ -143,7 +143,7 @@ export default function DashBoardLayout({
       {visibility == true ? (
         <div className="sm:flex gap-0 bg-bg">
           {/* max-w-screen-2xl */}
-          <div className="hidden sm:block w-[20vw] sticky  top-0   bg-white h-screen ">
+          <div className=" sm:block w-[20vw] sticky  top-0   bg-white h-screen ">
             <div className="px-[40px] h-[60px] flex items-center border-b-2 border-bg">
               <Logo withText />
             </div>
@@ -158,6 +158,8 @@ export default function DashBoardLayout({
                   />
                 ))}
 
+    
+
               {roles.includes("COMPANY_EMPLOYEE") &&
                 links.map((link, index) => (
                   <NavLink
@@ -167,16 +169,8 @@ export default function DashBoardLayout({
                     setActiveSection={setActiveLinkHandler}
                   />
                 ))}
-              {router.pathname.includes("/mfo") &&
-                mfoLinks.map((link, index) => (
-                  <NavLink
-                    isActive={activeLink === link.title}
-                    props={link}
-                    key={index}
-                    setActiveSection={setActiveLinkHandler}
-                  />
-                ))}
-              {router.pathname.includes("/rmb") &&
+
+              {roles.includes("SYSTEM_ADMIN") &&
                 rmbLinks.map((link, index) => (
                   <NavLink
                     isActive={activeLink === link.title}
@@ -186,6 +180,16 @@ export default function DashBoardLayout({
                   />
                 ))}
 
+              {!roles.includes("SYSTEM_ADMIN") &&
+                roles.includes("RMB_EMPLOYEE") &&
+                rmbLinks.map((link, index) => (
+                  <NavLink
+                    isActive={activeLink === link.title}
+                    props={link}
+                    key={index}
+                    setActiveSection={setActiveLinkHandler}
+                  />
+                ))}
               {roles.includes("RMB_EMPLOYEE") &&
                 mfoLinks.map((link, index) => (
                   <NavLink
@@ -216,6 +220,7 @@ export default function DashBoardLayout({
                     setActiveSection={setActiveLinkHandler}
                   />
                 ))}
+
             </div>
           </div>
           <div className="w-[100vw] sm:w-[80vw]">

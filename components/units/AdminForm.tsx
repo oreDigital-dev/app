@@ -9,7 +9,6 @@ import Loader from "../ui/loader";
 import Input2 from "./input2";
 import { rescueTeamsCategories } from "@/utils/dataAssets";
 import { stepOneRegistration } from "@/features/rescueteamRegistration";
-
 const AdminForm = ({ category }: { category: string }) => {
   const [error, setError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
