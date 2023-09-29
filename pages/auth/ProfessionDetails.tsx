@@ -5,7 +5,6 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import Input2 from "@/components/units/input2";
 import { rescueTeamsCategories } from "@/utils/dataAssets";
-import { Sector } from "recharts";
 import { useDispatch, useSelector } from "react-redux";
 import { stepTwoRegistration } from "@/features/rescueteamRegistration";
 import { RootState } from "@/stores/store";
@@ -25,7 +24,7 @@ const ProfessionDetails = () => {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [name, setName] = useState("");
   const router = useRouter();
-  const rescueTeamAdminInfo = useSelector((state:RootState)=>state.rescueteamRegistration.RescueTeamAdmin);
+  const rescueTeamAdminInfo = useSelector((state:RootState)=>state.rescueTeamRegistration.RescueTeamAdmin);
   const formData = {
     province:province,
     district:district,
@@ -76,7 +75,7 @@ RescueTeamAdmin: {
   const handleProgression = async() => {
     dispatch(stepTwoRegistration(formData));
     try{
-      const response = await axios.post("/rescue_team/create",requestPayload);
+      const response = await axios.post("/rescue-teams/create",requestPayload);
       console.log(response.data)
       router.push("/verification");
 
