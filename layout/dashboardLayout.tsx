@@ -103,7 +103,7 @@ export default function DashBoardLayout({
 
     if (router.pathname.includes("/d")) {
       await router.push(
-        ("/rmb/" + rmbLinks.find((link) => link.title === href)?.url) as string
+        ("/d/" + links.find((link) => link.title === href)?.url) as string
       );
     } else if (
       router.pathname.includes("/rmb") &&
@@ -143,7 +143,7 @@ export default function DashBoardLayout({
       {visibility == true ? (
         <div className="sm:flex gap-0 bg-bg">
           {/* max-w-screen-2xl */}
-          <div className="hidden sm:block w-[20vw] sticky  top-0   bg-white h-screen ">
+          <div className=" sm:block w-[20vw] sticky  top-0   bg-white h-screen ">
             <div className="px-[40px] h-[60px] flex items-center border-b-2 border-bg">
               <Logo withText />
             </div>
