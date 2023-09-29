@@ -1,80 +1,74 @@
 import React,{useState} from 'react'
 import SectionHead from '@/components/ui/sectionHead'
+import { TableEditIcon,TableViewIcon, TableDeleteIcon } from '@/components/icons'
 import { FaBook, FaPencilAlt,FaTrashAlt,FaToggleOff } from 'react-icons/fa'
 import myProfile from '../../../assets/images/Profile.png'
+import { DataTable, TableColumn } from '@/pages/datatable'
+import { PaginationType } from '@/pages/types/pagination.type'
+import { EmployeeType } from '@/pages/types/employee.type'
+import { get_employees_by_company } from '@/pages/api-services/employee'
 import Image from 'next/image'
-export default function index() {
-    const tableData = [
-        {
-            name:'MAHORO Peace',
-            role:'Surveyor',
-            phone:'+250 788 999 111',
-            status:'Active',
-            details:'22nd January 2023'
-        },
-        {
-            name:'MAHORO Peace',
-            role:'Surveyor',
-            phone:'+250 788 999 111',
-            status:'Inactive',
-            details:'22nd January 2023'        },
-        {
-            name:'MAHORO Peace',
-            role:'Surveyor',
-            phone:'+250 788 999 111',
-            status:'Active',
-            details:'22nd January 2023'        },
-        {
-            name:'MAHORO Peace',
-            role:'Surveyor',
-            phone:'+250 788 999 111',
-            status:'Inactive',
-            details:'22nd January 2023'        },
-        {
-            name:'MAHORO Peace',
-            role:'Surveyor',
-            phone:'+250 788 999 111',
-            status:'Active',
-            details:'22nd January 2023'        },
-        {
-            
-            name:'MAHORO Peace',
-            role:'Surveyor',
-            phone:'+250 788 999 111',
-            status:'Active',
-            details:'22nd January 2023'        },
-        {
-            name:'MAHORO Peace',
-            role:'Surveyor',
-            phone:'+250 788 999 111',
-            status:'Active',
-            details:'22nd January 2023'     
-             },
-       
+export default function index() {  
 
-    ]
     const [addNewMember, setAddNewMember] = useState(false)
     const [updateMember, setUpdateMember] = useState(false)
     const [deleteMember, setDeleteMember] = useState(false)
+    const [isLoading, setIsLoading] = useState(false)
+    const [employees, setEmployees] = useState<PaginationType<EmployeeType>>()
+    const employeeColumns : TableColumn<EmployeeType>[] = [
+      {
+        title: "Photo",
+        cell: (row) => "Photo",
+      },
+      {
+        title: "Member Name",
+        cell: (row) => `${row.firstName} ${row.lastName}`
+      },
+      {
+        title: "Phone Number",
+        cell: (row) => <div>{row.phonenumber}</div>
+      },
+      {
+        title: "Residence",
+        cell: (row) => "Kicukiro"
+      },
+      {
+        title: "Role",
+        cell: (row) => <div>{row.role}</div>
+      },
+      {
+        title: "View",
+        cell: (row) => <TableViewIcon></TableViewIcon>
+        
+      },
+      {
+        title: "Edit",
+        cell: (row) => <TableEditIcon />
+
+      },
+      {
+        title: "Delete",
+        cell: (row) => <TableDeleteIcon />
+      }
+
+      
+    ]
+    const getEmployeesByCompany = async (options:any) => {
+      try {
+        setIsLoading(true);
+        const employees = await get_employees_by_company(options);
+        setEmployees(employees.data);
+      } catch (error) {
+        console.error(error);
+        setEmployees(undefined);
+      } finally {
+        setIsLoading(false);
+      }
+    };
     return ( 
 <div className="m-[20px] rounded-md ">
       <div className=" bg-white p-[20px] rounded-md shadow-sm shadow-neutal-300">
-        {/* <div className="flex items-start justify-between">
-         
-          <MapSite />
-          <SectionHead
-            title="Employees"
-            desc="All people Employeed by your company."
-          />
-        <div className='flex'>
-           <p className=''>Site:</p>
-            <select className='bg-[#F3F2F5] w-28 ml-2 py-1'>
-                <option value="all">All</option>
-                <option value="p">Danger</option>
-            </select>
-        </div>
-    
-        </div> */}
+ 
         <div className='w-full flex justify-between  bg-white py-4'>
           
           <div className='flex bg-white py-3 rounded-lg gap-6 pl-6 pr-6 shadow-sm shadow-gray-200'>
@@ -98,8 +92,20 @@ export default function index() {
           <button className='bg-[#5160B3] text-white font-bold py-2 pl-4 pr-4 rounded-xl'>Filter</button>
           </div>
           </div>
+          <DataTable
+        columns={employeeColumns}
+        getData={getEmployeesByCompany}
+        isLoading={isLoading}
+        data={employees?.data ?? []}
+        first={employees?.first ?? true}
+        last={employees?.last ?? true}
+        pageNumber={employees?.number ?? 0}
+        totalElements={Number(employees?.totalElements) ?? 0}
+        totalPages={Number(employees?.totalPages) ?? 0}
+        // otherParams={{ moduleId: "1" }}
+      />
       
-        <table className="w-full my-6 rounded-md  text-sm overflow-hidden ">
+        {/* <table className="w-full my-6 rounded-md  text-sm overflow-hidden ">
         <thead className="text-left font-sans font-bold rounded-tl-md rounded-tr-md w-full">
           <tr className='border-b-[1px] border-[#C4C4C425] pb-4'>
             <th className="py-3 px-4">Profile</th>
@@ -139,7 +145,7 @@ export default function index() {
             
             ))}
         </tbody>
-      </table>
+      </table> */}
       </div>
       {addNewMember &&
         <div className='absolute h-screen w-full left-0 top-0 right-0 bg-[#00000025] flex justify-center items-center'>
@@ -164,7 +170,7 @@ export default function index() {
             <input type="tel" name="" placeholder='Ex: 07974857383' id="" className='py-2 border-2 border-[#C2C2C2] rounded-lg w-5/6 pl-4' />
             </div>
             <div>
-            <label htmlFor="" className='text-black font-bold text-sm'>Member Role</label>
+            <label htmlFor="" className='text-black font-bold text-sm'>Role</label>
             <select name="" id="" className='py-2 border-2 border-[#C2C2C2] rounded-lg w-5/6 pl-4'>
               <option value="">COMPANY_MANAGER</option>
             </select>

@@ -735,4 +735,4 @@ export const data = [
 export const notificationLength: String =
   "Hello your minesite has quired the highest temperature  highest temperature  highest temperature";
 // export const baseUrli = "http://localhost:5000/api/v1"
-export const baseUrli = "http://194.163.167.131:8040";
+export const baseUrli = "http://194.163.167.131:8060";
