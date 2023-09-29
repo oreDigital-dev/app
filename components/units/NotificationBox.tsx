@@ -6,7 +6,9 @@ import NotificationCard, {
 import { useDispatch, useSelector } from "react-redux";
 import { FiCheck } from "react-icons/fi";
 import { setNotificationPanelVisibility } from "@/features/appPages";
+
 import { ThreeDotsIcon } from "../icons";
+
 export interface NotificationBoxProps {
   notifications: NotificationCardProps[];
 }
@@ -39,7 +41,9 @@ const NotificationBox = (props: NotificationBoxProps) => {
           className="flex items-center gap-4 text-[#5160B3]"
         >
           <span>
+
             <ThreeDotsIcon />
+
           </span>
           Read More
         </button>
