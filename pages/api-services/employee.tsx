@@ -11,7 +11,7 @@ export const get_employees_by_company = async ({
   page,
   size,
 }: PaginationOptionType & {
-}): Promise<ResponseType<PaginationType<EmployeeType>>> => {
+}): Promise<GetEmployeeUserType> => {
   try {
     const query = `page=${page ?? 1}&limit=${size ?? 5}`;
     const response = await axios.get(`employees/all/by-loggedin-company?${query}`,{
@@ -28,7 +28,7 @@ export type GetEmployeeUserType = {
   success: true;
   message: null;
   data: {
-    Employees: [];
+    employees: EmployeeType[];
     totalPages: number;
     totalElements: number;
   };
