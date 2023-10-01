@@ -4,7 +4,7 @@ import { PaginationType } from "../types/pagination.type";
 import { EmployeeType} from "../types/employee.type";
 
 type EmployeesPageContextValue = {
-  Employee: PaginationType<EmployeeType> | undefined;
+  employee: PaginationType<EmployeeType> | undefined;
   setEmployee: React.Dispatch<
     React.SetStateAction<PaginationType<EmployeeType> | undefined>
   >;
@@ -22,7 +22,7 @@ const EmployeePageProvider = (
   props: EmployeesPageProviderProps
 ) => {
   const { children } = props;
-  const [Employee, setEmployee] =
+  const [employee, setEmployee] =
     useState<PaginationType<EmployeeType>>();
 
   const onClose = () => {};
@@ -30,7 +30,7 @@ const EmployeePageProvider = (
   return (
     <EmployeesPageContext.Provider
       value={{
-        Employee,
+        employee,
         setEmployee,
         onClose
       }}

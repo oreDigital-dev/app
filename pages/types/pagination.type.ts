@@ -1,3 +1,5 @@
+import { EmployeeType } from "./employee.type";
+
 export type PaginationType<T> = {
   [x: string]: any;
   content: T[];

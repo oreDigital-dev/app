@@ -117,8 +117,8 @@ const CompanyDetails = () => {
               />
               <Input
                 label={"Employee number"}
-                placeholder={"250"}
-                type={"number"}
+                placeholder={"+250"}
+                type={"text"}
                 min={0}
                 state={numberOfEmployees}
                 setState={setNumberOfEmployees}
@@ -126,7 +126,7 @@ const CompanyDetails = () => {
               <Input
                 label={"Toll free"}
                 placeholder={"8080"}
-                type={"number"}
+                type={"text"}
                 state={phoneNumber}
                 setState={setPhoneNumber}
               />

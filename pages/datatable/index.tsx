@@ -237,7 +237,7 @@ export const DataTable = <Entry extends Model>(
                   onChange={handleSelectAll}
                 ></input>
               </th> */}
-              <th>#</th>
+              {/* <th>#</th> */}
               {columns
                 .filter((col) => !col.omit)
                 .map((column, key) => (
