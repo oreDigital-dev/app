@@ -152,6 +152,7 @@ export default function DashBoardLayout({
                 ))}
 
               {roles.includes("COMPANY_EMPLOYEE") &&
+                !roles.includes("COMPANY_ADMIN") &&
                 links.map((link, index) => (
                   <NavLink
                     isActive={activeLink === link.title}
@@ -182,6 +183,7 @@ export default function DashBoardLayout({
                 ))}
 
               {roles.includes("RMB_EMPLOYEE") &&
+                !roles.includes("RMB_ADMIN") &&
                 mfoLinks.map((link, index) => (
                   <NavLink
                     isActive={activeLink === link.title}
