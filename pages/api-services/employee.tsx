@@ -1,20 +1,12 @@
 import { CustomError } from "../libs/response";
-import { EmployeeType } from "../types/employee.type";
-import {
-  PaginationOptionType,
-  PaginationType
-} from "../types/pagination.type";
+
 import { ResponseType } from "../types/response.type";
 import { axios } from "@/services/axios";
 import authHeader from "./auth-header";
-export const get_employees_by_company = async ({
-  page,
-  size,
-}: PaginationOptionType & {
-}): Promise<GetEmployeeUserType> => {
+import { EmployeeType } from "../types/employee.type";
+export const get_employees_by_company = async (): Promise<GetEmployeeUserType> => {
   try {
-    const query = `page=${page ?? 1}&limit=${size ?? 5}`;
-    const response = await axios.get(`employees/all/by-loggedin-company?${query}`,{
+    const response = await axios.get(`employees/all/by-loggedin-company`,{
       headers: authHeader()
     }
     );

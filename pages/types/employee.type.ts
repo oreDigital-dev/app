@@ -1,7 +1,7 @@
 import { Model } from "./model.type";
 
 export type EmployeeType = Model & {
-
+      
       firstName: string;
       lastName: string;
       email: string;

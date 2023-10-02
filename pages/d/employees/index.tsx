@@ -1,27 +1,24 @@
 import React, { useEffect, useState } from "react";
-import SectionHead from "@/components/ui/sectionHead";
 import {
   TableEditIcon,
   TableViewIcon,
   TableDeleteIcon,
 } from "@/components/icons";
-import { FaBook, FaPencilAlt, FaTrashAlt, FaToggleOff } from "react-icons/fa";
+import { FaToggleOff } from "react-icons/fa";
 import myProfile from "../../../assets/images/Profile.png";
 import { DataTable, TableColumn } from "@/pages/datatable";
-import { PaginationType } from "@/pages/types/pagination.type";
 import { EmployeeType } from "@/pages/types/employee.type";
 import {
   get_employees_by_company,
-  GetEmployeeUserType,
 } from "@/pages/api-services/employee";
 import Image from "next/image";
-import { log } from "console";
 export default function index() {
   const [addNewMember, setAddNewMember] = useState(false);
   const [updateMember, setUpdateMember] = useState(false);
   const [deleteMember, setDeleteMember] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [employee, setEmployee] = useState<GetEmployeeUserType>();
+  const [employee, setEmployee] = useState<EmployeeType>();
+
   const employeeColumns: TableColumn<EmployeeType>[] = [
     {
       title: "Photo",
@@ -56,13 +53,12 @@ export default function index() {
       cell: (row) => <TableDeleteIcon />,
     },
   ];
-  const getEmployeesByCompany = async (options: any) => {
+  const getEmployeesByCompany = async () => {
     try {
       setIsLoading(true);
-      const response = await get_employees_by_company(options);
-      console.log(response);
-
-      // console.log("Employee Data", employees);
+      const response = await get_employees_by_company();
+      console.log("Herrerrr",response.data);
+      setEmployee(response.data);
     } catch (error) {
       console.error(error);
       setEmployee(undefined);
@@ -71,6 +67,7 @@ export default function index() {
     }
   };
 
+console.log("Employees data", employee);
 
   return (
     <div className="m-[20px] rounded-md ">
@@ -112,17 +109,14 @@ export default function index() {
             </button>
           </div>
         </div>
+        {/* {employee?.map((emp:GetEmployeeUserType) => {
+          <p>{emp.dat}</p>
+        })} */}
         <DataTable
           columns={employeeColumns}
           getData={getEmployeesByCompany}
           isLoading={isLoading}
-          data={employee?.data?.employees??[]}
-          first={true}
-          last={true}
-          pageNumber={0}
-          totalElements={0}
-          totalPages={0}
-          // otherParams={{ moduleId: "1" }}
+          data={employee}
         />
       </div>
       {addNewMember && (
