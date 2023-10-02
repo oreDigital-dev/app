@@ -96,12 +96,9 @@ export default function DashBoardLayout({
 
     if (router.pathname.includes("/d")) {
       await router.push(
-        ("/rmb/" + rmbLinks.find((link) => link.title === href)?.url) as string
+        ("/d/" + links.find((link) => link.title === href)?.url) as string
       );
-    } else if (
-      router.pathname.includes("/rmb") &&
-      roles.includes("SYSTEM_ADMING")
-    ) {
+    } else if (router.pathname.includes("/d") && roles.includes("RMB_ADMIN")) {
       await router.push(
         ("/rmb/" + rmbLinks.find((link) => link.title === href)?.url) as string
       );
