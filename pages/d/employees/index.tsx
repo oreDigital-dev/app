@@ -42,16 +42,24 @@ export default function index() {
     },
     {
       title: "View",
-      cell: (row) => <TableViewIcon></TableViewIcon>,
+      cell: (row) => <TableViewIcon></TableViewIcon>
     },
     {
       title: "Edit",
-      cell: (row) => <TableEditIcon />,
+      cell: (row) => 
+      
+      <button
+      onClick={()=>setUpdateMember(true)}
+      ><TableEditIcon 
+      
+      />
+      </button>
     },
     {
       title: "Delete",
-      cell: (row) => <TableDeleteIcon />,
-    },
+      cell: (row) =>
+      <button onClick={()=>setDeleteMember(true)}> <TableDeleteIcon /></button>
+    }
   ];
   const getEmployeesByCompany = async () => {
     try {
