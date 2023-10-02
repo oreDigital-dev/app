@@ -21,8 +21,8 @@ export type GetEmployeeUserType = {
   message: null;
   data: {
     employees: EmployeeType[];
-    totalPages: number;
-    totalElements: number;
+    // totalPages: number;
+    // totalElements: number;
   };
 };
 
