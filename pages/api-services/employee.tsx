@@ -1,20 +1,12 @@
 import { CustomError } from "../libs/response";
-import { EmployeeType } from "../types/employee.type";
-import {
-  PaginationOptionType,
-  PaginationType
-} from "../types/pagination.type";
-import { ResponseType } from "../types/response.type";
+import confirmAction from "../Helpers/confirmAction";
+import {toast} from "react-toastify";
 import { axios } from "@/services/axios";
 import authHeader from "./auth-header";
-export const get_employees_by_company = async ({
-  page,
-  size,
-}: PaginationOptionType & {
-}): Promise<ResponseType<PaginationType<EmployeeType>>> => {
+import { EmployeeType } from "../types/employee.type";
+export const get_employees_by_company = async (): Promise<GetEmployeeUserType> => {
   try {
-    const query = `page=${page ?? 1}&limit=${size ?? 5}`;
-    const response = await axios.get(`employees/all/by-loggedin-company?${query}`,{
+    const response = await axios.get(`employees/all/by-loggedin-company`,{
       headers: authHeader()
     }
     );
@@ -28,9 +20,30 @@ export type GetEmployeeUserType = {
   success: true;
   message: null;
   data: {
-    Employees: [];
-    totalPages: number;
-    totalElements: number;
+    employees: EmployeeType[];
+    // totalPages: number;
+    // totalElements: number;
   };
 };
+export const approveOrRejectEmployee = async (id: string, action: string): Promise<void> => {
+  const response = await confirmAction('Approve', 'Are you sure you want to update this employee?');
+
+  if (response) {
+    try {
+      const response = await axios.put(`/employees/approve-or-reject`, {
+        id,
+        action
+      }, {
+        headers: authHeader(),
+      });
+      toast.success('Employee successfully updated');
+    } catch (error) {
+      toast.error('Error in updating employee');
+    }
+  }
+};
+
+
+
+
 

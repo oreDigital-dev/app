@@ -1,12 +1,11 @@
-/* eslint-disable react-refresh/only-export-components */
 import React, { ReactNode, createContext, useContext, useState } from "react";
-import { PaginationType } from "../types/pagination.type";
+// import {  } from "../types/pagination.type";
 import { EmployeeType} from "../types/employee.type";
 
 type EmployeesPageContextValue = {
-  Employee: PaginationType<EmployeeType> | undefined;
+  employee: EmployeeType | undefined;
   setEmployee: React.Dispatch<
-    React.SetStateAction<PaginationType<EmployeeType> | undefined>
+    React.SetStateAction<EmployeeType | undefined>
   >;
   onClose: () => void;
 };
@@ -22,15 +21,15 @@ const EmployeePageProvider = (
   props: EmployeesPageProviderProps
 ) => {
   const { children } = props;
-  const [Employee, setEmployee] =
-    useState<PaginationType<EmployeeType>>();
+  const [employee, setEmployee] =
+    useState<EmployeeType | undefined>();
 
   const onClose = () => {};
 
   return (
     <EmployeesPageContext.Provider
       value={{
-        Employee,
+        employee,
         setEmployee,
         onClose
       }}

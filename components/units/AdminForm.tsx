@@ -275,7 +275,7 @@ const AdminForm = ({ category }: { category: string }) => {
             <Input
               label={"Phone Number"}
               placeholder={"+250798486619"}
-              type={"number"}
+              type={"text"}
               state={phoneNumber}
               setState={setPhoneNumber}
             />

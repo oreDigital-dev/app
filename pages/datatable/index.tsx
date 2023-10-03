@@ -1,6 +1,6 @@
 
 import { ReactNode, useEffect, useState } from "react";
-import { PaginationOptionType } from "../types/pagination.type";
+// import { PaginationOptionType } from "../types/pagination.type";
 import { Model } from "../types/model.type";
 import { useRouter } from "next/router";
 import { buildQueryString } from "../utils/query.string";
@@ -29,14 +29,9 @@ type DataTableProps<Entry> = {
   data: Entry[];
   isLoading: boolean;
   columns: TableColumn<Entry>[];
-  last: boolean;
-  first: boolean;
-  pageNumber: number;
-  totalPages: number;
-  totalElements: number;
   pageTracker?: any;
   otherParams?: { [key: string]: any };
-  getData?: (option?: PaginationOptionType) => void;
+  getData?: () => void;
 };
 
 export const DataTable = <Entry extends Model>(
@@ -47,11 +42,6 @@ export const DataTable = <Entry extends Model>(
     data,
     isLoading = false,
     getData,
-    first,
-    last,
-    pageNumber,
-    totalElements,
-    totalPages,
     otherParams,
     pageTracker
   } = props;
@@ -116,7 +106,7 @@ export const DataTable = <Entry extends Model>(
     return result;
   };
 
-  const paginationData = paginationView(activePage, totalPages);
+  // const paginationData = paginationView(activePage, totalPages);
 
   const handleSelectAll = () => {
     const newSelectAll = !selectAll;
@@ -169,7 +159,7 @@ export const DataTable = <Entry extends Model>(
     setPaginate((prev: any) => {
       return {
         ...prev,
-        pageNumber: pageNumber + 1
+        // pageNumber: pageNumber + 1
       };
     });
   }
@@ -179,7 +169,7 @@ export const DataTable = <Entry extends Model>(
     setPaginate((prev: any) => {
       return {
         ...prev,
-        pageNumber: pageNumber - 1
+        // pageNumber: pageNumber - 1
       };
     });
   }
@@ -200,11 +190,7 @@ export const DataTable = <Entry extends Model>(
       pageSize: paginate.pageSize
     });
     if (getData)
-      getData({
-        size: paginate.pageSize,
-        page: paginate.pageNumber,
-        ...otherParams
-      });
+      getData();
   }, [paginate, otherParams]);
 
   useEffect(() => {
@@ -229,15 +215,6 @@ export const DataTable = <Entry extends Model>(
         <thead className="text-left font-sans font-bold rounded-tl-md rounded-tr-md w-full">
           
         <tr className='border-b-[1px] border-[#C4C4C425] pb-4'>
-              {/* <th>
-                <input
-                  key={1}
-                  type='checkbox'
-                  checked={selectAll}
-                  onChange={handleSelectAll}
-                ></input>
-              </th> */}
-              <th>#</th>
               {columns
                 .filter((col) => !col.omit)
                 .map((column, key) => (
@@ -269,24 +246,11 @@ export const DataTable = <Entry extends Model>(
             {!isLoading &&
               data?.map((element, elementKey) => (
                 <tr key={elementKey} className=''>
-                  <td className="py-3 px-4 text-[#6D6D6D]">
-                    <input
-                      type='checkbox'
-                      onChange={() => handleRowSelect(element.id)}
-                      checked={selectedItems.includes(element.id)}
-                    ></input>
-                  </td>
 
-                  <td>
-                    {paginate.pageSize * (pageNumber + 1) -
-                      paginate.pageSize +
-                      elementKey +
-                      1}
-                  </td>
                   {columns
                     .filter((col) => !col.omit)
                     .map((column, columnKey) => (
-                      <td key={columnKey}>
+                      <td key={columnKey} className="h-8 items-center pt-4 pb-4">
                         {column.cell(element, elementKey)}
                       </td>
                     ))}
@@ -298,25 +262,13 @@ export const DataTable = <Entry extends Model>(
       {!isLoading && (
         <div className='table-pagination py-2 min-w-full overflow-auto flex justify-between'>
           <div className='flex items-center justify-between gap-2'>
-            <span className='disabled min-w-20 cursor-pointer rounded-md bg-slate-500 p-2 text-slate-100  duration-100 disabled:cursor-default'>
-              {data.length
-                ? paginate.pageSize * (pageNumber + 1) - paginate.pageSize + 1
-                : 0}{" "}
-              -{" "}
-              {data.length
-                ? paginate.pageSize * (pageNumber + 1) -
-                  paginate.pageSize +
-                  data.length
-                : 0}{" "}
-              of {isNaN(totalElements) ? 0 : totalElements}
-            </span>
+
             <span className='flex items-center justify-center gap-2'>
               <label className=''>Rows/Page</label>
               <select
                 className='text-dark block w-20 appearance-none rounded-md border-0 bg-slate-100 px-3 text-base font-medium capitalize placeholder-gray-500 focus:outline-none focus:ring-0 disabled:bg-slate-500 disabled:text-slate-100'
                 onChange={onPageSizeChange}
                 value={paginate.pageSize}
-                disabled={totalElements <= 5}
               >
                 <option value='5'>5</option>
                 <option value='10'>10</option>
@@ -326,32 +278,15 @@ export const DataTable = <Entry extends Model>(
               </select>
             </span>
           </div>
-          <div className='flex justify-center'>
-            {paginationData.map((value, index) =>
-              value === "..." ? (
-                <p className='mx-1 flex items-center' key={index}>
-                  {value}
-                </p>
-              ) : (
-                <div
-                  key={index}
-                  className={`pagination-item ${
-                    activePage + 1 === value && "active"
-                  }`}
-                  onClick={() => {
-                    handleClick(value);
-                  }}
-                >
-                  <p>{value}</p>
-                </div>
-              )
-            )}
-          </div>
           <div className='flex gap-1 text-sm'>
-            <Button disabled={first} onClick={onClickPreviousPage}>
+            <Button 
+            // disabled={first} onClick={onClickPreviousPage}
+            >
               Previous
             </Button>
-            <Button disabled={last} onClick={onClickNextPage}>
+            <Button 
+            // disabled={last} onClick={onClickNextPage}
+            >
               Next
             </Button>
           </div>
