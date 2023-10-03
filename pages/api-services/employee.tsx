@@ -25,8 +25,8 @@ export type GetEmployeeUserType = {
     // totalElements: number;
   };
 };
-export const approveOrRejectEmployee = async (id: string, action: string): Promise<void> => {
-  const response = await confirmAction('Approve', 'Are you sure you want to update this employee?');
+export const approveOrRejectEmployee = async (id: number, action: string): Promise<void> => {
+  const response = await confirmAction('Approve or Reject', 'Are you sure you want to update this employee?');
 
   if (response) {
     try {
@@ -42,8 +42,16 @@ export const approveOrRejectEmployee = async (id: string, action: string): Promi
     }
   }
 };
-
-
-
-
-
+export const deleteCompanyEmployee = async(id: number):Promise<void> => {
+  const response = await confirmAction('Delete Employee', 'Are you sure you want to delete this employee?');
+if(response){
+  try{
+    const resp = await axios.delete(`/employees/${id}`,{
+      headers:authHeader()
+    });
+    toast.success('Employee successfully deleted');
+  } catch (error) {
+    toast.error('Error in deleting employee');
+  }
+}
+}

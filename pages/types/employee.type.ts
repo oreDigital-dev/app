@@ -10,7 +10,7 @@ export type EmployeeType = Model & {
       phonenumber: string;
       createdAt: string;
       updatedAt: string;
-      id: string,
+      id: number,
       salary: Number,
       last_login: null,
       employeeStatus: Number,
