@@ -78,7 +78,7 @@ export default function index() {
 
     } catch (error) {
       console.error(error);
-      setEmployee(undefined);
+      setEmployee([]);
     } finally {
       setIsLoading(false);
     }
