@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   TableEditIcon,
   TableViewIcon,
@@ -18,7 +18,7 @@ export default function index() {
   const [updateMember, setUpdateMember] = useState(false);
   const [deleteMember, setDeleteMember] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [employee, setEmployee] = useState<EmployeeType>();
+  const [employee, setEmployee] = useState<EmployeeType[]>([]);
 
   const employeeColumns: TableColumn<EmployeeType>[] = [
     {
@@ -76,12 +76,9 @@ export default function index() {
       const response = await get_employees_by_company();
       setEmployee(response.data);
 
-
-
-
     } catch (error) {
       console.error(error);
-      setEmployee(undefined);
+      setEmployee([]);
     } finally {
       setIsLoading(false);
     }
