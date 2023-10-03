@@ -4,12 +4,13 @@ import {
   TableViewIcon,
   TableDeleteIcon,
 } from "@/components/icons";
+import { BsToggleOff, BsToggle2On } from "react-icons/bs";
 import { FaToggleOff } from "react-icons/fa";
 import myProfile from "../../../assets/images/Profile.png";
 import { DataTable, TableColumn } from "@/pages/datatable";
 import { EmployeeType } from "@/pages/types/employee.type";
 import {
-  get_employees_by_company,
+  get_employees_by_company, approveOrRejectEmployee
 } from "@/pages/api-services/employee";
 import Image from "next/image";
 export default function index() {
@@ -17,7 +18,7 @@ export default function index() {
   const [updateMember, setUpdateMember] = useState(false);
   const [deleteMember, setDeleteMember] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [employee, setEmployee] = useState<EmployeeType>();
+  const [employee, setEmployee] = useState<EmployeeType[]>([]);
 
   const employeeColumns: TableColumn<EmployeeType>[] = [
     {
@@ -59,17 +60,24 @@ export default function index() {
       title: "Delete",
       cell: (row) =>
       <button onClick={()=>setDeleteMember(true)}> <TableDeleteIcon /></button>
+    },
+    {
+       title: "Approve",
+       cell: (row) => <button onClick={()=> approveOrRejectEmployee(row.id, "approve")} className="text-green-500 text-2xl"><BsToggleOff /></button>
+    },
+    {
+       title: "Reject",
+       cell: (row) => <button onClick={()=> approveOrRejectEmployee(row.id, "reject")} className="text-red-500 text-2xl"><BsToggleOff /></button>
     }
   ];
   const getEmployeesByCompany = async () => {
     try {
       setIsLoading(true);
       const response = await get_employees_by_company();
-      console.log("Herrerrr",response.data);
       setEmployee(response.data);
     } catch (error) {
       console.error(error);
-      setEmployee(undefined);
+      setEmployee([]);
     } finally {
       setIsLoading(false);
     }
