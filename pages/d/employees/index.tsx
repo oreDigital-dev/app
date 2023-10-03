@@ -4,13 +4,13 @@ import {
   TableViewIcon,
   TableDeleteIcon,
 } from "@/components/icons";
-import { BsToggleOff, BsToggle2On } from "react-icons/bs";
+import { BsToggleOff, BsToggle2On, BsToggleOn } from "react-icons/bs";
 import { FaToggleOff } from "react-icons/fa";
 import myProfile from "../../../assets/images/Profile.png";
 import { DataTable, TableColumn } from "@/pages/datatable";
 import { EmployeeType } from "@/pages/types/employee.type";
 import {
-  get_employees_by_company, approveOrRejectEmployee
+  get_employees_by_company, approveOrRejectEmployee,deleteCompanyEmployee
 } from "@/pages/api-services/employee";
 import Image from "next/image";
 export default function index() {
@@ -19,7 +19,15 @@ export default function index() {
   const [deleteMember, setDeleteMember] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [employee, setEmployee] = useState<EmployeeType[]>([]);
+  const [isActionSuccessful, setIsActionSuccessful] = useState(false);
 
+  const handleApproveOrReject = async (id:number, action:string) => {
+    const resp = await approveOrRejectEmployee(id, action);
+
+    if (resp !== undefined) {
+      setIsActionSuccessful(true);
+    }
+  };
   const employeeColumns: TableColumn<EmployeeType>[] = [
     {
       title: "Photo",
@@ -59,21 +67,31 @@ export default function index() {
     {
       title: "Delete",
       cell: (row) =>
-      <button onClick={()=>setDeleteMember(true)}> <TableDeleteIcon /></button>
+      <button onClick={()=>deleteCompanyEmployee(row.id)}> <TableDeleteIcon /></button>
     },
     {
        title: "Approve",
-       cell: (row) => <button onClick={()=> approveOrRejectEmployee(row.id, "approve")} className="text-green-500 text-2xl"><BsToggleOff /></button>
+       cell: (row) =>  <button
+       onClick={() => handleApproveOrReject(row.id, 'approve')}
+       className="text-green-500 text-2xl"
+     >
+       {isActionSuccessful ? <BsToggleOn /> : <BsToggleOff />}
+     </button>
     },
     {
        title: "Reject",
-       cell: (row) => <button onClick={()=> approveOrRejectEmployee(row.id, "reject")} className="text-red-500 text-2xl"><BsToggleOff /></button>
+       cell: (row) => <button
+       onClick={() => handleApproveOrReject(row.id, 'reject')}
+       className="text-red-500 text-2xl"
+     >
+       {isActionSuccessful ? <BsToggleOn /> : <BsToggleOff />}
+     </button>
     }
   ];
   const getEmployeesByCompany = async () => {
     try {
       setIsLoading(true);
-      const response = await get_employees_by_company();
+      const response:any = await get_employees_by_company();
       setEmployee(response.data);
 
     } catch (error) {
@@ -83,6 +101,7 @@ export default function index() {
       setIsLoading(false);
     }
   };
+
 
 console.log("Employees data", employee);
 
@@ -314,7 +333,11 @@ console.log("Employees data", employee);
               >
                 Cancel
               </button>
-              <button className="py-2 bg-[#FF4949] text-white text-sm font-bold rounded-full pl-6 pr-6">
+              <button onClick={()=>{
+                employee?.map((emp)=>{
+                  deleteCompanyEmployee(emp.id)
+                })
+              }} className="py-2 bg-[#FF4949] text-white text-sm font-bold rounded-full pl-6 pr-6">
                 Delete
               </button>
             </div>
