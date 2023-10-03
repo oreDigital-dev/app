@@ -1,6 +1,5 @@
 import { CustomError } from "../libs/response";
 import confirmAction from "../Helpers/confirmAction";
-import { ResponseType } from "../types/response.type";
 import {toast} from "react-toastify";
 import { axios } from "@/services/axios";
 import authHeader from "./auth-header";
@@ -26,7 +25,7 @@ export type GetEmployeeUserType = {
     // totalElements: number;
   };
 };
-export const approveOrRejectEmployee = async (id: number, action: string): Promise<void> => {
+export const approveOrRejectEmployee = async (id: string, action: string): Promise<void> => {
   const response = await confirmAction('Approve', 'Are you sure you want to update this employee?');
 
   if (response) {
