@@ -30,7 +30,7 @@ export const approveOrRejectEmployee = async (id: number, action: string): Promi
 
   if (response) {
     try {
-      const response = await axios.put(`/employees/approve-or-reject`, {
+      const response = await axios.put(`/employees/approve-or-reject?id=${id}&action=${action}`, {
         id,
         action
       }, {
