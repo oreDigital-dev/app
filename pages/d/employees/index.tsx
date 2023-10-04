@@ -73,7 +73,7 @@ export default function index() {
   const getEmployeesByCompany = async () => {
     try {
       setIsLoading(true);
-      const response = await get_employees_by_company();
+      const response:any = await get_employees_by_company();
       setEmployee(response.data);
 
     } catch (error) {
