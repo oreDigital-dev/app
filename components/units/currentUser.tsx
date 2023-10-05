@@ -7,7 +7,6 @@ export default function CurrentUser({ email }: { email: any }) {
   const dispatch = useAppDispatch();
   const [role, setRole] = useState("");
   const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser") || "{}");
-  console.log(loggedInUser.roles, "====");
 
   const roles: String[] = [];
   useEffect(() => {
@@ -15,11 +14,11 @@ export default function CurrentUser({ email }: { email: any }) {
       roles.push(role.roleName);
     });
     if (roles.includes("SYSTEM_ADMIN")) {
-      setRole("RMB");
+      setRole("Rmb Admin");
     } else if (roles.includes("COMPANY_ADMIN")) {
-      setRole("COMPANY");
+      setRole("Company Admin");
     } else if (roles.includes("RESCUE_TEAM_ADMIN")) {
-      setRole("RESCUE_TEAM");
+      setRole("Rescue Team Admin");
     } else {
       setRole("");
     }

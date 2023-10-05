@@ -1,8 +1,8 @@
-import { CompanyReports, ReportDetails} from "@/@types/interfaces";
+import {CpyReports, ReportDetails} from "@/@types/interfaces";
 import { reportsData } from "@/utils/dataAssets";
 import ReportCard from "./ReportCard";
 
-export interface CompanyReportProps extends CompanyReports{}
+export interface CompanyReportProps extends CpyReports{}
 const CompanyReport = (props:CompanyReportProps) => {
     return(
         <div className="w-full" >
