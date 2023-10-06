@@ -1,4 +1,4 @@
-import {io} from 'socket.io-client'
+import { io } from "socket.io-client";
 import Logo from "@/components/ui/logo";
 import CurrentUser from "@/components/units/currentUser";
 import { useRouter } from "next/router";
@@ -13,10 +13,9 @@ import {
   rmbLinks,
 } from "@/utils/dataAssets";
 import { RootState, useAppDispatch } from "@/stores/store";
-import { setNotificationPanelVisibility, setRoles } from "@/features/appPages";
+import { setNotificationPanelVisibility, setPageError, setRoles } from "@/features/appPages";
 import { NofiticationsIcon } from "@/components/icons";
 import { useSelector } from "react-redux";
-import path from "path";
 const NavLink = ({
   props,
   setActiveSection,
@@ -46,31 +45,27 @@ export default function DashBoardLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const notifications:any = useSelector((state:RootState)=>state.notifications.notifications)
+  const notifications: any = useSelector(
+    (state: RootState) => state.notifications.notifications
+  );
   const [activeLink, setActiveLink] = useState(links[0].title);
   const [visibility, setVisibility] = useState(false);
   const [hiddeNotifications, setHideNotifications] = useState(false);
   const [user, setUser] = useState<any>();
   const dispatch = useAppDispatch();
-  const router = useRouter()
+  const router = useRouter();
   // const socket = io("http://194.163.167.131:8060");
   // socket.on("connect",()=>{
   //   console.log('Connected')
   // })
 
   useEffect(() => {
-    const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser")!);
-    setUser(loggedInUser);
-    let roles: String[] = [""];
-    loggedInUser.roles.forEach((role: any) => {
-      roles.push(role.roleName);
-    });
-    dispatch(setRoles(roles));
 
     if (
       router.pathname.includes("/d") ||
       router.pathname.includes("/rmb") ||
-      router.pathname.includes("/mfo")
+      router.pathname.includes("/mfo")||
+      router.pathname.includes("rescue_team")
     ) {
       setVisibility(true);
     } else if (router.pathname.includes("/login")) {
@@ -79,27 +74,37 @@ export default function DashBoardLayout({
   }, [router.pathname]);
 
   useEffect(() => {
+    const token = localStorage.getItem("refreshToken");
+    const userRolesLength = JSON.parse(localStorage.getItem("loggedInUser")!)?.roles.length;
+    if (token == null) {
+      router.push("/login");
+      
+    }
+    if(userRolesLength<=0){
+      dispatch(setPageError('User role doesn\'t exist'))
+      router.push("/login")
+    }
+
     const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser")!);
     setUser(loggedInUser);
     let roles: String[] = [""];
-    loggedInUser.roles.forEach((role: any) => {
-      roles.push(role.roleName);
-    });
-    dispatch(setRoles(roles));
-    const token = localStorage.getItem("refreshToken");
-    if (token == null) {
-      router.push("/login");
+    if (loggedInUser?.roles?.length > 0) {
+      loggedInUser?.roles?.forEach((role: any) => {
+        roles.push(role.roleName);
+      });
     }
-  }, []);
+    dispatch(setRoles(roles));
+    console.log(roles, "roles=========");
+  }, [router.pathname]);
 
   const setActiveLinkHandler = async (href: string) => {
     const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser")!);
     setUser(loggedInUser);
-    let roles: String[] = [""];
-    user.roles.forEach((role: any) => {
-      roles.push(role.roleName);
-    });
-    dispatch(setRoles(roles));
+    // let roles: String[] = [""];
+    // user?.roles?.forEach((role: any) => {
+    //   roles.push(role.roleName);
+    // });
+    // dispatch(setRoles(roles));
 
     if (router.pathname.includes("/d")) {
       await router.push(
@@ -117,18 +122,20 @@ export default function DashBoardLayout({
         ("/mfo/" + mfoLinks.find((link) => link.title === href)?.url) as string
       );
     } else if (
-      router.pathname.includes("rescue_teams") &&
+      router.pathname.includes("rescue_team") &&
       roles.includes("RESCUE_TEAM_ADMIN")
     ) {
       await router.push(
         ("/rescue_team/" +
-          mfoLinks.find((link) => link.title === href)?.url) as string
+          rescueTeams.find((link) => link.title === href)?.url) as string
       );
     } else {
       console.log("Invalid href");
     }
     setActiveLink(href);
   };
+
+
   const roles: String[] = useSelector(
     (store: RootState) => store.appPages.roles
   );
@@ -149,7 +156,7 @@ export default function DashBoardLayout({
             </div>
             <div className="mt-10 px-[20px] ">
               {roles.includes("COMPANY_ADMIN") &&
-                links.map((link, index) => (
+                mfoLinks.map((link, index) => (
                   <NavLink
                     isActive={activeLink === link.title}
                     props={link}
@@ -157,8 +164,6 @@ export default function DashBoardLayout({
                     setActiveSection={setActiveLinkHandler}
                   />
                 ))}
-
-    
 
               {roles.includes("COMPANY_EMPLOYEE") &&
                 !roles.includes("COMPANY_ADMIN") &&
@@ -171,7 +176,7 @@ export default function DashBoardLayout({
                   />
                 ))}
 
-              {roles.includes("SYSTEM_ADMIN") &&
+              {/* {roles.includes("SYSTEM_ADMIN") &&
                 rmbLinks.map((link, index) => (
                   <NavLink
                     isActive={activeLink === link.title}
@@ -179,9 +184,9 @@ export default function DashBoardLayout({
                     key={index}
                     setActiveSection={setActiveLinkHandler}
                   />
-                ))}
+                ))} */}
 
-              {!roles.includes("SYSTEM_ADMIN") &&
+              {roles.includes("RMB_ADMIN") &&
                 roles.includes("RMB_EMPLOYEE") &&
                 rmbLinks.map((link, index) => (
                   <NavLink
@@ -191,7 +196,7 @@ export default function DashBoardLayout({
                     setActiveSection={setActiveLinkHandler}
                   />
                 ))}
-              {roles.includes("RMB_EMPLOYEE") &&
+              {/* {roles.includes("RMB_EMPLOYEE") &&
                 !roles.includes("RMB_ADMIN") &&
                 mfoLinks.map((link, index) => (
                   <NavLink
@@ -200,10 +205,18 @@ export default function DashBoardLayout({
                     key={index}
                     setActiveSection={setActiveLinkHandler}
                   />
-                ))}
-              {roles.includes("COMPANY_EMPLOYEE") &&
-                !roles.includes("COMPANY_ADMIN")}
-              {!roles.includes("RESCUE_TEAM_ADMIN") &&
+                ))} */}
+              {/* {roles.includes("COMPANY_EMPLOYEE") &&
+                roles.includes("COMPANY_ADMIN") &&
+                mfoLinks.map((link, index) => (
+                  <NavLink
+                    isActive={activeLink === link.title}
+                    props={link}
+                    key={index}
+                    setActiveSection={setActiveLinkHandler}
+                  />
+                ))} */}
+              {/* {!roles.includes("RESCUE_TEAM_ADMIN") &&
                 roles.includes("RESCUE_TEAM_EMPLOYEE") &&
                 rescueTeams.map((link, index) => (
                   <NavLink
@@ -212,7 +225,7 @@ export default function DashBoardLayout({
                     key={index}
                     setActiveSection={setActiveLinkHandler}
                   />
-                ))}
+                ))} */}
               {roles.includes("RESCUE_TEAM_ADMIN") &&
                 rescueTeams.map((link, index) => (
                   <NavLink
@@ -222,24 +235,22 @@ export default function DashBoardLayout({
                     setActiveSection={setActiveLinkHandler}
                   />
                 ))}
-
             </div>
           </div>
           <div className="w-[100vw] sm:w-[80vw]">
             <div className="px-5 header h-[60px] sticky top-0 border-l-2 border-bg flex items-center  justify-between bg-white">
               <h1 className="font-bold text-[20px]">{activeLink}</h1>
               <div className="flex items-center hover:cursor-pointer gap-6 ">
-                <div className='flex relative'>
-                  <div className='w-4 absolute z-20 left-2 -translate-y-1 h-4 flex items-center justify-center rounded-full bg-app  text-white font-medium'>
-<p>{notifications.length}</p>
+                <div className="flex relative">
+                  <div className="w-4 absolute z-20 left-2 -translate-y-1 h-4 flex items-center justify-center rounded-full bg-app  text-white font-medium">
+                    <p>{notifications.length}</p>
                   </div>
-                <button
-                  onClick={() => dispatchActions()}
-                  className="fill-black-300 text-black-300 hover:fill-app hover:text-app "
-                >
-                  <NofiticationsIcon />
-                </button>
-
+                  <button
+                    onClick={() => dispatchActions()}
+                    className="fill-black-300 text-black-300 hover:fill-app hover:text-app "
+                  >
+                    <NofiticationsIcon />
+                  </button>
                 </div>
                 <CurrentUser
                   email={localStorage.getItem("loggedInUser")?.toString()}
@@ -253,7 +264,7 @@ export default function DashBoardLayout({
           </div>
           <div className="sm:hidden w-[100vw]">
             <div className="mt-10 flex w-[100%]">
-              {router.pathname.includes("/d") &&
+              {router.pathname.includes("/d") &&  
                 links.map((link, index) => (
                   <NavLink
                     isActive={activeLink === link.title}

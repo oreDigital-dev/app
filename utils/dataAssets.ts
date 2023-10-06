@@ -1,3 +1,4 @@
+
 import { Statuses, TimeZone } from "@/@types/enum";
 import {
   CompanyDetails,
@@ -9,6 +10,7 @@ import {
   MfoRowEntryDetails,
   NotificationPanel,
   CpyReports,
+  RescueTeamData,
 } from "@/@types/interfaces";
 
 import {
@@ -17,6 +19,7 @@ import {
   EmployeesIcon,
   FormIcon,
   LogsIcon,
+  PoliceIcon,
   ProductionIcon,
   ReportsIcon,
   SettingsIcon,
@@ -269,6 +272,24 @@ export const rmbQuickActions = [
     bgColor: "#D2953910",
   },
 ];
+export const rescueTeamQuickActions = [
+  {
+    text: "Add Teams",
+    textColor: "#0057FF",
+    bgColor: "#0057FF10",
+  },
+  {
+    text: "View Teams",
+    textColor: "#2CA900",
+    bgColor: "#2CA90010",
+  },
+  {
+    text: "Contact Support",
+    textColor: "D29539",
+    bgColor: "D2953910",
+  }
+];
+
 export const mfoLatestActivities: MfoRowEntryDetails[] = [
   {
     time: {
@@ -538,6 +559,11 @@ export const rmbLinks: DashBoardSection[] = [
     icon: SitesIcon,
   },
   {
+    title:"Rescue Teams",
+    url:"rescue_team",
+    icon:TraceabilityIcon
+  },
+  {
     title: "Reports",
     url: "reports",
     icon: ReportsIcon,
@@ -551,13 +577,13 @@ export const rescueTeams: DashBoardSection[] = [
     icon: DashBoardIcon,
   },
   {
-    title: "Companies",
-    url: "companies",
-    icon: SitesIcon,
+    title: "Police Stations",
+    url: "stations",
+    icon: PoliceIcon,
   },
   {
-    title: "Mine sites",
-    url: "minesites",
+    title: "sites",
+    url: "sites",
     icon: SitesIcon,
   },
   {
@@ -682,6 +708,20 @@ export const reportsData: CpyReports[] = [
     ],
   },
 ];
+export const rescueTeamHolds:RescueTeamData[]= [
+  {issueName:"Resolved incidents",
+issueAmount:"70",
+issueCategory:"Cases"},
+{
+  issueName:"Pending incidents",
+  issueAmount:"3",
+  issueCategory:"Reports"
+},{
+  issueName:"Departments in charge",
+  issueAmount:"10",
+  issueCategory:"Departments"
+}
+]
 export const piData = [
   { name: "Group A", value: 400 },
   { name: "Group B", value: 300 },

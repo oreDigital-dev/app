@@ -11,6 +11,10 @@ const AuthLayout = ({ children }: { children: React.ReactNode }) => {
   const subCategory = useSelector(
     (state: RootState) => state.formCategories.subCategory
   );
+  const category = useSelector(
+    (state: RootState) => state.formCategories.category
+  );
+  
 
   const [visibility, setVisibility] = useState(false);
   const clickHandler = (category: string) => {
@@ -26,12 +30,12 @@ const AuthLayout = ({ children }: { children: React.ReactNode }) => {
         <div className="flex justify-center">
           <Logo withText />
         </div>
-        <div className="flex  justify-evenly py-1 w-full">
+        <div className={`flex justify-evenly py-1 w-full`}>
           <CategoryButton category="RMB" clickHandler={clickHandler} />
           <CategoryButton category="Company" clickHandler={clickHandler} />
           <CategoryButton category="Rescue Team" clickHandler={clickHandler} />
         </div>
-        <div className={`flex justify-evenly w-full`}>
+        <div className={`${category == 'Rescue Team'?'w-full flex justify-center':'flex justify-evenly w-full'}`}>
           <button
             className=" flex gap-4 rounded-sm px-4  text-black items-center"
             onClick={() => handleSubcategory("Admin")}
@@ -45,6 +49,8 @@ const AuthLayout = ({ children }: { children: React.ReactNode }) => {
             />
             Admin
           </button>
+          {category != "Rescue Team" &&
+          (
           <button
             className="flex gap-4 items-center rounded-sm px-4  text-black"
             onClick={() => handleSubcategory("Employee")}
@@ -58,6 +64,8 @@ const AuthLayout = ({ children }: { children: React.ReactNode }) => {
             />
             Employee
           </button>
+
+          )}
         </div>
         {children}
       </div>

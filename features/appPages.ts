@@ -15,6 +15,7 @@ const initialState: any = {
   systemAdminToken: "",
   companyAdminToken: "",
   roles: [],
+  userError:''
 };
 
 const appPagesSlice = createSlice({
@@ -105,8 +106,12 @@ const appPagesSlice = createSlice({
     },
 
     setRoles: (state: RootState, action: PayloadAction<String[]>) => {
+      console.log(action.payload,"from store ====")
       state.roles = action.payload;
     },
+    setPageError:(state:RootState,action:PayloadAction<String>)=>{
+state.userError = action.payload;
+    }
   },
 });
 
@@ -123,5 +128,6 @@ export const {
   setAdminLoggedIn,
   setCompanyAdminLoggedIn,
   setRoles,
+  setPageError
 } = appPagesSlice.actions;
 export const appPagesReducer = appPagesSlice.reducer;
