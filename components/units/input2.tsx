@@ -16,7 +16,7 @@ export default function Input2({
 }: InputProps) {
   return (
     <div>
-      {label && <label className="mb-3">{label}</label>}
+          {label && <label className="mb-3">{label}</label>}
       {label == "Login as" && (
         <select
           className=" border border-black-300/10 font-regular  outline-none  w-full py-[14px] px-3 rounded-md text-[black]"
