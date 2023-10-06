@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { stepThreeRegistration } from "@/features/companyRegistration";
 import { Cell } from "recharts";
 import { axios } from "@/services/axios";
-
+const {Provinces,Districts,Sectors,Cells,Villages} = require('rwanda');
 const FinalDetails = () => {
   const router = useRouter();
   const dispatch = useDispatch();
@@ -19,21 +19,21 @@ const FinalDetails = () => {
   const [minerals, setMinerals] = useState("");
   const [ownership, setOwnership] = useState("");
   const [productionCapacity, setProductionCapacity] = useState(0);
-  const [province, setProvince] = useState("");
-  const [district, setDistrict] = useState("");
-  const [sector, setSector] = useState("");
-  const [cell, setCell] = useState("");
-  const [village, setVillage] = useState("");
+  const [selectedProvince, setSelectedProvince] = useState("");
+  const [selectedDistrict, setSelectedDistrict] = useState("");
+  const [selectedSector, setSelectedSector] = useState("");
+  const [selectedCell, setSelectedCell] = useState("");
+  const [selectedVillage, setSelectedVillage] = useState("");
   const formData = {
     licenseNumber: licenseNumber,
     minerals: minerals,
     ownership: ownership,
     productionCapacity: productionCapacity,
-    province: province,
-    district: district,
-    sector: sector,
-    cell: cell,
-    village: village,
+    province: selectedProvince,
+    district: selectedDistrict,
+    sector: selectedSector,
+    cell: selectedCell,
+    village: selectedVillage,
   };
 
   const handleProgression = async () => {
@@ -154,56 +154,108 @@ const FinalDetails = () => {
           </div>
 
           <div className="flex gap-2">
-            <div className="basis-1/2">
-              <Input
-                label={"Province"}
-                placeholder={"Kigali"}
-                type={"text"}
-                state={province}
-                setState={setProvince}
-              />
-            </div>
-            <div className="basis-1/2">
-              <Input
-                label={"District"}
-                placeholder={"Gasabo"}
-                type={"text"}
-                state={district}
-                setState={setDistrict}
-              />
-            </div>
+          <div className="basis-1/2">
+            <select
+              value={selectedProvince}
+              onChange={(e) => {
+                setSelectedProvince(e.target.value);
+                setSelectedDistrict("");
+                setSelectedSector("");
+                setSelectedCell("");
+                setSelectedVillage("");
+              }}
+              className=" border border-black-300/10 font-regular  outline-none  w-full py-[14px] px-3 rounded-md text-[black]"
+            >
+              <option value="">Select Province</option>
+              {Provinces().map((province: string, index: any) => (
+                <option key={index} value={province}>
+                  {province}
+                </option>
+              ))}
+            </select>
           </div>
-          <div className="flex gap-2">
-            <div className="basis-1/2">
-              <Input
-                label={"Sector"}
-                placeholder={"Kimironko"}
-                type={"text"}
-                state={sector}
-                setState={setSector}
-              />
-            </div>
-            <div className="basis-1/2">
-              <Input
-                label={"Cell"}
-                placeholder={"Kibagabaga"}
-                type={"text"}
-                state={cell}
-                setState={setCell}
-              />
-            </div>
-          </div>
-          <div className="w-1/2">
-          <Input
-            label={"Village"}
-            placeholder={"Kalisimbi"}
-            type={"text"}
-            state={village}
-            setState={setVillage}
-          />
-
+          <div className="basis-1/2">
+            <select
+              value={selectedDistrict}
+              onChange={(e) => {
+                setSelectedDistrict(e.target.value);
+                setSelectedSector("");
+              }}
+              disabled={!selectedProvince}
+              className=" border border-black-300/10 font-regular  outline-none  w-full py-[14px] px-3 rounded-md text-[black]"
+            >
+              <option value="">Select District</option>
+              {Districts(selectedProvince).map(
+                (district: string, index: any) => (
+                  <option key={index} value={district}>
+                    {district}
+                  </option>
+                )
+              )}
+            </select>
           </div>
         </div>
+        <div className="flex gap-2">
+          <div className="basis-1/2">
+            <select
+              value={selectedSector}
+              onChange={(e) => {
+                setSelectedSector(e.target.value);
+                setSelectedCell('"');
+              }}
+              disabled={!selectedDistrict}
+              className=" border border-black-300/10 font-regular  outline-none  w-full py-[14px] px-3 rounded-md text-[black]"
+            >
+              <option value="">Select Sector</option>
+              {Sectors(selectedProvince, selectedDistrict)?.map(
+                (sector: string, index: any) => (
+                  <option key={index} value={sector}>
+                    {sector}
+                  </option>
+                )
+              )}
+            </select>
+          </div>
+
+          </div>
+          <div className="basis-1/2">
+            <select
+            value={selectedCell}
+            onChange={(e) => {
+              setSelectedCell(e.target.value);
+              setSelectedVillage("");
+            }}
+            disabled={!selectedSector}
+            className=" border border-black-300/10 font-regular  outline-none  w-full py-[14px] px-3 rounded-md text-[black]"
+            >
+            <option value="">Select Cell</option>
+            {Cells(selectedProvince,selectedDistrict,selectedSector)?.map((cell: string, index: any) => (
+              <option key={index} value={cell}>
+                {cell}
+              </option>
+            ))}
+            
+            </select>
+          </div>
+        </div>
+        <div className="flex gap-2">
+          <div className="basis-1/2">
+          <select
+            value={selectedVillage}
+            onChange={(e) => setSelectedVillage(e.target.value)}
+            disabled={!selectedCell}
+            className=" border border-black-300/10 font-regular  outline-none  w-full py-[14px] px-3 rounded-md text-[black]"
+            >
+            <option value="">Select Village</option>
+            {Villages(selectedProvince,selectedDistrict,selectedSector,selectedCell)?.map((village: string, index: any) => (
+              <option key={index} value={village}>
+                {village}
+              </option>
+            ))}
+            
+            </select>
+          </div>
+          </div>
         <div>
           <Button
             className="w-5/12 py-[14px] px-10 text-center bg-app text-white rounded-xl"
