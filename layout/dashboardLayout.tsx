@@ -111,7 +111,7 @@ export default function DashBoardLayout({
         ("/d/" + links.find((link) => link.title === href)?.url) as string
       );
     } else if (
-      router.pathname.includes("rmb") &&
+      router.pathname.includes("/rmb") &&
       roles.includes("RMB_ADMIN")
     ) {
       await router.push(
@@ -156,7 +156,7 @@ export default function DashBoardLayout({
             </div>
             <div className="mt-10 px-[20px] ">
               {roles.includes("COMPANY_ADMIN") &&
-                mfoLinks.map((link, index) => (
+                links.map((link, index) => (
                   <NavLink
                     isActive={activeLink === link.title}
                     props={link}
@@ -187,7 +187,7 @@ export default function DashBoardLayout({
                 ))} */}
 
               {roles.includes("RMB_ADMIN") &&
-                roles.includes("RMB_EMPLOYEE") &&
+                // roles.includes("RMB_EMPLOYEE") &&
                 rmbLinks.map((link, index) => (
                   <NavLink
                     isActive={activeLink === link.title}

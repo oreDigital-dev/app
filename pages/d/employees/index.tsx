@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   TableEditIcon,
   TableViewIcon,
@@ -10,7 +10,9 @@ import myProfile from "../../../assets/images/Profile.png";
 import { DataTable, TableColumn } from "@/pages/datatable";
 import { EmployeeType } from "@/pages/types/employee.type";
 import {
-  get_employees_by_company, approveOrRejectEmployee,deleteCompanyEmployee
+  get_employees_by_company,
+  approveOrRejectEmployee,
+  deleteCompanyEmployee,
 } from "@/pages/api-services/employee";
 import Image from "next/image";
 export default function index() {
@@ -20,8 +22,8 @@ export default function index() {
   const [isLoading, setIsLoading] = useState(false);
   const [employee, setEmployee] = useState<EmployeeType[]>([]);
   const [isActionSuccessful, setIsActionSuccessful] = useState(false);
-
-  const handleApproveOrReject = async (id:number, action:string) => {
+  const [selectedStatus, setSelectedStatus] = useState("Pending");
+  const handleApproveOrReject = async (id: number, action: string) => {
     const resp = await approveOrRejectEmployee(id, action);
 
     if (resp !== undefined) {
@@ -51,49 +53,54 @@ export default function index() {
     },
     {
       title: "View",
-      cell: (row) => <TableViewIcon></TableViewIcon>
+      cell: (row) => <TableViewIcon></TableViewIcon>,
     },
     {
       title: "Edit",
-      cell: (row) => 
-      
-      <button
-      onClick={()=>setUpdateMember(true)}
-      ><TableEditIcon 
-      
-      />
-      </button>
+      cell: (row) => (
+        <button onClick={() => setUpdateMember(true)}>
+          <TableEditIcon />
+        </button>
+      ),
     },
     {
       title: "Delete",
-      cell: (row) =>
-      <button onClick={()=>deleteCompanyEmployee(row.id)}> <TableDeleteIcon /></button>
+      cell: (row) => (
+        <button onClick={() => deleteCompanyEmployee(row.id)}>
+          {" "}
+          <TableDeleteIcon />
+        </button>
+      ),
     },
     {
-       title: "Approve",
-       cell: (row) =>  <button
-       onClick={() => handleApproveOrReject(row.id, 'approve')}
-       className="text-green-500 text-2xl"
-     >
-       {isActionSuccessful ? <BsToggleOn /> : <BsToggleOff />}
-     </button>
+      title: "Approve",
+      cell: (row) => (
+        <button
+          onClick={() => handleApproveOrReject(row.id, "approve")}
+          className="text-green-500 text-2xl"
+        >
+          {isActionSuccessful ? <BsToggleOn /> : <BsToggleOff />}
+        </button>
+      ),
     },
     {
-       title: "Reject",
-       cell: (row) => <button
-       onClick={() => handleApproveOrReject(row.id, 'reject')}
-       className="text-red-500 text-2xl"
-     >
-       {isActionSuccessful ? <BsToggleOn /> : <BsToggleOff />}
-     </button>
-    }
+      title: "Reject",
+      cell: (row) => (
+        <button
+          onClick={() => handleApproveOrReject(row.id, "reject")}
+          className="text-red-500 text-2xl"
+        >
+          {isActionSuccessful ? <BsToggleOn /> : <BsToggleOff />}
+        </button>
+      ),
+    },
   ];
-  const getEmployeesByCompany = async () => {
+  const getEmployeesByCompany = async (status: string) => {
     try {
       setIsLoading(true);
-      const response:any = await get_employees_by_company();
+      const response: any = await get_employees_by_company(status);
       setEmployee(response.data);
-
+      setSelectedStatus(status);
     } catch (error) {
       console.error(error);
       setEmployee([]);
@@ -101,17 +108,44 @@ export default function index() {
       setIsLoading(false);
     }
   };
-
-
-console.log("Employees data", employee);
-
+  useEffect(() => {
+    getEmployeesByCompany("Pending");
+  }, []);
   return (
     <div className="m-[20px] rounded-md ">
       <div className=" bg-white p-[20px] rounded-md shadow-sm shadow-neutal-300">
         <div className="w-full flex justify-between  bg-white py-4">
           <div className="flex bg-white py-3 rounded-lg gap-6 pl-6 pr-6 shadow-sm shadow-gray-200">
-            <button>Members</button>
-            <button>Admins</button>
+            <button
+              onClick={() => getEmployeesByCompany("Pending")}
+              className={`${
+                selectedStatus === "Pending"
+                  ? "bg-[#5160B3] text-white"
+                  : "bg-white text-black"
+              } font-bold py-2 pl-4 pr-4 rounded-xl text-sm`}
+            >
+              Pending
+            </button>
+            <button
+              onClick={() => getEmployeesByCompany("Approved")}
+              className={`${
+                selectedStatus === "Approved"
+                  ? "bg-[#5160B3] text-white"
+                  : "bg-white text-black"
+              } font-bold py-2 pl-4 pr-4 rounded-xl text-sm`}
+            >
+              Approved
+            </button>
+            <button
+              onClick={() => getEmployeesByCompany("Rejected")}
+              className={`${
+                selectedStatus === "Rejected"
+                  ? "bg-[#5160B3] text-white"
+                  : "bg-white text-black"
+              } font-bold py-2 pl-4 pr-4 rounded-xl text-sm`}
+            >
+              Rejected
+            </button>
           </div>
           <div className="">
             <p>
@@ -333,11 +367,14 @@ console.log("Employees data", employee);
               >
                 Cancel
               </button>
-              <button onClick={()=>{
-                employee?.map((emp)=>{
-                  deleteCompanyEmployee(emp.id)
-                })
-              }} className="py-2 bg-[#FF4949] text-white text-sm font-bold rounded-full pl-6 pr-6">
+              <button
+                onClick={() => {
+                  employee?.map((emp) => {
+                    deleteCompanyEmployee(emp.id);
+                  });
+                }}
+                className="py-2 bg-[#FF4949] text-white text-sm font-bold rounded-full pl-6 pr-6"
+              >
                 Delete
               </button>
             </div>

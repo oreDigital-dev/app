@@ -4,15 +4,12 @@ import {toast} from "react-toastify";
 import { axios } from "@/services/axios";
 import authHeader from "./auth-header";
 import { EmployeeType } from "../types/employee.type";
-import { PaginationOptionType } from "../types/pagination.type";
 
-export const get_employees_by_company = async (
-  status:string
-): Promise<GetEmployeeUserType> => {
+export const get_employees_by_company = async (): Promise<GetEmployeeUserType> => {
+
 
   try {
-    // const query = `order=${order ?? "ASC"}page=${page ?? 1}&take=${take ?? 10}`
-    const response = await axios.get(`employees/all/by-employee-status?status=${status}`,{
+    const response = await axios.get(`employees/all/by-loggedin-company`,{
       headers: authHeader()
     }
     );
