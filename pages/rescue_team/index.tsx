@@ -1,6 +1,6 @@
 import SectionHead from "@/components/ui/sectionHead";
 import RescueTeamCard from "@/components/units/RescueTeamCard";
-import { rescueTeamHolds, rescueTeamQuickActions, rmbQuickActions } from "@/utils/dataAssets";
+import { rescueTeamHolds, rescueTeamQuickActions} from "@/utils/dataAssets";
 import { ToastContainer } from "react-toastify";
 import {
     AreaChart,

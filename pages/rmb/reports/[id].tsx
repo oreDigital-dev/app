@@ -1,4 +1,5 @@
 import ReportCard from "@/components/units/ReportCard";
+import PdfViewer from "@/components/units/pdfviewer";
 import { reportsData } from "@/utils/dataAssets";
 
 const SingleReport = ({data}:any) => {
@@ -9,7 +10,8 @@ const SingleReport = ({data}:any) => {
           <ReportCard {...data} />
         </div>
         <div className={'h-[80%] w-full flex items-center justify-center '}>
-        <p className="text-lg font-semibold text-gray-400">Reports</p>
+          <PdfViewer url="/Help1.pdf" />
+        {/* <p className="text-lg font-semibold text-gray-400">Reports</p> */}
           </div>
       </div>
     </div>

@@ -122,8 +122,8 @@ export default function DashBoardLayout({
         ("/mfo/" + mfoLinks.find((link) => link.title === href)?.url) as string
       );
     } else if (
-      router.pathname.includes("rescue_team") &&
-      roles.includes("RESCUE_TEAM_ADMIN")
+      router.pathname.includes("rescue_team") 
+      && roles.includes("RESCUE_TEAM_ADMIN")
     ) {
       await router.push(
         ("/rescue_team/" +
