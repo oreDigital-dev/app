@@ -15,5 +15,8 @@ export type EmployeeType = Model & {
       last_login: null,
       employeeStatus: Number,
       role: string
+      name:string
+      visibility: string
+      phoneNumber: string
 
 };

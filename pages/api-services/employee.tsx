@@ -22,6 +22,36 @@ export const get_employees_by_company = async (
   }
 };
 
+export const get_employees_by_rescue_team = async (
+  status:string
+): Promise<GetEmployeeUserType> => {
+
+  try {
+    // const query = `order=${order ?? "ASC"}page=${page ?? 1}&take=${take ?? 10}`
+    const response = await axios.get(`rescue-teams/all/by-status?status=${status}`,{
+      headers: authHeader()
+    }
+    );
+    return response.data;
+  } catch (error: any) {
+    throw new CustomError(error);
+  }
+};
+export const get_employees_by_rmb = async (
+  status:string
+): Promise<GetEmployeeUserType> => {
+
+  try {
+    // const query = `order=${order ?? "ASC"}page=${page ?? 1}&take=${take ?? 10}`
+    const response = await axios.get(`rmb/employees/all-by-status?status=${status}`,{
+      headers: authHeader()
+    }
+    );
+    return response.data;
+  } catch (error: any) {
+    throw new CustomError(error);
+  }
+};
 export type GetEmployeeUserType = {
   success: true;
   message: null;
@@ -37,6 +67,40 @@ export const approveOrRejectEmployee = async (id: number, action: string): Promi
   if (response) {
     try {
       const response = await axios.put(`/employees/approve-or-reject?id=${id}&action=${action}`, {
+        id,
+        action
+      }, {
+        headers: authHeader(),
+      });
+      toast.success('Employee successfully updated');
+    } catch (error) {
+      toast.error('Error in updating employee');
+    }
+  }
+};
+export const approveOrRejectRescueTeamEmployee = async (id: number, action: string): Promise<void> => {
+  const response = await confirmAction('Approve or Reject', 'Are you sure you want to update this employee?');
+
+  if (response) {
+    try {
+      const response = await axios.put(`/rescue-teams/approve-or-reject?id=${id}&action=${action}`, {
+        id,
+        action
+      }, {
+        headers: authHeader(),
+      });
+      toast.success('Employee successfully updated');
+    } catch (error) {
+      toast.error('Error in updating employee');
+    }
+  }
+};
+export const approveOrRejectRmbEmployee = async (id: number, action: string): Promise<void> => {
+  const response = await confirmAction('Approve or Reject', 'Are you sure you want to update this employee?');
+
+  if (response) {
+    try {
+      const response = await axios.put(`/rescue-teams/approve-or-reject?id=${id}&action=${action}`, {
         id,
         action
       }, {

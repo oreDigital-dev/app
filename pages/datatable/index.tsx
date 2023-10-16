@@ -31,7 +31,7 @@ type DataTableProps<Entry> = {
   columns: TableColumn<Entry>[];
   pageTracker?: any;
   otherParams?: { [key: string]: any };
-  getData?: () => void;
+  getData?: () => Promise<void> ;
 };
 
 export const DataTable = <Entry extends Model>(

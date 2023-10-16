@@ -26,6 +26,7 @@ import {
 import { useSelector } from "react-redux";
 import { RootState, store, useAppDispatch } from "@/stores/store";
 import {
+  setCreateEmployeeVisibility,
   setCreateMineSiteVisibility,
   setLoggedInSuccessfully,
 } from "@/features/appPages";
@@ -62,6 +63,8 @@ export default function Dashboard() {
     switch (index) {
       case 1:
         dispatch(setCreateMineSiteVisibility({ type: "open" }));
+      case  3:
+        dispatch(setCreateEmployeeVisibility({ type: "open" }));
       default:
         console.log("hello");
     }

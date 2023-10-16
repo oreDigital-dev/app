@@ -4,18 +4,18 @@ import {
   TableViewIcon,
   TableDeleteIcon,
 } from "@/components/icons";
-import { BsToggleOff, BsToggle2On, BsToggleOn } from "react-icons/bs";
+import { BsToggleOff, BsToggleOn } from "react-icons/bs";
 import { FaToggleOff } from "react-icons/fa";
 import myProfile from "../../../assets/images/Profile.png";
 import { DataTable, TableColumn } from "@/pages/datatable";
 import { EmployeeType } from "@/pages/types/employee.type";
 import {
-  get_employees_by_company,
   approveOrRejectEmployee,
+  approveOrRejectRescueTeamEmployee,
   deleteCompanyEmployee,
+  get_employees_by_rescue_team,
 } from "@/pages/api-services/employee";
 import Image from "next/image";
-import ExportExcel from "@/components/units/excelExport";
 export default function index() {
   const [addNewMember, setAddNewMember] = useState(false);
   const [updateMember, setUpdateMember] = useState(false);
@@ -38,11 +38,11 @@ export default function index() {
     },
     {
       title: "Member Name",
-      cell: (row) => `${row.firstName} ${row.lastName}`,
+      cell: (row) => <div>{row.name}</div>
     },
     {
       title: "Phone Number",
-      cell: (row) => <div>{row.phonenumber}</div>,
+      cell: (row) => <div>{row.phoneNumber}</div>
     },
     {
       title: "Residence",
@@ -50,11 +50,11 @@ export default function index() {
     },
     {
       title: "Role",
-      cell: (row) => <div>{row.role}</div>,
+      cell: (row) => <div>{row.role}</div>
     },
     {
       title: "View",
-      cell: (row) => <TableViewIcon></TableViewIcon>,
+      cell: (row) => <TableViewIcon></TableViewIcon>
     },
     {
       title: "Edit",
@@ -77,7 +77,7 @@ export default function index() {
       title: "Approve",
       cell: (row) => (
         <button
-          onClick={() => handleApproveOrReject(row.id, "approve")}
+          onClick={() => approveOrRejectRescueTeamEmployee(row.id, "approve")}
           className="text-green-500 text-2xl"
         >
           {isActionSuccessful ? <BsToggleOn /> : <BsToggleOff />}
@@ -88,7 +88,7 @@ export default function index() {
       title: "Reject",
       cell: (row) => (
         <button
-          onClick={() => handleApproveOrReject(row.id, "reject")}
+          onClick={() => approveOrRejectRescueTeamEmployee(row.id, "reject")}
           className="text-red-500 text-2xl"
         >
           {isActionSuccessful ? <BsToggleOn /> : <BsToggleOff />}
@@ -96,10 +96,10 @@ export default function index() {
       ),
     },
   ];
-  const getEmployeesByCompany = async (status: string) => {
+  const getEmployeesByRescueTeam = async (status: string) => {
     try {
       setIsLoading(true);
-      const response: any = await get_employees_by_company(status);
+      const response:any = await get_employees_by_rescue_team(status);
       setEmployee(response.data);
       setSelectedStatus(status);
     } catch (error) {
@@ -110,7 +110,7 @@ export default function index() {
     }
   };
   useEffect(() => {
-    getEmployeesByCompany("Pending");
+    getEmployeesByRescueTeam("Pending");
   }, []);
   return (
     <div className="m-[20px] rounded-md ">
@@ -118,7 +118,7 @@ export default function index() {
         <div className="w-full flex justify-between  bg-white py-4">
           <div className="flex bg-white py-3 rounded-lg gap-6 pl-6 pr-6 shadow-sm shadow-gray-200">
             <button
-              onClick={() => getEmployeesByCompany("Pending")}
+              onClick={() => getEmployeesByRescueTeam("Pending")}
               className={`${
                 selectedStatus === "Pending"
                   ? "bg-[#5160B3] text-white"
@@ -128,7 +128,7 @@ export default function index() {
               Pending
             </button>
             <button
-              onClick={() => getEmployeesByCompany("Approved")}
+              onClick={() => getEmployeesByRescueTeam("Approved")}
               className={`${
                 selectedStatus === "Approved"
                   ? "bg-[#5160B3] text-white"
@@ -138,12 +138,12 @@ export default function index() {
               Approved
             </button>
             <button
-              onClick={() => getEmployeesByCompany("Rejected")}
+              onClick={() => getEmployeesByRescueTeam("Rejected")}
               className={`${
                 selectedStatus === "Rejected"
                   ? "bg-[#5160B3] text-white"
                   : "bg-white text-black"
-              } font-bold py- 2 pl-4 pr-4 rounded-xl text-sm`}
+              } font-bold py-2 pl-4 pr-4 rounded-xl text-sm`}
             >
               Rejected
             </button>
@@ -167,10 +167,12 @@ export default function index() {
             >
               Add new
             </button>
-            <input type="file" className="text-black py-2 pl-4 pr-4 shadow-sm shadow-black rounded-xl text-sm"  />
-        
-           
-     <ExportExcel excelData={employee} fileName="Employees" />
+            <button className="text-black py-2 pl-4 pr-4 shadow-sm shadow-black rounded-xl text-sm">
+              Import Members
+            </button>
+            <button className="text-black py-2 pl-4 pr-4 shadow-sm shadow-black rounded-xl text-sm">
+              Export members (Excel)
+            </button>
           </div>
           <div>
             <button className="bg-[#5160B3] text-white font-bold py-2 pl-4 pr-4 rounded-xl">
@@ -178,12 +180,10 @@ export default function index() {
             </button>
           </div>
         </div>
-        {/* {employee?.map((emp:GetEmployeeUserType) => {
-          <p>{emp.dat}</p>
-        })} */}
+    
         <DataTable
           columns={employeeColumns}
-          getData={getEmployeesByCompany}
+          getData={getEmployeesByRescueTeam}
           isLoading={isLoading}
           data={employee}
         />

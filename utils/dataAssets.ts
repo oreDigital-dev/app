@@ -548,7 +548,7 @@ export const mfoLinks: DashBoardSection[] = [
   },
 ];
 export const rmbLinks: DashBoardSection[] = [
-  {
+  { 
     title: "Dashboard",
     url: "/",
     icon: DashBoardIcon,
@@ -557,6 +557,11 @@ export const rmbLinks: DashBoardSection[] = [
     title: "Companies",
     url: "companies",
     icon: SitesIcon,
+  },
+  {
+    title: "Employees",
+    url: "employees",
+    icon: EmployeesIcon,
   },
   {
     title:"Rescue Teams",
@@ -580,6 +585,11 @@ export const rescueTeams: DashBoardSection[] = [
     title: "Police Stations",
     url: "stations",
     icon: PoliceIcon,
+  },
+  {
+    title: "Employees",
+    url: "employees",
+    icon: EmployeesIcon,
   },
   {
     title: "sites",

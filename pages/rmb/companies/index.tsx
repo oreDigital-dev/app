@@ -1,7 +1,8 @@
 "use client";
 import { PlusIcon } from "@/components/icons";
-import CompanyDetails2 from "@/components/ui/CompanyDetails";
 import RegisteredCompanies from "@/components/units/registeredCompanies";
+import { get_all_registered_companies } from "@/pages/api-services/companies";
+import { CompanyType } from "@/pages/types/company.type";
 
 import { RootState } from "@/stores/store";
 import { cardDetailsData, companyDetails } from "@/utils/dataAssets";
@@ -17,7 +18,26 @@ const CompaniesView = () => {
     console.log(currentIndex);
     setIndexNum(currentIndex);
   }, [currentIndex]);
-
+  const [companies, setCompanies] = useState<CompanyType[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+  
+  const getCompanies = async() => {
+    try {
+      setIsLoading(true);
+      const response:any = await get_all_registered_companies();
+      setCompanies(response.data);
+      setIsLoading(false);
+    } catch (error) {
+      setIsLoading(false);
+      console.log(error);
+  } finally {
+    setIsLoading(false);
+  }
+  }
+  useEffect(() => {
+   getCompanies();
+  }, [])
+  console.log("Companiess", companies);
   return (
     <div className="mx-[20px] mt-[20px] rounded-md h-[88vh]">
       <div className="bg-white  relative p-[20px] rounded-md shadow-sm shadow-neutal-300 h-full overflow-y-scroll">
@@ -41,18 +61,18 @@ const CompaniesView = () => {
         </div>
         <div className="relative">
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-12 px-4">
-            {companyDetails.map((company: any, index: any) => {
+            {companies.map((company: any, index: any) => {
               return <RegisteredCompanies {...company} key={index} />;
             })}
           </div>
           <div className="absolute z-20">
-            <CompanyDetails2
+          {/* <CompanyDetails2
               id={cardDetailsData[currentIndex].id}
               companyName={cardDetailsData[currentIndex].companyName}
               activeSites={cardDetailsData[currentIndex].activeSites}
               description={cardDetailsData[currentIndex].description}
               districtLocation={cardDetailsData[currentIndex].districtLocation}
-            />
+            /> */}
           </div>
         </div>
       </div>
