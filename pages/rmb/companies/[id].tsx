@@ -15,7 +15,7 @@ const CompanyDetailsPage = ({data }:any) => {
           <div>
             <h6 className="text-black-500 font-bold">Company Details</h6>
             <p className="text-black-300 font-light text-sm">
-            General information about the comany
+            General information about the company
             </p>
           </div>
           <div className="flex gap-2">

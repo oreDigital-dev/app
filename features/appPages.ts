@@ -5,6 +5,7 @@ import { Payload } from "recharts/types/component/DefaultLegendContent";
 const initialState: any = {
   loggedInSuccessfully: false,
   isCreateMineSiteVisible: false,
+  isCreateEmployeeVisible: false,
   isCompanyDetailsVisible: false,
   isNotificationPanelVisible: false,
   isProfilePanelVisibile: false,
@@ -40,6 +41,18 @@ const appPagesSlice = createSlice({
         state.isCreateMineSiteVisible = false;
       } else if (action.payload.type.toString() == "open") {
         state.isCreateMineSiteVisible = true;
+      } else {
+        throw new Error("Please provide the valid action type");
+      }
+    },
+    setCreateEmployeeVisibility: (
+      state: RootState,
+      action: PayloadAction<{ type: String }>
+    ) => {
+      if (action.payload.type.toString() == "close") {
+        state.isCreateEmployeeVisible = false;
+      } else if (action.payload.type.toString() == "open") {
+        state.isCreateEmployeeVisible = true;
       } else {
         throw new Error("Please provide the valid action type");
       }
@@ -119,6 +132,7 @@ export const {
   setLoggedInSuccessfully,
   setUpdateMineSiteVisibility,
   setCreateMineSiteVisibility,
+  setCreateEmployeeVisibility,
   setWelcomeMessage,
   setNotificationPanelVisibility,
   setProfilePanelVisibility,
