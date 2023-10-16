@@ -15,6 +15,7 @@ import {
   deleteCompanyEmployee,
 } from "@/pages/api-services/employee";
 import Image from "next/image";
+import ExportExcel from "@/components/units/excelExport";
 export default function index() {
   const [addNewMember, setAddNewMember] = useState(false);
   const [updateMember, setUpdateMember] = useState(false);
@@ -169,9 +170,7 @@ export default function index() {
             <button className="text-black py-2 pl-4 pr-4 shadow-sm shadow-black rounded-xl text-sm">
               Import Members
             </button>
-            <button className="text-black py-2 pl-4 pr-4 shadow-sm shadow-black rounded-xl text-sm">
-              Export members (Excel)
-            </button>
+     <ExportExcel excelData={employee} fileName="Employees" />
           </div>
           <div>
             <button className="bg-[#5160B3] text-white font-bold py-2 pl-4 pr-4 rounded-xl">

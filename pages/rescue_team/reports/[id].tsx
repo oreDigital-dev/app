@@ -4,7 +4,7 @@ import { reportsData } from "@/utils/dataAssets";
 const SingleReport = ({data}:any) => {
   return (
     <div className="mx-[20px] mt-[20px] rounded-md h-[89vh]">
-      <div className="bg-white  relative p-[20px] rounded-md shadow-sm shadow-neutal-300 h-[89vh]">
+      <div className="bg-[red]  relative p-[20px] rounded-md shadow-sm shadow-neutal-300 h-[89vh] ">
         <div>
           <ReportCard {...data} />
         </div>
