@@ -167,9 +167,9 @@ export default function index() {
             >
               Add new
             </button>
-            <button className="text-black py-2 pl-4 pr-4 shadow-sm shadow-black rounded-xl text-sm">
-              Import Members
-            </button>
+            <input type="file" className="text-black py-2 pl-4 pr-4 shadow-sm shadow-black rounded-xl text-sm"  />
+        
+           
      <ExportExcel excelData={employee} fileName="Employees" />
           </div>
           <div>

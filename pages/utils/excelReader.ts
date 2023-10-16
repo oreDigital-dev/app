@@ -1,9 +1,9 @@
 import XLSX from 'xlsx';
 
-export const readExcel = (file) => {
+export const readExcel = (file:Blob) => {
   const reader = new FileReader();
 
-  reader.onload = (e) => {
+  reader.onload = (e:any) => {
     const data = e.target.result;
     const workbook = XLSX.read(data, { type: 'array' });
 
@@ -14,7 +14,7 @@ export const readExcel = (file) => {
     // Parse the sheet's data
     const excelData = XLSX.utils.sheet_to_json(worksheet);
 
-    setExcelData(excelData);
+    // setExcelData(excelData);
   };
 
   reader.readAsArrayBuffer(file);
