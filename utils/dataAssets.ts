@@ -114,6 +114,11 @@ export const profileLinks = [
     icon: logoutIcon,
     name: "Logout",
     link: "",
+    actionHandler:()=>{
+
+      localStorage.removeItem("refreshToken");
+      window.location.reload()
+    }
   },
 ];
 

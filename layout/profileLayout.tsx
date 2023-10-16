@@ -109,6 +109,7 @@ function ProfileLayout(props: any) {
                       "flex p-4  hover:cursor-pointer border  space-x-7 flex-row items-center justify-start"
                     }
                     key={index}
+                    onClick={notification.actionHandler && notification.actionHandler}
                   >
                     <SettingsIcon />
                     <p>
