@@ -13,10 +13,11 @@ export type EmployeeType = Model & {
       id: number,
       salary: Number,
       last_login: null,
-      employeeStatus: Number,
+      employeeStatus: string,
       role: string
       name:string
       visibility: string
       phoneNumber: string
+      status:string
 
 };
