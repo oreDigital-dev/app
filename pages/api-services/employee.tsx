@@ -61,6 +61,7 @@ export type GetEmployeeUserType = {
     // totalElements: number;
   };
 };
+
 export const approveOrRejectEmployee = async (id: number, action: string): Promise<void> => {
   const response = await confirmAction('Approve or Reject', 'Are you sure you want to update this employee?');
 
@@ -72,9 +73,9 @@ export const approveOrRejectEmployee = async (id: number, action: string): Promi
       }, {
         headers: authHeader(),
       });
-      toast.success('Employee successfully updated');
+      toast('Employee successfully updated');
     } catch (error) {
-      toast.error('Error in updating employee');
+      toast('Error in updating employee');
     }
   }
 };
@@ -89,9 +90,9 @@ export const approveOrRejectRescueTeamEmployee = async (id: number, action: stri
       }, {
         headers: authHeader(),
       });
-      toast.success('Employee successfully updated');
+      toast('Employee successfully updated');
     } catch (error) {
-      toast.error('Error in updating employee');
+      toast('Error in updating employee');
     }
   }
 };
@@ -106,9 +107,9 @@ export const approveOrRejectRmbEmployee = async (id: number, action: string): Pr
       }, {
         headers: authHeader(),
       });
-      toast.success('Employee successfully updated');
+      toast('Employee successfully updated');
     } catch (error) {
-      toast.error('Error in updating employee');
+      toast('Error in updating employee');
     }
   }
 };
@@ -119,9 +120,9 @@ if(response){
     const resp = await axios.delete(`/employees/${id}`,{
       headers:authHeader()
     });
-    toast.success('Employee successfully deleted');
+    toast('Employee successfully deleted');
   } catch (error) {
-    toast.error('Error in deleting employee');
+    toast('Error in deleting employee');
   }
 }
 }

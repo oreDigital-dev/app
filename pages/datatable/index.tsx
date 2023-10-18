@@ -31,7 +31,7 @@ type DataTableProps<Entry> = {
   columns: TableColumn<Entry>[];
   pageTracker?: any;
   otherParams?: { [key: string]: any };
-  getData?: () => Promise<void> ;
+  getData?: (status?:any) => Promise<void> ;
 };
 
 export const DataTable = <Entry extends Model>(
@@ -141,7 +141,7 @@ export const DataTable = <Entry extends Model>(
       limit: params.pageSize.toString(),
       ...otherParams
     });
-    router.push(`employees?${queryData}`);
+    // router.push(`employees?${queryData}`);
   };
 
   function onPageSizeChange(e: any) {

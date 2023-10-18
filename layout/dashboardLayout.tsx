@@ -54,10 +54,6 @@ export default function DashBoardLayout({
   const [user, setUser] = useState<any>();
   const dispatch = useAppDispatch();
   const router = useRouter();
-  // const socket = io("http://194.163.167.131:8060");
-  // socket.on("connect",()=>{
-  //   console.log('Connected')
-  // })
 
   useEffect(() => {
 
@@ -176,15 +172,7 @@ export default function DashBoardLayout({
                   />
                 ))}
 
-              {/* {roles.includes("SYSTEM_ADMIN") &&
-                rmbLinks.map((link, index) => (
-                  <NavLink
-                    isActive={activeLink === link.title}
-                    props={link}
-                    key={index}
-                    setActiveSection={setActiveLinkHandler}
-                  />
-                ))} */}
+    
 
               {roles.includes("RMB_ADMIN") &&
                 // roles.includes("RMB_EMPLOYEE") &&
@@ -196,36 +184,7 @@ export default function DashBoardLayout({
                     setActiveSection={setActiveLinkHandler}
                   />
                 ))}
-              {/* {roles.includes("RMB_EMPLOYEE") &&
-                !roles.includes("RMB_ADMIN") &&
-                mfoLinks.map((link, index) => (
-                  <NavLink
-                    isActive={activeLink === link.title}
-                    props={link}
-                    key={index}
-                    setActiveSection={setActiveLinkHandler}
-                  />
-                ))} */}
-              {/* {roles.includes("COMPANY_EMPLOYEE") &&
-                roles.includes("COMPANY_ADMIN") &&
-                mfoLinks.map((link, index) => (
-                  <NavLink
-                    isActive={activeLink === link.title}
-                    props={link}
-                    key={index}
-                    setActiveSection={setActiveLinkHandler}
-                  />
-                ))} */}
-              {/* {!roles.includes("RESCUE_TEAM_ADMIN") &&
-                roles.includes("RESCUE_TEAM_EMPLOYEE") &&
-                rescueTeams.map((link, index) => (
-                  <NavLink
-                    isActive={activeLink === link.title}
-                    props={link}
-                    key={index}
-                    setActiveSection={setActiveLinkHandler}
-                  />
-                ))} */}
+
               {roles.includes("RESCUE_TEAM_ADMIN") &&
                 rescueTeams.map((link, index) => (
                   <NavLink
