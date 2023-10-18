@@ -75,26 +75,23 @@ export default function index() {
     },
     {
       title: "Approve",
-      cell: (row) => (
-        <button
-          onClick={() => approveOrRejectRescueTeamEmployee(row.id, "approve")}
-          className="text-green-500 text-2xl"
-        >
-          {isActionSuccessful ? <BsToggleOn /> : <BsToggleOff />}
-        </button>
-      ),
+      cell: (row) =>
+       (row.employeeStatus === "APPROVED" ?
+        <button><BsToggleOn className="text-green-500 text-2xl" /></button> : 
+        <button onClick={() => approveOrRejectRescueTeamEmployee(row.id, "approve")}><BsToggleOff className="text-green-500 text-2xl" /></button>)
     },
     {
       title: "Reject",
-      cell: (row) => (
-        <button
-          onClick={() => approveOrRejectRescueTeamEmployee(row.id, "reject")}
-          className="text-red-500 text-2xl"
-        >
-          {isActionSuccessful ? <BsToggleOn /> : <BsToggleOff />}
-        </button>
-      ),
+      cell: (row) => 
+      (row.employeeStatus === "REJECTED" ?
+      <button><BsToggleOn className="text-red-500 text-2xl" /></button> : 
+      <button onClick={() => approveOrRejectRescueTeamEmployee(row.id, "reject")}><BsToggleOff className="text-red-500 text-2xl" /></button>)
     },
+    {
+      title: "Status",
+      cell: (row) => <div>{row.status}</div>
+    
+    }
   ];
   const getEmployeesByRescueTeam = async (status: string) => {
     try {
