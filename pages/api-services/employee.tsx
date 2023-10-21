@@ -84,7 +84,7 @@ export const approveOrRejectRescueTeamEmployee = async (id: number, action: stri
 
   if (response) {
     try {
-      const response = await axios.put(`/rescue-teams/approve-or-reject?id=${id}&action=${action}`, {
+      const response = await axios.put(`/rescue-teams/employees/xapprove-or-reject?action=${action}&id=${id}`, {
         id,
         action
       }, {
@@ -101,7 +101,7 @@ export const approveOrRejectRmbEmployee = async (id: number, action: string): Pr
 
   if (response) {
     try {
-      const response = await axios.put(`/rescue-teams/approve-or-reject?id=${id}&action=${action}`, {
+      const response = await axios.put(`/rmb/approve-or-reject?id=${id}&action=${action}`, {
         id,
         action
       }, {

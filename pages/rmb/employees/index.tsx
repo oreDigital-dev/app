@@ -511,30 +511,24 @@ export default function index() {
             </div>
             <div className="w-full ml-8 mt-16">
               <form action="" className="">
-                <div className="">
-                  <label htmlFor="" className="text-black font-bold text-sm">
-                    Member name
-                  </label>
-                  <input
-                    type="text"
-                    name=""
-                    placeholder="Ex: John Doe"
-                    id=""
-                    className="py-2 border-2 border-[#C2C2C2] rounded-lg w-5/6 pl-4"
-                  />
-                </div>
-                <div>
-                  <label htmlFor="" className="text-black font-bold text-sm">
-                    Mobile Number
-                  </label>
-                  <input
-                    type="tel"
-                    name=""
-                    placeholder="Ex: 07974857383"
-                    id=""
-                    className="py-2 border-2 border-[#C2C2C2] rounded-lg w-5/6 pl-4"
-                  />
-                </div>
+              <div className="basis-1/2">
+            <Input
+              label={"First name"}
+              placeholder={"John"}
+              type={"text"}
+              state={firstName}
+              setState={setFirstName}
+            />
+          </div>
+          <div className="basis-1/2">
+            <Input
+              label={"Last name"}
+              placeholder={"John"}
+              type={"text"}
+              state={lastName}
+              setState={setLastName}
+            />
+          </div>
                 <div>
                   <label htmlFor="" className="text-black font-bold text-sm">
                     Member Role
