@@ -21,7 +21,19 @@ export const get_employees_by_company = async (
     throw new CustomError(error);
   }
 };
+export const get_all_employees_by_company = async (): Promise<GetEmployeeUserType> => {
 
+  try {
+    // const query = `order=${order ?? "ASC"}page=${page ?? 1}&take=${take ?? 10}`
+    const response = await axios.get(`employees/all/by-loggedin-company`,{
+      headers: authHeader()
+    }
+    );
+    return response.data;
+  } catch (error: any) {
+    throw new CustomError(error);
+  }
+};
 export const get_employees_by_rescue_team = async (
   status:string
 ): Promise<GetEmployeeUserType> => {

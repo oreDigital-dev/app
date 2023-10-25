@@ -7,6 +7,7 @@ import "react-toastify/dist/ReactToastify.css";
 import EmployeePageProvider from "./context/EmployeeProvider";
 import CompanyPageProvider from "./context/CompanyProvider";
 import RescueTeamPageProvider from "./context/RescueTeamsProvider";
+import MiningSitePageProvider from "./context/MiningSiteProvider";
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <Provider store={store}>
@@ -21,6 +22,9 @@ export default function App({ Component, pageProps }: AppProps) {
         <RescueTeamPageProvider >
           
         </RescueTeamPageProvider>
+        <MiningSitePageProvider>
+          
+        </MiningSitePageProvider>
         <Component {...pageProps} />
       </DashBoardLayout>
     </Provider>

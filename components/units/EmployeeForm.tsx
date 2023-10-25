@@ -52,7 +52,7 @@ const EmployeeForm = (props: EmployeeFormProps) => {
     switch (category) {
       case "RMB":
         try {
-          const res = await axios.post("/rmb/create/rmb-employee", formData);
+          const res = await axios.post("/rmb/employees/create", formData);
           localStorage.setItem("email", JSON.stringify(res.data.data.email));
           router.push("/verification");
         } catch (err) {

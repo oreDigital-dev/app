@@ -72,7 +72,7 @@ export default function DashBoardLayout({
   useEffect(() => {
     const token = localStorage.getItem("refreshToken");
     const userRolesLength = JSON.parse(localStorage.getItem("loggedInUser")!)?.roles.length;
-    if (token == null) {
+    if (token == null ) {
       router.push("/login");
       
     }

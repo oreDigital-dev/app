@@ -79,7 +79,7 @@ const CompanyDetails = () => {
           company: employeeFormData.company,
         },
       };
-      const resp = await axios.post("/employees/create", requestBody);
+      const resp = await axios.post("/employees/create/self-account", requestBody);
       console.log(requestBody);
     } catch (err) {
       console.log(err);
