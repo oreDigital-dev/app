@@ -134,7 +134,7 @@ export default function index() {
                   </td>
                   <td className="py-3 px-4 text-[#6D6D6D]">{tableDetail.details}</td>
                   
-            
+    
                 </tr>
             
             ))}

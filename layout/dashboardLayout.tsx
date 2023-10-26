@@ -15,7 +15,6 @@ import { RootState, useAppDispatch } from "@/stores/store";
 import { setNotificationPanelVisibility, setRoles } from "@/features/appPages";
 import { NofiticationsIcon } from "@/components/icons";
 import { useSelector } from "react-redux";
-import path from "path";
 const NavLink = ({
   props,
   setActiveSection,

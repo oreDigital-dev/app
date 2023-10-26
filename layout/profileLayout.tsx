@@ -7,7 +7,7 @@ import {
 } from "@/utils/dataAssets";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 import axios from "axios";
-import { NofiticationsIcon, SettingsIcon, helpIcon } from "@/components/icons";
+import { SettingsIcon } from "@/components/icons";
 import CurrentUser from "@/components/units/currentUser";
 import { useSelector } from "react-redux";
 import { RootState, useAppDispatch } from "@/stores/store";
@@ -93,9 +93,7 @@ function ProfileLayout(props: any) {
               }
             >
               <div className="flex items-center hover:cursor-pointer gap-6 ">
-                <CurrentUser
-                  email={localStorage.getItem("")?.toString()}
-                />
+                <CurrentUser email={localStorage.getItem("")?.toString()} />
               </div>
             </div>
           </div>
