@@ -26,6 +26,7 @@ import {
 import { useSelector } from "react-redux";
 import { RootState, store, useAppDispatch } from "@/stores/store";
 import {
+  setCreateEmployeeVisibility,
   setCreateMineSiteVisibility,
   setLoggedInSuccessfully,
 } from "@/features/appPages";
@@ -33,8 +34,20 @@ import {
 export default function Dashboard() {
   const router = useRouter();
 
-  const handleNavigation = async () => {
-    await router.push("/rmb");
+  const handleNavigation = async (role: string) => {
+    switch (role) {
+      case "RMB":
+        router.push("/rmb");
+        break;
+      case "COMPANY":
+        router.push("/mfo");
+        break;
+      case "RESCUE TEAM":
+        router.push("/rescue_team");
+        break;
+      default:
+        return router.push("/d/dashboard");
+    }
   };
   const dispatch = useAppDispatch();
   const [role, setRole] = useState("");
@@ -50,6 +63,8 @@ export default function Dashboard() {
     switch (index) {
       case 1:
         dispatch(setCreateMineSiteVisibility({ type: "open" }));
+      case  3:
+        dispatch(setCreateEmployeeVisibility({ type: "open" }));
       default:
         console.log("hello");
     }
@@ -63,12 +78,12 @@ export default function Dashboard() {
     loggedInUser.roles.forEach((role: any) => {
       roles.push(role.roleName);
     });
-    if (roles.includes("SYSTEM_ADMIN")) {
+    if (roles.includes("RMB_ADMIN")) {
       setRole("RMB");
     } else if (roles.includes("COMPANY_EMPLOYEE")) {
       setRole("COMPANY");
     } else if (roles.includes("RESCUE_TEAM_ADMIN")) {
-      setRole("RESCUE_TEAM");
+      setRole("RESCUE TEAM");
     } else {
       setRole("");
     }
@@ -82,7 +97,7 @@ export default function Dashboard() {
   }, []);
 
   return (
-    <div className="m-[20px]   rounded-md ">
+    <div className="m-[20px] rounded-md ">
       <div className=" bg-white  relative p-[20px] rounded-md shadow-sm shadow-neutal-300">
         <div className="flex  z-100  items-start justify-between">
           <SectionHead
@@ -91,7 +106,7 @@ export default function Dashboard() {
           />
           <button
             className="text-app flex items-center  font-semibold hover:text-black-500"
-            onClick={handleNavigation}
+            onClick={()=>handleNavigation(role)}
           >
             <span>{role}</span>
             <ArrowIcon />

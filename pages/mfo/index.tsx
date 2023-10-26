@@ -14,6 +14,7 @@ const Dashboard = () => {
     switch (index) {
       case 1:
         dispatch(setCreateMineSiteVisibility({ type: "open" }));
+      
       default:
         console.log("hello");
     }

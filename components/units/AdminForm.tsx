@@ -6,7 +6,10 @@ import { steponeRegistration } from "@/features/companyRegistration";
 import { useState } from "react";
 import { axios } from "@/services/axios";
 import Loader from "../ui/loader";
-
+import Input2 from "./input2";
+import { rescueTeamsCategories } from "@/utils/dataAssets";
+const { Provinces, Districts, Sectors, Cells, Villages } = require("rwanda");
+import { stepOneRegistration } from "@/features/rescueteamRegistration";
 const AdminForm = ({ category }: { category: string }) => {
   const [error, setError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -19,12 +22,11 @@ const AdminForm = ({ category }: { category: string }) => {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [national_id, setNational_id] = useState("");
   const [myGender, setMygender] = useState("");
-  const [province, setProvince] = useState("");
-  const [district, setDistrict] = useState("");
-  const [sector, setSector] = useState("");
-  const [cell, setCell] = useState("");
-  const [village, setVillage] = useState("");
-
+  const [selectedProvince, setSelectedProvince] = useState("");
+  const [selectedDistrict, setSelectedDistrict] = useState("");
+  const [selectedSector, setSelectedSector] = useState("");
+  const [selectedCell, setSelectedCell] = useState("");
+  const [selectedVillage, setSelectedVillage] = useState("");
   const formData = {
     firstName: firstName,
     lastName: lastName,
@@ -33,11 +35,25 @@ const AdminForm = ({ category }: { category: string }) => {
     phoneNumber: phoneNumber,
     myGender: myGender,
     national_id: national_id,
-    province: province,
-    district: district,
-    sector: sector,
-    cell: cell,
-    village: village,
+    province: selectedProvince,
+    district: selectedDistrict,
+    sector: selectedSector,
+    cell: selectedCell,
+    village: selectedVillage,
+  };
+  const rescueTeamData = {
+    firstName: firstName,
+    lastName: lastName,
+    email: email,
+    password: password,
+    phoneNumber: phoneNumber,
+    myGender: myGender,
+    national_id: national_id,
+    province: selectedProvince,
+    district: selectedDistrict,
+    sector: selectedSector,
+    cell: selectedCell,
+    village: selectedVillage,
   };
   const rmbFormdata = {
     firstName: firstName,
@@ -50,11 +66,11 @@ const AdminForm = ({ category }: { category: string }) => {
     password: password,
     phoneNumber: phoneNumber,
     address: {
-      province: province,
-      district: district,
-      sector: sector,
-      cell: cell,
-      village: village,
+      province: selectedProvince,
+      district: selectedDistrict,
+      sector: selectedSector,
+      cell: selectedCell,
+      village: selectedVillage,
     },
     employeeType: "Admin",
   };
@@ -89,14 +105,14 @@ const AdminForm = ({ category }: { category: string }) => {
       console.error(err);
     }
   };
-  const handleCompanyAdminRegistration = (formData:any)=>{
+  const handleCompanyAdminRegistration = (formData: any) => {
     dispatch(steponeRegistration(formData));
     router.push("/auth/companyDetails");
-  }
-  const handleRescueTeamRegistration = ()=>{
+  };
+  const handleRescueTeamRegistration = () => {
+    dispatch(stepOneRegistration(rescueTeamData));
     router.push("/auth/ProfessionDetails");
-  }
-
+  };
 
   // const rmbRoles: string[] = [
   //   "RMB Admin",
@@ -206,59 +222,112 @@ const AdminForm = ({ category }: { category: string }) => {
         </div>
         <div className="flex gap-2">
           <div className="basis-1/2">
-            <Input
-              label={"Province"}
-              placeholder={"Kigali"}
-              type={"text"}
-              state={province}
-              setState={setProvince}
-            />
+            <select
+              value={selectedProvince}
+              onChange={(e) => {
+                setSelectedProvince(e.target.value);
+                setSelectedDistrict("");
+                setSelectedSector("");
+                setSelectedCell("");
+                setSelectedVillage("");
+              }}
+              className=" border border-black-300/10 font-regular  outline-none  w-full py-[14px] px-3 rounded-md text-[black]"
+            >
+              <option value="">Select Province</option>
+              {Provinces().map((province: string, index: any) => (
+                <option key={index} value={province}>
+                  {province}
+                </option>
+              ))}
+            </select>
           </div>
           <div className="basis-1/2">
-            <Input
-              label={"District"}
-              placeholder={"Gasabo"}
-              type={"text"}
-              state={district}
-              setState={setDistrict}
-            />
+            <select
+              value={selectedDistrict}
+              onChange={(e) => {
+                setSelectedDistrict(e.target.value);
+                setSelectedSector("");
+              }}
+
+              disabled={!selectedProvince}
+              className=" border border-black-300/10 font-regular  outline-none  w-full py-[14px] px-3 rounded-md text-[black]"
+            >
+              <option value="">Select District</option>
+              {Districts(selectedProvince).map(
+                (district: string, index: any) => (
+                  <option key={index} value={district}>
+                    {district}
+                  </option>
+                )
+              )}
+            </select>
           </div>
         </div>
         <div className="flex gap-2">
           <div className="basis-1/2">
-            <Input
-              label={"Sector"}
-              placeholder={"Kimironko"}
-              type={"text"}
-              state={sector}
-              setState={setSector}
-            />
+            <select
+              value={selectedSector}
+              onChange={(e) => {
+                setSelectedSector(e.target.value);
+                setSelectedCell('"');
+              }}
+              disabled={!selectedDistrict}
+              className=" border border-black-300/10 font-regular  outline-none  w-full py-[14px] px-3 rounded-md text-[black]"
+            >
+              <option value="">Select Sector</option>
+              {Sectors(selectedProvince, selectedDistrict)?.map(
+                (sector: string, index: any) => (
+                  <option key={index} value={sector}>
+                    {sector}
+                  </option>
+                )
+              )}
+            </select>
           </div>
+
+          {/* </div> */}
           <div className="basis-1/2">
-            <Input
-              label={"Cell"}
-              placeholder={"Kibagabaga"}
-              type={"text"}
-              state={cell}
-              setState={setCell}
-            />
+            <select
+            value={selectedCell}
+            onChange={(e) => {
+              setSelectedCell(e.target.value);
+              setSelectedVillage("");
+            }}
+            disabled={!selectedSector}
+            className=" border border-black-300/10 font-regular  outline-none  w-full py-[14px] px-3 rounded-md text-[black]"
+            >
+            <option value="">Select Cell</option>
+            {Cells(selectedProvince,selectedDistrict,selectedSector)?.map((cell: string, index: any) => (
+              <option key={index} value={cell}>
+                {cell}
+              </option>
+            ))}
+            
+            </select>
           </div>
         </div>
         <div className="flex gap-2">
           <div className="basis-1/2">
-            <Input
-              label={"Village"}
-              placeholder={"Kalisimbi"}
-              type={"text"}
-              state={village}
-              setState={setVillage}
-            />
+          <select
+            value={selectedVillage}
+            onChange={(e) => setSelectedVillage(e.target.value)}
+            disabled={!selectedCell}
+            className=" border border-black-300/10 font-regular  outline-none  w-full py-[14px] px-3 rounded-md text-[black]"
+            >
+            <option value="">Select Village</option>
+            {Villages(selectedProvince,selectedDistrict,selectedSector,selectedCell)?.map((village: string, index: any) => (
+              <option key={index} value={village}>
+                {village}
+              </option>
+            ))}
+            
+            </select>
           </div>
           <div className="basis-1/2">
             <Input
               label={"Phone Number"}
               placeholder={"+250798486619"}
-              type={"number"}
+              type={"text"}
               state={phoneNumber}
               setState={setPhoneNumber}
             />
@@ -286,19 +355,16 @@ const AdminForm = ({ category }: { category: string }) => {
             Next
           </Button>
         )}
-        {
-          category == "Rescue Team" && (
-            <Button
+        {category == "Rescue Team" && (
+          <Button
             className={`w-5/12 py-[14px] px-10 text-center bg-app text-white rounded-xl ${
               isLoading && "opacity-50"
             }`}
             onClick={() => handleRescueTeamRegistration()}
           >
             Next
-          </Button> 
-          )
-        }
-        
+          </Button>
+        )}
       </div>
     </div>
   );

@@ -1,5 +1,6 @@
 import ReportCard from "@/components/units/ReportCard";
-import { reports, reportsData } from "@/utils/dataAssets";
+import PdfViewer from "@/components/units/pdfviewer";
+import { reportsData } from "@/utils/dataAssets";
 
 const SingleReport = ({data}:any) => {
   return (
@@ -9,7 +10,8 @@ const SingleReport = ({data}:any) => {
           <ReportCard {...data} />
         </div>
         <div className={'h-[80%] w-full flex items-center justify-center '}>
-        <p className="text-lg font-semibold text-gray-400">Reports</p>
+          <PdfViewer url="/Help1.pdf" />
+        {/* <p className="text-lg font-semibold text-gray-400">Reports</p> */}
           </div>
       </div>
     </div>
@@ -18,7 +20,7 @@ const SingleReport = ({data}:any) => {
 export default SingleReport;
 export const getStaticPaths = () => {
   const dataItem: any = reportsData;
-  const paths = reports.map((report: any) => ({
+  const paths = reportsData.map((report: any) => ({
     params: { id: report.id.toString() },
   }));
   return {
@@ -28,7 +30,7 @@ export const getStaticPaths = () => {
 };
 export const getStaticProps = ({params}:any) => {
   const id = params.id;
-  const data = reports[id-1];
+  const data = reportsData[id-1];
   return {
     props:{
       data

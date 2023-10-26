@@ -9,7 +9,6 @@ import { toast } from "react-toastify";
 const VerifyAcc = () => {
   const handleResendKey = ()=>{
     console.log('clicked for the resend key')
-
   }
   const [value, setValue] = useState("");
   const handleVerification = async (payload: {

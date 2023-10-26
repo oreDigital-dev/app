@@ -121,6 +121,8 @@ export interface EmployeeFields {
 }
 
 //company form data interfaces
-export interface SteponeFormdata {
-    
+export interface RescueTeamData {
+    issueName:string;
+    issueAmount:string;
+    issueCategory:string;
 }

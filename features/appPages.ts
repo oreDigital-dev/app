@@ -5,6 +5,7 @@ import { Payload } from "recharts/types/component/DefaultLegendContent";
 const initialState: any = {
   loggedInSuccessfully: false,
   isCreateMineSiteVisible: false,
+  isCreateEmployeeVisible: false,
   isCompanyDetailsVisible: false,
   isNotificationPanelVisible: false,
   isProfilePanelVisibile: false,
@@ -15,6 +16,7 @@ const initialState: any = {
   systemAdminToken: "",
   companyAdminToken: "",
   roles: [],
+  userError:''
 };
 
 const appPagesSlice = createSlice({
@@ -39,6 +41,18 @@ const appPagesSlice = createSlice({
         state.isCreateMineSiteVisible = false;
       } else if (action.payload.type.toString() == "open") {
         state.isCreateMineSiteVisible = true;
+      } else {
+        throw new Error("Please provide the valid action type");
+      }
+    },
+    setCreateEmployeeVisibility: (
+      state: RootState,
+      action: PayloadAction<{ type: String }>
+    ) => {
+      if (action.payload.type.toString() == "close") {
+        state.isCreateEmployeeVisible = false;
+      } else if (action.payload.type.toString() == "open") {
+        state.isCreateEmployeeVisible = true;
       } else {
         throw new Error("Please provide the valid action type");
       }
@@ -105,8 +119,12 @@ const appPagesSlice = createSlice({
     },
 
     setRoles: (state: RootState, action: PayloadAction<String[]>) => {
+      console.log(action.payload,"from store ====")
       state.roles = action.payload;
     },
+    setPageError:(state:RootState,action:PayloadAction<String>)=>{
+state.userError = action.payload;
+    }
   },
 });
 
@@ -114,6 +132,7 @@ export const {
   setLoggedInSuccessfully,
   setUpdateMineSiteVisibility,
   setCreateMineSiteVisibility,
+  setCreateEmployeeVisibility,
   setWelcomeMessage,
   setNotificationPanelVisibility,
   setProfilePanelVisibility,
@@ -123,5 +142,6 @@ export const {
   setAdminLoggedIn,
   setCompanyAdminLoggedIn,
   setRoles,
+  setPageError
 } = appPagesSlice.actions;
 export const appPagesReducer = appPagesSlice.reducer;

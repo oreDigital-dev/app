@@ -59,7 +59,7 @@ const initialState = {
         employeeType: "",
     }
 }
-const rmbRegistrationSlice = createSlice({
+const companyRegistrationSlice = createSlice({
     name: "companyRegistrationRegistration",
     initialState,
     reducers: {
@@ -117,5 +117,6 @@ const rmbRegistrationSlice = createSlice({
             state.employee.employeeType = payload.payload.employeeType;
     }
 }})
-export const { steponeRegistration,stepTwoRegistration,stepThreeRegistration,stepOneEmployeeRegistration,stepTwoEmployeeRegistration } = rmbRegistrationSlice.actions;
-export const stepOneReducer = rmbRegistrationSlice.reducer;
+
+export const { steponeRegistration,stepTwoRegistration,stepThreeRegistration,stepOneEmployeeRegistration,stepTwoEmployeeRegistration } = companyRegistrationSlice.actions;
+export const stepOneReducer = companyRegistrationSlice.reducer;

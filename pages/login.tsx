@@ -3,12 +3,12 @@ import Button from "@/components/ui/button";
 import Logo from "@/components/ui/logo";
 import Input from "@/components/units/input";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { baseUrli, loginTypes } from "@/utils/dataAssets";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useAppDispatch } from "@/stores/store";
+import { RootState, useAppDispatch } from "@/stores/store";
 import {
   setAdminLoggedIn,
   setCompanyAdminLoggedIn,
@@ -20,9 +20,11 @@ import { axios } from "@/services/axios";
 import Loader from "@/components/ui/loader";
 import { warn } from "console";
 import { loginPerson } from "@/services/actions/auth.action";
+import { useSelector } from "react-redux";
 
 /* eslint-disable react/no-unescaped-entities */
 const Login = () => {
+  const userError = useSelector((state:RootState)=>state.appPages.userError);
   const [showError, setShowError] = useState(false);
   const dispatch = useAppDispatch();
   const router = useRouter();
@@ -43,6 +45,12 @@ const Login = () => {
       setType("password");
     }
   };
+  useEffect(()=>{
+    if(localStorage.getItem("loggedInUser")){
+      localStorage.removeItem("loggedInUser");
+      localStorage.removeItem("refreshToken");
+    }
+  },[])
   const validateForm = (email: string, password: string, userTpe: string) => {
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     error.email = "";
@@ -74,7 +82,6 @@ const Login = () => {
       if (isFormValid()) {
         setLaoding(true);
         const response: any = await loginPerson({ email, password, userType });
-        localStorage.setItem("loggedInProfile", response.data.user);
         toast(`User logged in successfully`, {
           style: {
             backgroundColor: "white",
@@ -104,7 +111,10 @@ const Login = () => {
           );
         }
         setTimeout(async () => {
-          await router.push("/d/dashboard");
+        
+            await router.push("/d/dashboard");
+
+          
         }, 2000);
       } else {
         setShowError(true);
@@ -125,6 +135,7 @@ const Login = () => {
     }
   };
 
+
   return (
     <div className="lg:flex md:flex sm:block justify-evenly items-center h-screen lg:w-full md:w-full xl:w-[100vw] bg-bg">
       <div className="space-y-10 m-auto lg:w-1/3 md:w-1/2 sm:w-3/4 xs:w-3/4">
@@ -139,6 +150,7 @@ const Login = () => {
           We aim at making your company develop by maximizing security for both
           employees and the products.
         </p>
+        <a className="text-app text-lg" href="/Help1.pdf" download>Need Help?</a>
       </div>
       <div className="rounded-lg lg:w-1/3 md:w-1/3 sm:w-3/4 xs:w-3/4 bg-white h-fit m-auto space-y-4 flex flex-col content-center p-10">
         <p className=" text-2xl font-semibold">Welcome Back!</p>
@@ -151,6 +163,11 @@ const Login = () => {
         {showError && (
           <p className="text-center text-red-500 text-lg">
             Please fill all fields
+          </p>
+        )}
+        {userError && (
+            <p className="text-center text-red-500 text-lg">
+          {userError}
           </p>
         )}
         <Input

@@ -38,37 +38,37 @@ function ProfileLayout(props: any) {
         console.log("Error : " + error);
       });
   };
-  useEffect(() => {
-    getNotifications();
-    const getFilteredNotifications = () => {
-      if (selectedNotification.name === "All") {
-        getNotifications();
-        return notifications;
-      } else if (selectedNotification.name === "Users & employees") {
-        return notifications.filter(
-          (notification: any) =>
-            notification.nofiticationType === "USER_AND_EMPLOYEES"
-        );
-      } else if (selectedNotification.name === "Companies & Reports") {
-        return notifications.filter(
-          (notification: any) =>
-            notification.nofiticationType === "COMPANIES_AND_REPORTS"
-        );
-      } else if (selectedNotification.name === "Minesites & Incidents") {
-        return notifications.filter(
-          (notification: any) =>
-            notification.nofiticationType === "MINESITES_AND_INCIDENTS"
-        );
-      } else {
-        return [];
-      }
-    };
+  // useEffect(() => {
+  //   getNotifications();
+  //   const getFilteredNotifications = () => {
+  //     if (selectedNotification.name === "All") {
+  //       getNotifications();
+  //       return notifications;
+  //     } else if (selectedNotification.name === "Users & employees") {
+  //       return notifications.filter(
+  //         (notification: any) =>
+  //           notification.nofiticationType === "USER_AND_EMPLOYEES"
+  //       );
+  //     } else if (selectedNotification.name === "Companies & Reports") {
+  //       return notifications.filter(
+  //         (notification: any) =>
+  //           notification.nofiticationType === "COMPANIES_AND_REPORTS"
+  //       );
+  //     } else if (selectedNotification.name === "Minesites & Incidents") {
+  //       return notifications.filter(
+  //         (notification: any) =>
+  //           notification.nofiticationType === "MINESITES_AND_INCIDENTS"
+  //       );
+  //     } else {
+  //       return [];
+  //     }
+  //   };
 
-    if (selectedNotification) {
-      const filteredNotifications = getFilteredNotifications();
-      setNotifications(filteredNotifications);
-    }
-  }, [notifications, selectedNotification]);
+  //   if (selectedNotification) {
+  //     const filteredNotifications = getFilteredNotifications();
+  //     setNotifications(filteredNotifications);
+  //   }
+  // }, [notifications, selectedNotification]);
 
   const handleClick = (link: any) => {
     setSelectedNotification(link);
@@ -76,7 +76,7 @@ function ProfileLayout(props: any) {
   return (
     <div>
       {isProfilePanelVisibile && (
-        <div className="bg-white border  absolute right-0 z-100 h-[58%] shadow-2xl rounded-tl-2xl rounded-bl-2xl shadow-gray-500">
+        <div className="bg-white border  absolute right-0 z-40 h-[58%] shadow-2xl rounded-tl-2xl rounded-bl-2xl shadow-gray-500">
           <div className="space-y-5 p-4 self-end  flex flex-col border border-t-0 border-x-0 shadow-lg">
             <div className="flex border w-[100%] pb-1  border-x-0 border-t-0 flex-row justify-between">
               <h1 className="font-bold text-xl">Profile</h1>

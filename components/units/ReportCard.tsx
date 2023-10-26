@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 export interface ReportCardProps extends ReportDetails {}
 const ReportCard = (props: ReportCardProps) => {
   const router = useRouter();
-  const viewReportDetails = async(id:string) =>{
+  const viewReportDetails = async(id:number) =>{
 await router.push(`/rmb/reports/${id}`)
   }
   return (
