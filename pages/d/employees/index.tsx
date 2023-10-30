@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import * as xlsx from 'xlsx'
 import {
   TableEditIcon,
   TableViewIcon,
@@ -21,6 +22,7 @@ export default function index() {
   const [updateMember, setUpdateMember] = useState(false);
   const [deleteMember, setDeleteMember] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [excelData,setExcelData] = useState<any>([]);
   const [employee, setEmployee] = useState<EmployeeType[]>([]);
   const [isActionSuccessful, setIsActionSuccessful] = useState(false);
   const [selectedStatus, setSelectedStatus] = useState("Pending");
@@ -76,21 +78,21 @@ export default function index() {
     {
       title: "Approve",
       cell: (row) =>
-       (row.employeeStatus === "APPROVED" ?
-        <button><BsToggleOn className="text-green-500 text-2xl" /></button> : 
+      (row.employeeStatus === "APPROVED" ?
+        <button><BsToggleOn className="text-green-500 text-2xl" /></button> :
         <button onClick={() => handleApproveOrReject(row.id, "approve")}><BsToggleOff className="text-green-500 text-2xl" /></button>)
     },
     {
       title: "Reject",
-      cell: (row) => 
+      cell: (row) =>
       (row.employeeStatus === "REJECTED" ?
-      <button><BsToggleOn className="text-red-500 text-2xl" /></button> : 
-      <button onClick={() => handleApproveOrReject(row.id, "reject")}><BsToggleOff className="text-red-500 text-2xl" /></button>)
+        <button><BsToggleOn className="text-red-500 text-2xl" /></button> :
+        <button onClick={() => handleApproveOrReject(row.id, "reject")}><BsToggleOff className="text-red-500 text-2xl" /></button>)
     },
     {
       title: "Status",
       cell: (row) => <div>{row.status}</div>
-    
+
     }
   ];
   const getEmployeesByCompany = async (status: string) => {
@@ -106,6 +108,37 @@ export default function index() {
       setIsLoading(false);
     }
   };
+  const handleChange = (e: any) => {
+    const file = e.target.files[0];
+    const readExcel = (file:Blob) => {
+      const reader = new FileReader();
+    
+      reader.onload = (e:any) => {
+        const data = e.target.result;
+        const workbook = xlsx.read(data, { type: 'array' });
+    
+        // Assuming you want to read the first sheet
+        const firstSheetName = workbook.SheetNames[0];
+        const worksheet = workbook.Sheets[firstSheetName];
+    
+        // Parse the sheet's data
+        const excelData = xlsx.utils.sheet_to_json(worksheet);
+        console.log(excelData,"json data======")
+        setExcelData(excelData);
+        const pendingData = excelData.filter((item:any) => item.employeeStatus === "PENDING");
+        const activeData = excelData.filter((item:any) => item.employeeStatus === "ACTIVE");
+        
+      };
+    
+      reader.readAsArrayBuffer(file);
+    };
+    if(file){
+      readExcel(file)
+    }
+
+
+ 
+  }
   useEffect(() => {
     getEmployeesByCompany("Pending");
   }, []);
@@ -116,31 +149,28 @@ export default function index() {
           <div className="flex bg-white py-3 rounded-lg gap-6 pl-6 pr-6 shadow-sm shadow-gray-200">
             <button
               onClick={() => getEmployeesByCompany("Pending")}
-              className={`${
-                selectedStatus === "Pending"
+              className={`${selectedStatus === "Pending"
                   ? "bg-[#5160B3] text-white"
                   : "bg-white text-black"
-              } font-bold py-2 pl-4 pr-4 rounded-xl text-sm`}
+                } font-bold py-2 pl-4 pr-4 rounded-xl text-sm`}
             >
               Pending
             </button>
             <button
               onClick={() => getEmployeesByCompany("Approved")}
-              className={`${
-                selectedStatus === "Approved"
+              className={`${selectedStatus === "Approved"
                   ? "bg-[#5160B3] text-white"
                   : "bg-white text-black"
-              } font-bold py-2 pl-4 pr-4 rounded-xl text-sm`}
+                } font-bold py-2 pl-4 pr-4 rounded-xl text-sm`}
             >
               Approved
             </button>
             <button
               onClick={() => getEmployeesByCompany("Rejected")}
-              className={`${
-                selectedStatus === "Rejected"
+              className={`${selectedStatus === "Rejected"
                   ? "bg-[#5160B3] text-white"
                   : "bg-white text-black"
-              } font-bold py- 2 pl-4 pr-4 rounded-xl text-sm`}
+                } font-bold py- 2 pl-4 pr-4 rounded-xl text-sm`}
             >
               Rejected
             </button>
@@ -164,10 +194,10 @@ export default function index() {
             >
               Add new
             </button>
-            <input type="file" className="text-black py-2 pl-4 pr-4 shadow-sm shadow-black rounded-xl text-sm"  />
-        
-           
-     <ExportExcel excelData={employee} fileName="Employees" />
+            <input type="file" className="text-black py-2 pl-4 pr-4 shadow-sm shadow-black rounded-xl text-sm" accept=".xlsx" onChange={handleChange} />
+
+
+            <ExportExcel excelData={employee} fileName="Employees" />
           </div>
           <div>
             <button className="bg-[#5160B3] text-white font-bold py-2 pl-4 pr-4 rounded-xl">

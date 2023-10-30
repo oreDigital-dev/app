@@ -11,7 +11,7 @@ export const readExcel = (file:Blob) => {
     const firstSheetName = workbook.SheetNames[0];
     const worksheet = workbook.Sheets[firstSheetName];
 
-    // Parse the sheet's data
+    // Parse the sheet's data 
     const excelData = XLSX.utils.sheet_to_json(worksheet);
 
     // setExcelData(excelData);

@@ -80,7 +80,6 @@ const CompanyDetails = () => {
         },
       };
       const resp = await axios.post("/employees/create", requestBody);
-      console.log(requestBody);
     } catch (err) {
       console.log(err);
     }

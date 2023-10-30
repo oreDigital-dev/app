@@ -45,6 +45,7 @@ export default function index() {
       cell: (row) => <div>{row.phoneNumber}</div>
     },
     {
+      
       title: "Residence",
       cell: (row) => "Kicukiro",
     },

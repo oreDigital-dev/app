@@ -76,7 +76,6 @@ RescueTeamAdmin: {
     dispatch(stepTwoRegistration(formData));
     try{
       const response = await axios.post("/rescue-teams/create",requestPayload);
-      console.log(response.data)
       router.push("/verification");
 
     }

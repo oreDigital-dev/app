@@ -8,7 +8,6 @@ export const createMinesite = (mineSiteInfo: any): Promise<any> => {
             'Authorization': `Bearer ${JSON.parse(localStorage.getItem("refreshToken") || '{}')}`
         }}
         ).then((res) => {
-            console.log(res.data);
             resolve(res.data);
         }).catch((err) => {
             console.log(err);
@@ -24,7 +23,6 @@ export const getAllMinesites = ():Promise<any>=>{
                 'Authorization':`Bearer ${JSON.parse(localStorage.getItem("refreshToken") || '{}')}`
             }
         }).then((res)=>{
-            console.log(res.data);
             resolve(res.data);
         }).catch((err)=>{
             console.log(err);

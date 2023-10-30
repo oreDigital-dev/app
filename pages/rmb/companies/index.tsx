@@ -15,7 +15,6 @@ const CompaniesView = () => {
   );
   const [indexNum, setIndexNum] = useState(0);
   useEffect(() => {
-    console.log(currentIndex);
     setIndexNum(currentIndex);
   }, [currentIndex]);
   const [companies, setCompanies] = useState<CompanyType[]>([]);
@@ -37,7 +36,6 @@ const CompaniesView = () => {
   useEffect(() => {
    getCompanies();
   }, [])
-  console.log("Companiess", companies);
   return (
     <div className="mx-[20px] mt-[20px] rounded-md h-[88vh]">
       <div className="bg-white  relative p-[20px] rounded-md shadow-sm shadow-neutal-300 h-full overflow-y-scroll">

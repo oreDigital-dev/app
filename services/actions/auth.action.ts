@@ -6,7 +6,6 @@ export const loginPerson = (formData: { email: string, password: string, userTyp
         axios.post("/auth/login", formData,{
             headers:authHeader()
         }).then((res) => {
-            console.log(res.data);
             resolve(res.data);
         }).catch((err) => {
             reject(err);

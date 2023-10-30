@@ -94,7 +94,6 @@ export default function DashBoardLayout({
       });
     }
     dispatch(setRoles(roles));
-    console.log(roles, "roles=========");
   }, [router.pathname]);
 
   const setActiveLinkHandler = async (href: string) => {

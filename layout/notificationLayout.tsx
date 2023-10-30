@@ -37,7 +37,6 @@
               }
             })
             .then((res) => {
-              console.log(res.data.data);
               setUserNotifications(res.data.data);
               dispatch(getNotification(res.data.data));
             });
