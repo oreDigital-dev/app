@@ -62,6 +62,7 @@ export type GetEmployeeUserType = {
     // totalElements: number;
   };
 };
+
 export const approveOrRejectEmployee = async (id: number, action: string): Promise<void> => {
   const response = await confirmAction('Approve or Reject', 'Are you sure you want to update this employee?');
 
@@ -73,9 +74,9 @@ export const approveOrRejectEmployee = async (id: number, action: string): Promi
       }, {
         headers: authHeader(),
       });
-      toast.success('Employee successfully updated');
+      toast('Employee successfully updated');
     } catch (error) {
-      toast.error('Error in updating employee');
+      toast('Error in updating employee');
     }
   }
 };
@@ -84,15 +85,15 @@ export const approveOrRejectRescueTeamEmployee = async (id: number, action: stri
 
   if (response) {
     try {
-      const response = await axios.put(`/rescue-teams/approve-or-reject?id=${id}&action=${action}`, {
+      const response = await axios.put(`/rescue-teams/employees/xapprove-or-reject?action=${action}&id=${id}`, {
         id,
         action
       }, {
         headers: authHeader(),
       });
-      toast.success('Employee successfully updated');
+      toast('Employee successfully updated');
     } catch (error) {
-      toast.error('Error in updating employee');
+      toast('Error in updating employee');
     }
   }
 };
@@ -101,15 +102,15 @@ export const approveOrRejectRmbEmployee = async (id: number, action: string): Pr
 
   if (response) {
     try {
-      const response = await axios.put(`/rescue-teams/approve-or-reject?id=${id}&action=${action}`, {
+      const response = await axios.put(`/rmb/approve-or-reject?id=${id}&action=${action}`, {
         id,
         action
       }, {
         headers: authHeader(),
       });
-      toast.success('Employee successfully updated');
+      toast('Employee successfully updated');
     } catch (error) {
-      toast.error('Error in updating employee');
+      toast('Error in updating employee');
     }
   }
 };
@@ -120,9 +121,9 @@ if(response){
     const resp = await axios.delete(`/employees/${id}`,{
       headers:authHeader()
     });
-    toast.success('Employee successfully deleted');
+    toast('Employee successfully deleted');
   } catch (error) {
-    toast.error('Error in deleting employee');
+    toast('Error in deleting employee');
   }
 }
 }

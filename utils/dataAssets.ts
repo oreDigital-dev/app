@@ -560,7 +560,7 @@ export const rmbLinks: DashBoardSection[] = [
   },
   {
     title: "Companies",
-    url: "companies",
+    url: "companies/allCompanies",
     icon: SitesIcon,
   },
   {

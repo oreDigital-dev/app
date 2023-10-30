@@ -6,6 +6,7 @@ import { Provider } from "react-redux";
 import "react-toastify/dist/ReactToastify.css";
 import EmployeePageProvider from "./context/EmployeeProvider";
 import CompanyPageProvider from "./context/CompanyProvider";
+import RescueTeamPageProvider from "./context/RescueTeamsProvider";
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <Provider store={store}>
@@ -17,6 +18,9 @@ export default function App({ Component, pageProps }: AppProps) {
         <CompanyPageProvider>
 
         </CompanyPageProvider>
+        <RescueTeamPageProvider >
+          
+        </RescueTeamPageProvider>
         <Component {...pageProps} />
       </DashBoardLayout>
     </Provider>

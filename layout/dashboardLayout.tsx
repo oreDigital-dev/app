@@ -13,7 +13,11 @@ import {
   rmbLinks,
 } from "@/utils/dataAssets";
 import { RootState, useAppDispatch } from "@/stores/store";
-import { setNotificationPanelVisibility, setPageError, setRoles } from "@/features/appPages";
+import {
+  setNotificationPanelVisibility,
+  setPageError,
+  setRoles,
+} from "@/features/appPages";
 import { NofiticationsIcon } from "@/components/icons";
 import { useSelector } from "react-redux";
 const NavLink = ({
@@ -54,17 +58,12 @@ export default function DashBoardLayout({
   const [user, setUser] = useState<any>();
   const dispatch = useAppDispatch();
   const router = useRouter();
-  // const socket = io("http://194.163.167.131:8060");
-  // socket.on("connect",()=>{
-  //   console.log('Connected')
-  // })
 
   useEffect(() => {
-
     if (
       router.pathname.includes("/d") ||
       router.pathname.includes("/rmb") ||
-      router.pathname.includes("/mfo")||
+      router.pathname.includes("/mfo") ||
       router.pathname.includes("rescue_team")
     ) {
       setVisibility(true);
@@ -75,14 +74,14 @@ export default function DashBoardLayout({
 
   useEffect(() => {
     const token = localStorage.getItem("refreshToken");
-    const userRolesLength = JSON.parse(localStorage.getItem("loggedInUser")!)?.roles.length;
+    const userRolesLength = JSON.parse(localStorage.getItem("loggedInUser")!)
+      ?.roles.length;
     if (token == null) {
       router.push("/login");
-      
     }
-    if(userRolesLength<=0){
-      dispatch(setPageError('User role doesn\'t exist'))
-      router.push("/login")
+    if (userRolesLength <= 0) {
+      dispatch(setPageError("User role doesn't exist"));
+      router.push("/login");
     }
 
     const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser")!);
@@ -109,10 +108,7 @@ export default function DashBoardLayout({
       await router.push(
         ("/d/" + rmbLinks.find((link) => link.title === href)?.url) as string
       );
-    } else if (
-      router.pathname.includes("rmb") &&
-      roles.includes("RMB_ADMIN")
-    ) {
+    } else if (router.pathname.includes("rmb") && roles.includes("RMB_ADMIN")) {
       await router.push(
         ("/rmb/" + rmbLinks.find((link) => link.title === href)?.url) as string
       );
@@ -121,8 +117,8 @@ export default function DashBoardLayout({
         ("/mfo/" + mfoLinks.find((link) => link.title === href)?.url) as string
       );
     } else if (
-      router.pathname.includes("rescue_team") 
-      && roles.includes("RESCUE_TEAM_ADMIN")
+      router.pathname.includes("rescue_team") &&
+      roles.includes("RESCUE_TEAM_ADMIN")
     ) {
       await router.push(
         ("/rescue_team/" +
@@ -133,7 +129,6 @@ export default function DashBoardLayout({
     }
     setActiveLink(href);
   };
-
 
   const roles: String[] = useSelector(
     (store: RootState) => store.appPages.roles
@@ -175,16 +170,6 @@ export default function DashBoardLayout({
                   />
                 ))}
 
-              {/* {roles.includes("SYSTEM_ADMIN") &&
-                rmbLinks.map((link, index) => (
-                  <NavLink
-                    isActive={activeLink === link.title}
-                    props={link}
-                    key={index}
-                    setActiveSection={setActiveLinkHandler}
-                  />
-                ))} */}
-
               {roles.includes("RMB_ADMIN") &&
                 // roles.includes("RMB_EMPLOYEE") &&
                 rmbLinks.map((link, index) => (
@@ -195,36 +180,7 @@ export default function DashBoardLayout({
                     setActiveSection={setActiveLinkHandler}
                   />
                 ))}
-              {/* {roles.includes("RMB_EMPLOYEE") &&
-                !roles.includes("RMB_ADMIN") &&
-                mfoLinks.map((link, index) => (
-                  <NavLink
-                    isActive={activeLink === link.title}
-                    props={link}
-                    key={index}
-                    setActiveSection={setActiveLinkHandler}
-                  />
-                ))} */}
-              {/* {roles.includes("COMPANY_EMPLOYEE") &&
-                roles.includes("COMPANY_ADMIN") &&
-                mfoLinks.map((link, index) => (
-                  <NavLink
-                    isActive={activeLink === link.title}
-                    props={link}
-                    key={index}
-                    setActiveSection={setActiveLinkHandler}
-                  />
-                ))} */}
-              {/* {!roles.includes("RESCUE_TEAM_ADMIN") &&
-                roles.includes("RESCUE_TEAM_EMPLOYEE") &&
-                rescueTeams.map((link, index) => (
-                  <NavLink
-                    isActive={activeLink === link.title}
-                    props={link}
-                    key={index}
-                    setActiveSection={setActiveLinkHandler}
-                  />
-                ))} */}
+
               {roles.includes("RESCUE_TEAM_ADMIN") &&
                 rescueTeams.map((link, index) => (
                   <NavLink
@@ -263,7 +219,7 @@ export default function DashBoardLayout({
           </div>
           <div className="sm:hidden w-[100vw]">
             <div className="mt-10 flex w-[100%]">
-              {router.pathname.includes("/d") &&  
+              {router.pathname.includes("/d") &&
                 links.map((link, index) => (
                   <NavLink
                     isActive={activeLink === link.title}

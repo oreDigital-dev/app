@@ -3,7 +3,7 @@ import { SitesIcon } from "../icons";
 import { RootState } from "@/stores/store";
 import { useRouter } from "next/router";
 import {useSelector} from "react-redux"
-import { GetCompanyType, get_all_registered_companies } from "@/pages/api-services/companies";
+import { GetCompanyType, get_all_registered_companies_by_status } from "@/pages/api-services/companies";
 import { CompanyDetails, CompanyType } from "@/pages/types/company.type";
 import { useEffect, useState } from "react";
 

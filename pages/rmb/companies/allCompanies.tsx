@@ -2,19 +2,16 @@ import {
   setCompanyDetailsVisibility,
   setCurrentIndex,
 } from "@/features/appPages";
-import { get_all_registered_companies_by_status } from "@/pages/api-services/companies";
+import { approveOrRejectCompanies, get_all_registered_companies_by_status } from "@/pages/api-services/companies";
 import { DataTable, TableColumn } from "@/pages/datatable";
 import { CompanyType, CompanyDetails } from "@/pages/types/company.type";
-import { RootState } from "@/stores/store";
-import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { TableViewIcon } from "../icons";
+import { TableViewIcon } from "@/components/icons";
 import { BsToggleOff, BsToggleOn } from "react-icons/bs";
-import ExportExcel from "./excelExport";
+import ExportExcel from "@/components/units/excelExport";
 
-const RegisteredCompanies = () => {
-
+const AllCompanies = () => {
   const [companies, setCompanies] = useState<CompanyType[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [selectedStatus, setSelectedStatus] = useState("Pending");
@@ -26,7 +23,7 @@ const RegisteredCompanies = () => {
     },
     {
       title: "Location(HQ)",
-      cell: (row) => <div>{row.address.district}</div>,
+      cell: (row) => <div>{row.address?.district}</div>,
     },
     {
       title: "Sites",
@@ -49,14 +46,14 @@ const RegisteredCompanies = () => {
       cell: (row) =>
        (row.status === "APPROVED" ?
         <button><BsToggleOn className="text-green-500 text-2xl" /></button> : 
-        <button ><BsToggleOff className="text-green-500 text-2xl" /></button>)
+        <button onClick={() => approveOrRejectCompanies(row.id, "approve")}><BsToggleOff className="text-green-500 text-2xl" /></button>)
     },
     {
       title: "Reject",
       cell: (row) => 
       (row.status === "REJECTED" ?
       <button><BsToggleOn className="text-red-500 text-2xl" /></button> : 
-      <button><BsToggleOff className="text-red-500 text-2xl" /></button>)
+      <button onClick={() => approveOrRejectCompanies(row.id, "reject")}><BsToggleOff className="text-red-500 text-2xl" /></button>)
     },
     {
       title: "Status",
@@ -69,10 +66,10 @@ const RegisteredCompanies = () => {
       setIsLoading(true);
       const response:any = await get_all_registered_companies_by_status(status);
       setCompanies(response.data);
-      setIsLoading(false);
+      setSelectedStatus(status);
     } catch (error) {
-      setIsLoading(false);
-      console.log(error);
+      setCompanies([]);
+      // setIsLoading(false);
   } finally {
     setIsLoading(false);
   }
@@ -80,7 +77,6 @@ const RegisteredCompanies = () => {
   useEffect(() => {
    getCompanies("Pending");
   }, [])
-  console.log("Companieeeeee", companies);
 
   return (
     <div className="m-[20px] rounded-md ">
@@ -118,19 +114,10 @@ const RegisteredCompanies = () => {
             Rejected
           </button>
         </div>
-        <div className="">
-          <p>
-            <span className="text-gray-400 text-sm">Total Employees: </span>
-            1000
-          </p>
-          <p>
-            <span className="text-gray-400 text-sm">Current used: </span>700
-          </p>
-        </div>
       </div>
       <div className="flex mt-6 justify-between">
         <div className="flex gap-6">
-          <h1 className="font-bold text-black text-lg">Members</h1>
+          <h1 className="font-bold text-black text-lg">Companies</h1>
           <button
             // onClick={() => setAddNewMember(true)}
             className="bg-[#5160B3] text-white font-bold py-2 pl-4 pr-4 rounded-xl text-sm"
@@ -140,7 +127,7 @@ const RegisteredCompanies = () => {
           <input type="file" className="text-black py-2 pl-4 pr-4 shadow-sm shadow-black rounded-xl text-sm"  />
       
          
-   <ExportExcel excelData={companies} fileName="Companies" />
+   {/* <ExportExcel excelData={companies} fileName="Companies" /> */}
         </div>
         <div>
           <button className="bg-[#5160B3] text-white font-bold py-2 pl-4 pr-4 rounded-xl">
@@ -148,9 +135,6 @@ const RegisteredCompanies = () => {
           </button>
         </div>
       </div>
-      {/* {employee?.map((emp:GetEmployeeUserType) => {
-        <p>{emp.dat}</p>
-      })} */}
       <DataTable
         columns={companyColumns}
         getData={getCompanies}
@@ -161,4 +145,4 @@ const RegisteredCompanies = () => {
     </div>
   );
 };
-export default RegisteredCompanies;
+export default AllCompanies;

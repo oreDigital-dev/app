@@ -141,7 +141,7 @@ export const DataTable = <Entry extends Model>(
       limit: params.pageSize.toString(),
       ...otherParams
     });
-    router.push(`employees?${queryData}`);
+    // router.push(`employees?${queryData}`);
   };
 
   function onPageSizeChange(e: any) {

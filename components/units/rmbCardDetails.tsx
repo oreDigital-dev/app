@@ -14,9 +14,9 @@ function RmbDetailsCard(props: RmbDetailsProps) {
   const handleShowViewButton = () => {
     setViewButton((prev) => !prev);
   };
-  const handleRedirection = async(href:string) => {
-await router.push(`/rmb/${href}`)
-  }
+  const handleRedirection = async (href: string) => {
+    await router.push(`/rmb/${href}`);
+  };
   return (
     <div className="flex items-center mb-4 p-3 min-w-[250px] gap-4 border cursor-pointer rounded-lg shadow-sm">
       <div className="w-full">
@@ -38,11 +38,14 @@ await router.push(`/rmb/${href}`)
           </h1>
         )}
 
-<button className="float-right mt-4" onClick={handleShowViewButton}>
+        <button className="float-right mt-4" onClick={handleShowViewButton}>
           <ThreeDotsIcon />
         </button>
         {viewButton && (
-          <button className="translate-y-14 translate-x-52 z-40 border-2 shadow-sm px-4 py-3 bg-white rounded-tl-[16px] text-gray-400" onClick={()=>handleRedirection(props.url)}>
+          <button
+            className="translate-y-14 translate-x-52 z-40 border-2 shadow-sm px-4 py-3 bg-white rounded-tl-[16px] text-gray-400"
+            onClick={() => handleRedirection(props.url)}
+          >
             View {props.viewName}
           </button>
         )}

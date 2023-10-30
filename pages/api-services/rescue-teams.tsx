@@ -3,14 +3,14 @@ import confirmAction from "../Helpers/confirmAction";
 import {toast} from "react-toastify";
 import { axios } from "@/services/axios";
 import authHeader from "./auth-header";
-import { CompanyType } from "../types/company.type";
-export const get_all_registered_companies_by_status = async (
+import { RescueTeamType } from "../types/rescueTeams.type";
+export const get_all_rescue_teams_by_status = async (
  status:string
-): Promise<GetCompanyType> => {
+): Promise<GetRescueTeamsType> => {
 
   try {
     // const query = `order=${order ?? "ASC"}page=${page ?? 1}&take=${take ?? 10}`
-    const response = await axios.get(`companies/by-status?status=${status}`,{
+    const response = await axios.get(`rescue-teams/all/by-status?status=${status}`,{
       headers: authHeader()
     }
     );
@@ -20,27 +20,27 @@ export const get_all_registered_companies_by_status = async (
   }
 };
 
-export type GetCompanyType = {
+export type GetRescueTeamsType = {
   success: true;
   message: null;
   data: {
-    companies: CompanyType[];
+    rescueTeams: RescueTeamType[];
     // totalPages: number;
     // totalElements: number;
   };
 };
-export const approveOrRejectCompanies = async (id: number, action: string): Promise<void> => {
-  const response = await confirmAction('Approve or Reject', 'Are you sure you want to update this Company?');
+export const approveOrRejectRescueTeams = async (id: string, action: string): Promise<void> => {
+  const response = await confirmAction('Approve or Reject', 'Are you sure you want to update this Rescue Team?');
 
   if (response) {
     try {
-      const response = await axios.put(`/companies/approve-or-reject?action=${action}&id=${id}`, {
+      const response = await axios.put(`/rescue-teams/approve-or-reject?action=${action}&id=${id}`, {
         id,
         action
       }, {
         headers: authHeader(),
       });
-      toast('Company successfully updated');
+      toast('Rescue Team successfully updated');
     } catch (error) {
       toast('Error in updating Company');
     }
